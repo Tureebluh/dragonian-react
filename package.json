@@ -1,0 +1,41 @@
+{
+  "name": "dragonians",
+  "version": "3.0.0",
+  "description": "A React app for the Dragon's Lair PlanCo community for collabs and contest.",
+  "main": "server.js",
+  "engines": {
+    "node": "10.15.1",
+    "npm": "6.4.1"
+  },
+  "scripts": {
+    "client": "cd client && start npm start",
+    "start": "babel-node server.js",
+    "server": "start nodemon --exec babel-node server.js --ignore client/",
+    "dev": "concurrently --kill-others-on-fail",
+    "heroku-postbuild": "cd client && npm install && npm run build"
+  },
+  "author": "Jarek Thomas",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "body-parser": "^1.18.3",
+    "express": "^4.15.2",
+    "express-mysql-session": "^2.0.1",
+    "express-rate-limit": "^3.2.0",
+    "express-session": "^1.15.6",
+    "helmet": "^3.13.0",
+    "jsonwebtoken": "^8.3.0",
+    "mysql": "^2.16.0",
+    "node-fetch": "^2.2.0",
+    "passport": "^0.4.0",
+    "passport-openid": "^0.4.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.6.0",
+    "nodemon": "^1.18.4"
+  },
+  "heroku-run-build-script": true
+}

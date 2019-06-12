@@ -1,0 +1,7 @@
+.Toolbar .IconButtonMenu {
+    margin-right: 1em;
+}
+.Toolbar .Title {
+    font-weight: 600;
+    flex: 1;
+}
