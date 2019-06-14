@@ -14,6 +14,8 @@ class SideMenu extends Component {
   }
 
   render () {
+    const AdapterLink = React.forwardRef((props, ref) => <RouterLink innerRef={ref} {...props} />);
+    
     return (
         <SwipeableDrawer
             open={this.props.drawerOpen}
@@ -27,32 +29,32 @@ class SideMenu extends Component {
                 onKeyDown={this.props.toggleDrawer()}
             >
                 <List className="List">
-                    <Link exact component={RouterLink} className="Link" to="/">
+                    <Link exact component={AdapterLink} className="Link" to="/">
                         <ListItem className="ListItem" button key="Home">
                         <ListItemIcon><MdHome/></ListItemIcon>
                         Home
                         </ListItem>
                     </Link>
-                    <Link component={RouterLink} className="Link" to="/shuffles">
+                    <Link component={AdapterLink} className="Link" to="/shuffles">
                         <ListItem className="ListItem" button key="Shuffles">
                         <ListItemIcon><MdPeople/></ListItemIcon>
                         Community Shuffles
                         </ListItem>
                     </Link>
                 </List>
-                
+
                 <Divider className="Divider"/>
                 <Container className="Footer">
 
                     <Grid container className="GridSiteMap">
                         <Grid item xs={4}>
-                            <Link component={RouterLink} className="Link" to="/about-us">About Us</Link>
+                            <Link component={AdapterLink} className="Link" to="/about-us">About Us</Link>
                         </Grid>
                         <Grid item xs={4}>
-                            <Link component={RouterLink} className="Link" to="/terms-of-service">Terms of Service</Link>
+                            <Link component={AdapterLink} className="Link" to="/terms-of-service">Terms of Service</Link>
                         </Grid>
                         <Grid item xs={4}>
-                            <Link component={RouterLink} className="Link" to="/privacy-policy">Privacy Policy</Link>
+                            <Link component={AdapterLink} className="Link" to="/privacy-policy">Privacy Policy</Link>
                         </Grid>
                     </Grid>
                     
