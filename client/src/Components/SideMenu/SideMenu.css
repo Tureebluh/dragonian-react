@@ -1,0 +1,39 @@
+.SideMenu {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 25vw;
+    text-align: center;
+    background-color: rgb(240, 240, 240);
+}
+.SideMenu .List {
+    flex: 1;
+}
+.SideMenu .List .ListItem {
+    line-height: 1.4em;
+    font-size: 1.4em;
+    font-weight: 600;
+    padding: 5%;
+    color: black;
+}
+.SideMenu .List .ListItem:hover {
+    background-color: #F7B733;
+}
+.SideMenu .List .Link.active .ListItem {
+    background-color: #F7B733!important;
+}
+.SideMenu .List .Link {
+    text-decoration: none;
+    
+}
+.SideMenu .Divider {
+    height: 2px;
+    width: 60%;
+    margin: 2em auto;
+}
+.SideMenu .Footer .GridSocial {
+    margin: 10% 0;
+}
+.SideMenu .Footer .GridSocial img {
+    height: 2em;
+}

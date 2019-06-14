@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Navbar.css';
-import { AppBar, Toolbar, IconButton, Typography, Avatar, Menu, MenuItem } from '@material-ui/core';
+import UserButton from '../UserButton';
+import { AppBar, Toolbar, IconButton, Typography, Avatar, Hidden } from '@material-ui/core';
 import { MdMenu } from "react-icons/md";
 
 
@@ -36,41 +37,19 @@ class Navbar extends Component {
     return (
       <AppBar position="static" color="default">
           <Toolbar className="Toolbar">
-            <IconButton edge="start" className="IconButtonMenu" color="inherit" aria-label="Menu">
+            <IconButton onClick={this.props.toggleDrawer()} edge="start" className="IconButtonMenu" color="inherit" aria-label="Menu">
               <MdMenu />
             </IconButton>
-            <Typography variant="h6" className="Title">
-              Dragon's Lair
-            </Typography>
-            <div>
-              <IconButton
-                aria-label="Account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={this.handleMenu}
-                color="inherit"
-              >
-                <Avatar alt="Default Profile" src="/img/userdefault.png" className="Avatar"/>
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={this.state.anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(this.state.anchorEl)}
-                onClose={this.handleClose}
-              >
-                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                <MenuItem onClick={this.handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
+              <Avatar component="span" src="/img/dragonegg_hatched.svg" alt="Baby Dragon Hatching"/>
+              <Hidden smDown>
+                <Typography variant="h6" className="Title">
+                    Dragon's Lair
+                </Typography>
+              </Hidden>
+              <Hidden smUp>
+                <Typography variant="h6" className="Title"></Typography>
+              </Hidden>
+            <UserButton/>
           </Toolbar>
       </AppBar>
     );
