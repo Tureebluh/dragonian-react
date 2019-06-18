@@ -50,11 +50,6 @@ if(config.nodeEnv === 'production'){
 
     server.set('trust proxy', 1);
     sess.cookie.secure = true;
-
-    server.use(express.static(path.join(__dirname,'client/build')));
-    server.get('*', function(req, res) {
-        res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-    });
 }
 
 //Middleware to easily get json data from endpoints
@@ -79,6 +74,11 @@ server.use((req,res,next) => {
 server.use('/api', apiRouter);
 server.use('/auth', authRouter);
 server.use('/admin', adminRouter);
+
+server.use(express.static(path.join(__dirname,'client/build')));
+server.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 //Set express to listen for request on the port specified in config.port
 server.listen(config.port, () => {

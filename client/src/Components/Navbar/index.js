@@ -49,7 +49,7 @@ class Navbar extends Component {
               <Hidden smUp>
                 <Typography variant="h6" className="Title"></Typography>
               </Hidden>
-            <UserButton/>
+            <UserButton user={this.props.user}/>
           </Toolbar>
       </AppBar>
     );

@@ -1,3 +1,5 @@
-.Toolbar .ProfileButton {
-    font-size: 2em;
+.Toolbar .ProfileButton .Tooltip {
+}
+.Toolbar .ProfileButton a {
+    text-decoration: none;
 }
