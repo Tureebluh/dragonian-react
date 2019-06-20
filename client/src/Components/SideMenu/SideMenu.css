@@ -16,6 +16,22 @@
     padding: 5%;
     color: black;
 }
+.SideMenu .List .ListItemLogo {
+    padding: 5%;
+}
+.SideMenu .List .ListItemLogo {
+    background-color: inherit;
+    cursor: default;
+}
+.SideMenu .List .ListItemLogo .Title {
+    font-size: 1.6em;
+    font-weight: 600;
+    line-height: 1.6em;
+}
+.SideMenu .List .ListItemLogo .BrandLogo {
+    margin-left: 10%;
+}
+
 .SideMenu .List .ListItem:hover {
     background-color: #F7B733;
 }
@@ -35,4 +51,8 @@
 }
 .SideMenu .Footer .GridSocial img {
     height: 2em;
+    transition: transform 200ms ease-in-out;
+}
+.SideMenu .Footer .GridSocial img:hover {
+    transform: scale(1.2);
 }

@@ -1,5 +1,24 @@
-.Toolbar .ProfileButton .Tooltip {
+.Toolbar .ProfileButton {
+    margin: 1em;
+    padding: 0;
+    transition: transform 200ms ease-in-out;
+}
+.Toolbar .ProfileButton:hover {
+    transform: scale(1.2);
+    box-shadow: 0 1px 5px grey;
 }
 .Toolbar .ProfileButton a {
     text-decoration: none;
+}
+
+
+.Toolbar .LogoutButton {
+    border: 1px lightgrey solid;
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+    .Toolbar .SwitchLabel .LogoutSwitch {
+        margin-right: 2em;
+    }
 }

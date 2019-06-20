@@ -19,7 +19,10 @@ class Home extends Component {
   render () {
     return (
       <>
-        <h1>Home</h1>
+        <h1>Owner Avatar Panel with Moderators</h1>
+        <h1>Twitch Live Creator Showcase</h1>
+        <h1>Monthly Collaborative Shuffle Events</h1>
+        <h1>On-going Community Collaboration Parks - carousel of vids?</h1>
       </>
     );
   }

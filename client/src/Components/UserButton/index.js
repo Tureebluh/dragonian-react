@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import { NavLink as RouterLink } from "react-router-dom";
 import './UserButton.css';
-import { IconButton, Menu, MenuItem, Avatar, Tooltip, Zoom } from '@material-ui/core';
+import { IconButton, Avatar, Tooltip, Zoom, Link} from '@material-ui/core';
+import { MdPowerSettingsNew } from 'react-icons/md'
 
 
 class UserButton extends Component {
@@ -21,8 +23,9 @@ class UserButton extends Component {
         anchorEl: e.currentTarget
       });
     } else {
+      // eslint-disable-next-line
       let tempUrl = window.location.protocol + '//' + window.location.host + '/' + 'auth/login';
-      if(tempUrl.includes('3000')){
+      if(tempUrl.includes(':3000')){
         tempUrl = 'http://localhost:5000/auth/login';
       }
       window.open(tempUrl, '_self');
@@ -40,8 +43,14 @@ class UserButton extends Component {
   }
 
   render () {
+    const AdapterLink = React.forwardRef((props, ref) => <RouterLink innerRef={ref} {...props} />);
     return (
         <div>
+            {(this.props.user.loggedIn) ? <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Logout">
+                                            <IconButton color="default" className="LogoutButton" aria-label="Logout">
+                                              <MdPowerSettingsNew />
+                                            </IconButton>
+                                          </Tooltip> : null}
             <IconButton
               aria-label="Account of current user"
               aria-controls="menu-appbar"
@@ -50,32 +59,16 @@ class UserButton extends Component {
               color="inherit"
               className="ProfileButton"
             >
-              {(this.props.user.loggedIn) ? <Avatar src={this.props.user.userPic} alt="User Profile Picture"/>
+              {(this.props.user.loggedIn) ? <Tooltip TransitionComponent={Zoom} className="Tooltip" title="My Profile">
+                                              <Link to={"/profile/" + this.props.user.steamid} component={AdapterLink}>
+                                                <Avatar className="UserAvatar" src={this.props.user.userPic} alt="User Profile Picture"/>
+                                              </Link>
+                                            </Tooltip>
                                           : <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Login">
                                               <Avatar aria-label="Login" src="/img/Steam_logo.svg" alt="Steam Login Button"/>
                                             </Tooltip>}
               
             </IconButton>
-            {(this.props.user.loggedIn) ? 
-              <Menu
-                id="menu-appbar"
-                anchorEl={this.state.anchorEl}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                open={Boolean(this.state.anchorEl)}
-                onClose={this.handleClose}
-              >
-                <MenuItem onClick={this.handleClose}>My Profile</MenuItem>
-                <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
-              </Menu>
-            : null }
         </div>
     );
   }
