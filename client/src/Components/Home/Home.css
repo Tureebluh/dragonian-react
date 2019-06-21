@@ -1,0 +1,32 @@
+.HomePanel {
+    text-align: center;
+    color: whitesmoke;
+    text-shadow: 2px 3px 8px black;
+}
+
+.HomePanel.Collab .CollabMobileStepper {
+    margin: 5% auto;
+    border-radius: 1em;
+    max-width: 40em;
+    box-shadow: 1px 2px 3px rgb(56, 56, 56);
+}
+
+.videoContainer {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+    box-shadow: 2px 3px 8px black;
+    border-radius: 1em;
+}
+    
+.videoContainer iframe,
+.videoContainer object,
+.videoContainer embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

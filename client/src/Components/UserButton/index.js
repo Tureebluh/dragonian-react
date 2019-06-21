@@ -47,7 +47,7 @@ class UserButton extends Component {
     return (
         <div>
             {(this.props.user.loggedIn) ? <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Logout">
-                                            <IconButton color="default" className="LogoutButton" aria-label="Logout">
+                                            <IconButton onClick={this.handleLogout} color="default" className="LogoutButton" aria-label="Logout">
                                               <MdPowerSettingsNew />
                                             </IconButton>
                                           </Tooltip> : null}

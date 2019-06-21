@@ -2,10 +2,11 @@
     margin: 1em;
     padding: 0;
     transition: transform 200ms ease-in-out;
-}
-.Toolbar .ProfileButton:hover {
     transform: scale(1.2);
     box-shadow: 0 1px 5px grey;
+}
+.Toolbar .ProfileButton:hover {
+    transform: scale(1.3);
 }
 .Toolbar .ProfileButton a {
     text-decoration: none;
@@ -14,6 +15,12 @@
 
 .Toolbar .LogoutButton {
     border: 1px lightgrey solid;
+    box-shadow: 1px 2px 3px rgb(104, 104, 104);
+    transition: transform 200ms ease-in-out;
+}
+
+.Toolbar .LogoutButton:hover {
+    transform: scale(1.1);
 }
 
 /* Small Devices, Tablets */
