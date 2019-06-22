@@ -5,6 +5,7 @@
     font-weight: 600;
     font-size: 1.5em;
     margin-left: 0.3em;
+    text-shadow: 1px 1px 3px darkgrey;
 }
 .Toolbar .FlexSpacer {
     flex: 1;

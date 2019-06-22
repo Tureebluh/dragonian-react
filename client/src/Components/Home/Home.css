@@ -1,14 +1,35 @@
-.HomePanel {
+.HomeContainer .HomePanel.Jumbotron, .HomeContainer .HomePanel.Twitch, .HomeContainer .HomePanel.Shuffle, .HomeContainer .HomePanel.Collab {
     text-align: center;
     color: whitesmoke;
     text-shadow: 2px 3px 8px black;
+    margin: 10% auto;
+    font-size: 1.3em;
+    line-height: 3em;
+}
+.HomeContainer .HomePanel .TextPanel {
+    padding: 0 10%;
+}
+.HomeContainer .HomePanel.Jumbotron {
+    margin: 10% auto 0 auto;
+}
+.HomeContainer .HomePanel img {
+    max-width: 100%;
+}
+.HomeContainer .HomePanel.Twitch img {
+    box-shadow: 2px 3px 8px black;
+    border-radius: 0.5em;
+}
+.HomeContainer .HomePanel.Twitch .social-media {
+    box-shadow: none;
+    border-radius: 0;
+    max-width: 2em;
 }
 
-.HomePanel.Collab .CollabMobileStepper {
+.HomeContainer .HomePanel.Collab .CollabMobileStepper {
     margin: 5% auto;
     border-radius: 1em;
     max-width: 40em;
-    box-shadow: 1px 2px 3px rgb(56, 56, 56);
+    box-shadow: 1px 1px 3px rgb(56, 56, 56);
 }
 
 .videoContainer {
@@ -18,9 +39,9 @@
     height: 0;
     overflow: hidden;
     box-shadow: 2px 3px 8px black;
-    border-radius: 1em;
+    border-radius: 0.5em;
 }
-    
+
 .videoContainer iframe,
 .videoContainer object,
 .videoContainer embed {
@@ -29,4 +50,11 @@
     left: 0;
     width: 100%;
     height: 100%;
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 700px) {
+    .HomeContainer .HomePanel.Jumbotron, .HomeContainer .HomePanel.Twitch, .HomeContainer .HomePanel.Shuffle, .HomeContainer .HomePanel.Collab {
+        font-size: 1.6em;
+    }
 }

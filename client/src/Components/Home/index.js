@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Grid, MobileStepper, Button, Typography, Container } from '@material-ui/core';
+import { Grid, MobileStepper, Button, Container, Divider, Zoom, Tooltip } from '@material-ui/core';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import "./Home.css";
 
@@ -35,29 +35,49 @@ class Home extends Component {
                           "https://www.youtube.com/embed/dYOFx5n4hAg"];
     return (
       <>
-        <Container>
-          <Grid container spacing={1} className="HomePanel Jumbotron">
-            <Grid item xs={12} lg={6}>
-              <Typography variant={'h3'}>Live Reviews Hosted By Featured Planet Coaster Creator R3dDragon</Typography>
+        <Container className="HomeContainer">
+          <Grid container spacing={0} className="HomePanel Jumbotron">
+            <Grid item xs={12}>
+              <img alt="Dragons Lair Banner" className="Banner" src="/img/dragonian_banner.png"/>
             </Grid>
           </Grid>
-          <Grid container spacing={1} className="HomePanel Twitch">
+          <Divider/>
+          <Grid container spacing={0} className="HomePanel Twitch">
+            <Grid className="TextPanel" item xs={12} lg={6}>
+              <h3>Live Reviews Hosted By <br/> Planet Coaster Featured Creator <br/> R3dDragon</h3>
+              <a href="https://www.twitch.tv/r3ddragons" target="_BLANK" rel="noopener noreferrer">
+                  <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Watch Live on Twitch">
+                      <img alt="Twitch Logo" className="social-media" src="/img/glitchbadge_purple.svg"/>
+                  </Tooltip>
+              </a>
+            </Grid>
             <Grid item xs={12} lg={6}>
-              <Typography variant={'h3'}>Live Reviews Hosted By Featured Planet Coaster Creator R3dDragon</Typography>
+              <img alt="Dragons Lair Banner" className="Banner" src="/img/twitch_live.png"/>
             </Grid>
           </Grid>
-          <Grid container spacing={1} className="HomePanel Shuffle">
+          <Divider/>
+          <Grid container spacing={0} className="HomePanel Shuffle">
             <Grid item xs={12} lg={6}>
-                <Typography variant={'h3'}>Unique Dragonian Community Shuffle Events</Typography>
-              </Grid>
+              <img alt="Dragons Lair Banner" className="Banner" src="/img/shuffle_banner.png"/>
             </Grid>
-          <Grid container spacing={1} className="HomePanel Collab">
             <Grid item xs={12} lg={6}>
-              <Typography variant={'h3'}>Amazing Dragonian Community Collaborations!</Typography>
+                <h3>Dragonian Community Shuffle Events - <br/> Unique 4-Player Team PlanCo Art Event</h3>
+                <Button variant="contained" color="primary" href="/shuffles">Learn more</Button>
+            </Grid>
+          </Grid>
+          <Divider/>
+          <Grid container spacing={0} className="HomePanel Collab">
+            <Grid item xs={12} lg={6}>
+              <h3>Dragonian Community PlanCo Collaborations <br/> Multiple themes to suit any style.</h3>
+              <a href="https://discord.gg/GabcMqK" target="_BLANK" rel="noopener noreferrer">
+                  <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Join Community Discord">
+                      <img style={{height: 2.6+'em'}} alt="Discord Logo" className="social-media" src="/img/discord_logo.svg"/>
+                  </Tooltip>
+              </a>
             </Grid>
             <Grid item xs={12} lg={6}>
               <div className="videoContainer">
-                <iframe width="560" height="315" src={youtubeLinks[this.state.activeCollab]} frameBorder="0"
+                <iframe title="Collaboration Video" width="560" height="315" src={youtubeLinks[this.state.activeCollab]} frameBorder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
               </div>
               <MobileStepper
