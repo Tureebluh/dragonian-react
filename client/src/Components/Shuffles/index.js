@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import "./About.css";
+import "./Shuffles.css";
 
-class About extends Component {
+class Shuffles extends Component {
   constructor(){
     super();
 
@@ -17,10 +17,10 @@ class About extends Component {
   render () {
     return (
       <>
-        <h1>About</h1>
+        <h1>Shuffles</h1>
       </>
     );
   }
 }
 
-export default About;
+export default Shuffles;

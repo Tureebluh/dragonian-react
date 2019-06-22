@@ -10,11 +10,11 @@ const router = express.Router();
 *
 **********************************************************************************************************************************/
 //Gets users details like created date and last login etc.
-router.get('/profile/user/details', (req, res) => {
+router.post('/profile/user/details', (req, res) => {
     if(req.isAuthenticated() ){
         dbpool.getConnection( (err, connection) => {
             if (err) throw err;
-            connection.query('CALL Get_User_Profile_Details(' + dbpool.escape(req.user.steamid) +
+            connection.query('CALL Get_User_Profile_Details(' + dbpool.escape(req.body.steamid) +
                                                             ');',
                 (error, results, fields) => {
                     res.send(results);
@@ -23,7 +23,7 @@ router.get('/profile/user/details', (req, res) => {
             });
         });
     } else {
-        res.redirect('/auth/verification/failed');
+        res.redirect('/');
     }
 });
 //Gets users shuffles that they've completed

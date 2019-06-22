@@ -1,0 +1,15 @@
+.FourOhFour {
+    text-align: center;
+    color: whitesmoke;
+    text-shadow: 2px 3px 8px black;
+}
+.FourOhFour h3 {
+    margin-top: 40%;
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 700px) {
+    .FourOhFour {
+        font-size: 1.5em;
+    }
+}

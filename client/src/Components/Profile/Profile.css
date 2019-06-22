@@ -1,0 +1,13 @@
+.ProfileContainer .UserPanel {
+    text-align: center;
+    font-size: 2em;
+    color: whitesmoke;
+    text-shadow: 2px 3px 8px black;
+    padding: 1%;
+}
+.ProfileContainer .UserPanel .UserAvatar {
+    margin: 5% auto;
+    width: 5em;
+    height: auto;
+    box-shadow: 1px 4px 10px black;
+}

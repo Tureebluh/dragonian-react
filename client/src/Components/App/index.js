@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import "./App.css";
 import Navbar from '../Navbar';
 import SideMenu from '../SideMenu';
@@ -7,6 +7,9 @@ import About from '../About';
 import PrivacyPolicy from '../PrivacyPolicy';
 import TOS from '../TOS';
 import Home from '../Home';
+import Shuffles from '../Shuffles';
+import Profile from '../Profile';
+import FourOhFour from '../FourOhFour';
 
 
 class App extends Component {
@@ -89,10 +92,15 @@ class App extends Component {
         <>
           <Navbar user={user} toggleDrawer={()=>this.toggleDrawer}/>
           <SideMenu drawerOpen={this.state.drawerOpen} toggleDrawer={()=>this.toggleDrawer}/>
-          <Route exact path="/" component={Home}/>
-          <Route path="/about-us/" component={About}/>
-          <Route path="/privacy-policy/" component={PrivacyPolicy}/>
-          <Route path="/terms-of-service/" component={TOS}/>
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/shuffles/" component={Shuffles}/>
+            <Route path="/profile/:steamid" component={Profile}/>
+            <Route path="/about-us/" component={About}/>
+            <Route path="/privacy-policy/" component={PrivacyPolicy}/>
+            <Route path="/terms-of-service/" component={TOS}/>
+            <Route component={FourOhFour}/>
+          </Switch>
         </>
       </Router>
     );

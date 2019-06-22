@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { Grid, MobileStepper, Button, Container, Divider, Zoom, Tooltip } from '@material-ui/core';
+import { NavLink as RouterLink } from "react-router-dom";
+import { Grid, MobileStepper, Button, Container, Divider, Zoom, Tooltip, Link } from '@material-ui/core';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import "./Home.css";
 
@@ -30,6 +31,8 @@ class Home extends Component {
   }
 
   render () {
+    const AdapterLink = React.forwardRef((props, ref) => <RouterLink innerRef={ref} {...props} />);
+
     const youtubeLinks = ["https://www.youtube.com/embed/nJTvpmKP1i0",
                           "https://www.youtube.com/embed/1mDJzz7Yrzw",
                           "https://www.youtube.com/embed/dYOFx5n4hAg"];
@@ -61,8 +64,8 @@ class Home extends Component {
               <img alt="Dragons Lair Banner" className="Banner" src="/img/shuffle_banner.png"/>
             </Grid>
             <Grid item xs={12} lg={6}>
-                <h3>Dragonian Community Shuffle Events - <br/> Unique 4-Player Team PlanCo Art Event</h3>
-                <Button variant="contained" color="primary" href="/shuffles">Learn more</Button>
+                <h3>Dragonian Community Shuffle Events <br/> Unique 4-Player <br/> Team PlanCo Art Event</h3>
+                <Link component={AdapterLink} to="/shuffles"><Button variant="contained" color="primary">Learn more</Button></Link>
             </Grid>
           </Grid>
           <Divider/>
