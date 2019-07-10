@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import "./Profile.css";
-import { Avatar, Grid, Button } from '@material-ui/core';
+import { Avatar, Grid, Button, GridList, GridListTile, GridListTileBar, IconButton, Tooltip, Zoom } from '@material-ui/core';
+import { MdInfoOutline } from 'react-icons/md';
 
 class Profile extends Component {
   constructor(){
@@ -11,8 +12,10 @@ class Profile extends Component {
         userName: '',
         lastLogin: '',
         CreatedDate: '',
-        verified: 0
+        verified: 0,
+        shuffles: [{}]
     }
+    this.handleShufflePopover = this.handleShufflePopover.bind(this);
   }
 
   componentDidMount(){
@@ -39,16 +42,40 @@ class Profile extends Component {
             CreatedDate: new Date(resJson[0][0].CreatedDate).toDateString(),
             verified: resJson[0][0].verified
         });
-    }
+      }
+    }).catch(error => console.error(error));
+
+    fetch('/api/profile/user/shuffles', {
+      credentials: 'include',
+      method: 'POST',
+      headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    }).then(res => {
+        return res.json();
+    }).then(resJson => {
+      if(typeof resJson[0][0] !== 'undefined'){
+        this.setState({
+          shuffles: resJson[0]
+        });
+      }
     }).catch(error => console.error(error));
   }
 
+  handleShufflePopover(e){
+    console.log(e.target.dataset.id);
+  }
+
   render () {
+    
     return (
       <>
         <Grid container className="ProfileContainer">
-            {(this.state.userPic !== '') ? 
-                <Grid item xs={12} lg={6} className="UserPanel">
+            {(this.state.userPic !== '') ?
+              <>
+                <Grid item xs={12} lg={4} className="UserPanel">
                     <Avatar className="UserAvatar" src={this.state.userPic} alt="User Profile Picture"/>
                     <h3>{this.state.userName}</h3>
                     <h6>Member since: {this.state.CreatedDate}</h6>
@@ -56,6 +83,30 @@ class Profile extends Component {
                     {(this.state.verified ? <Button variant="contained" color="primary">Verified</Button> :
                                             <Button variant="contained" color="secondary">Not Verified</Button>)}
                 </Grid>
+                <Grid item xs={12} lg={8} className="ShufflePanel">
+                    <GridList cellHeight={200} cols={6} spacing={20} className="GridList">
+                      <GridListTile key="Subheader" cols={6} className="GridListTitle">
+                        <h2>Shuffles</h2>
+                      </GridListTile>
+                      {this.state.shuffles.map(shuffle => (
+                        <GridListTile key={shuffle.Shuffle_ID} rows={1} cols={1} className="GridListTile">
+                          <img alt="Shuffle" src={shuffle.Poster}/>
+                          <GridListTileBar
+                            title={shuffle.Name}
+                            className="GridListTileBar"
+                            actionIcon={
+                              <Tooltip TransitionComponent={Zoom} className="Tooltip" title="More Info">
+                                <IconButton data-id={shuffle.Shuffle_ID} onClick={(e) => this.handleShufflePopover(e)} style={{color: 'white'}} aria-label={`info about ${shuffle.Name}`}>
+                                  <MdInfoOutline data-id={shuffle.Shuffle_ID}/>
+                                </IconButton>
+                              </Tooltip>
+                            }
+                          />
+                        </GridListTile>
+                       ))}
+                    </GridList>
+                </Grid>
+              </>
             : 
                 <Grid item xs={12} className="UserPanel">
                     <h1>No user found</h1>

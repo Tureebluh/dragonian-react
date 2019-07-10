@@ -11,37 +11,29 @@ const router = express.Router();
 **********************************************************************************************************************************/
 //Gets users details like created date and last login etc.
 router.post('/profile/user/details', (req, res) => {
-    if(req.isAuthenticated() ){
-        dbpool.getConnection( (err, connection) => {
-            if (err) throw err;
-            connection.query('CALL Get_User_Profile_Details(' + dbpool.escape(req.body.steamid) +
-                                                            ');',
-                (error, results, fields) => {
-                    res.send(results);
-                    connection.release();
-                    if (error) throw error;
-            });
+    dbpool.getConnection( (err, connection) => {
+        if (err) throw err;
+        connection.query('CALL Get_User_Profile_Details(' + dbpool.escape(req.body.steamid) +
+                                                        ');',
+            (error, results, fields) => {
+                res.send(results);
+                connection.release();
+                if (error) throw error;
         });
-    } else {
-        res.redirect('/');
-    }
+    });
 });
 //Gets users shuffles that they've completed
-router.get('/profile/user/shuffles', (req, res) => {
-    if(req.isAuthenticated() && req.user.verified){
-        dbpool.getConnection( (err, connection) => {
-            if (err) throw err;
-            connection.query('CALL Get_User_Profile_Shuffles(' + dbpool.escape(req.user.steamid) +
-                                                            ');',
-                (error, results, fields) => {
-                    res.send(results);
-                    connection.release();
-                    if (error) throw error;
-            });
+router.post('/profile/user/shuffles', (req, res) => {
+    dbpool.getConnection( (err, connection) => {
+        if (err) throw err;
+        connection.query('CALL Get_User_Profile_Shuffles(' + dbpool.escape(req.body.steamid) +
+                                                        ');',
+            (error, results, fields) => {
+                res.send(results);
+                connection.release();
+                if (error) throw error;
         });
-    } else {
-        res.redirect('/auth/verification/failed');
-    }
+    });
 });
 //Get users contests they've completed
 router.get('/profile/user/contests', (req, res) => {

@@ -1,4 +1,4 @@
-.ProfileContainer .UserPanel {
+.ProfileContainer {
     text-align: center;
     font-size: 2em;
     color: whitesmoke;
@@ -6,8 +6,26 @@
     padding: 1%;
 }
 .ProfileContainer .UserPanel .UserAvatar {
-    margin: 5% auto;
+    margin: 10% auto;
     width: 5em;
     height: auto;
     box-shadow: 1px 4px 10px black;
+}
+
+.ProfileContainer .ShufflePanel .GridList {
+    padding: 3%;
+}
+.ProfileContainer .ShufflePanel .GridList .GridListTitle {
+    text-align: center;
+    line-height: 3em;
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 700px) {
+    .ProfileContainer .ShufflePanel .GridList .GridListTile {
+        min-width: 50%;
+    }
+    .ProfileContainer .ShufflePanel .GridList .GridListTitle {
+        min-width: 100%;
+    }
 }
