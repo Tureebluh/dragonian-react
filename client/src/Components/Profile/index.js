@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import "./Profile.css";
-import { Avatar, Grid, Button, GridList, GridListTile, GridListTileBar, IconButton, Tooltip, Zoom } from '@material-ui/core';
+import { Avatar, Grid, Button, GridList, GridListTile, GridListTileBar, IconButton, Tooltip, Zoom, Modal } from '@material-ui/core';
 import { MdInfoOutline } from 'react-icons/md';
+import ShuffleDetails from '../ShuffleDetails';
 
 class Profile extends Component {
   constructor(){
@@ -13,9 +14,13 @@ class Profile extends Component {
         lastLogin: '',
         CreatedDate: '',
         verified: 0,
-        shuffles: [{}]
+        shuffles: [{}],
+        modalOpen: false,
+        activeModalID: 0,
+        steamid: 0,
     }
     this.handleShufflePopover = this.handleShufflePopover.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   componentDidMount(){
@@ -40,7 +45,8 @@ class Profile extends Component {
             userName: resJson[0][0].personaname,
             lastLogin: new Date(resJson[0][0].LastLogIn).toDateString(),
             CreatedDate: new Date(resJson[0][0].CreatedDate).toDateString(),
-            verified: resJson[0][0].verified
+            verified: resJson[0][0].verified,
+            steamid: payload.steamid,
         });
       }
     }).catch(error => console.error(error));
@@ -64,8 +70,19 @@ class Profile extends Component {
     }).catch(error => console.error(error));
   }
 
-  handleShufflePopover(e){
-    console.log(e.target.dataset.id);
+  handleShufflePopover(shuffleID){
+    if(typeof shuffleID !== 'undefined'){
+      this.setState({
+        activeModalID: shuffleID,
+        modalOpen: true,
+      });
+    }
+  }
+
+  handleModalClose(){
+    this.setState({
+      modalOpen: false
+    });
   }
 
   render () {
@@ -96,8 +113,8 @@ class Profile extends Component {
                             className="GridListTileBar"
                             actionIcon={
                               <Tooltip TransitionComponent={Zoom} className="Tooltip" title="More Info">
-                                <IconButton data-id={shuffle.Shuffle_ID} onClick={(e) => this.handleShufflePopover(e)} style={{color: 'white'}} aria-label={`info about ${shuffle.Name}`}>
-                                  <MdInfoOutline data-id={shuffle.Shuffle_ID}/>
+                                <IconButton onClick={() => this.handleShufflePopover(shuffle.Shuffle_ID)} style={{color: 'white'}} aria-label={`info about ${shuffle.Name}`}>
+                                  <MdInfoOutline />
                                 </IconButton>
                               </Tooltip>
                             }
@@ -114,6 +131,15 @@ class Profile extends Component {
                 </Grid>
             }
         </Grid>
+        <Modal 
+          open={this.state.modalOpen}
+          onClose={this.handleModalClose}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+          aria-modal="true"
+        >
+          <ShuffleDetails steamid={this.state.steamid} activeID={this.state.activeModalID}/>
+        </Modal>
       </>
     );
   }

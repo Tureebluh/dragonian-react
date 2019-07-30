@@ -626,11 +626,14 @@ router.get('/shuffle/active', (req, res) => {
 });
 
 //Returns back the shuffle progress for the active shuffle
-router.get('/shuffle/active/progress', (req, res) => {
+router.post('/shuffle/details', (req, res) => {
     if(req.isAuthenticated() && !req.user.roles.includes('Shuffle Banned')){
         dbpool.getConnection( (err, connection) => {
             if (err) throw err;
-            connection.query('CALL Get_All_Shuffle_Submissions(null);', (error, results, fields) => {
+            connection.query('CALL Get_All_Shuffle_Submissions('   + dbpool.escape(req.body.shuffleID) +
+                                                        ',' + dbpool.escape(req.body.steamid) +
+                                                        ');',
+            (error, results, fields) => {
                 connection.release();
                 if (error) throw error;
                 res.send(results);
