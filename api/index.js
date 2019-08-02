@@ -625,44 +625,19 @@ router.get('/shuffle/active', (req, res) => {
     }
 });
 
-//Returns back the shuffle progress for the active shuffle
+//Returns back the shuffle progress for the request shuffleID
 router.post('/shuffle/details', (req, res) => {
-    if(req.isAuthenticated() && !req.user.roles.includes('Shuffle Banned')){
-        dbpool.getConnection( (err, connection) => {
-            if (err) throw err;
-            connection.query('CALL Get_All_Shuffle_Submissions('   + dbpool.escape(req.body.shuffleID) +
-                                                        ',' + dbpool.escape(req.body.steamid) +
-                                                        ');',
-            (error, results, fields) => {
-                connection.release();
-                if (error) throw error;
-                res.send(results);
-            });
+    dbpool.getConnection( (err, connection) => {
+        if (err) throw err;
+        connection.query('CALL Get_All_Shuffle_Submissions('   + dbpool.escape(req.body.shuffleID) +
+                                                    ',' + dbpool.escape(req.body.steamid) +
+                                                    ');',
+        (error, results, fields) => {
+            connection.release();
+            if (error) throw error;
+            res.send(results);
         });
-    } else {
-        res.redirect('/auth/verification/failed');
-    }
-});
-
-/*********************************************************************************************************************************
-*
-*                                                          COLLABORATIONS
-*
-**********************************************************************************************************************************/
-//Get Collaboration Roles that have no currently assigned team member if user is authenticated
-router.get('/collabs/all/unassignedroles', (req, res) => {
-    if(req.isAuthenticated() && req.user.verified){
-        dbpool.getConnection( (err, connection) => {
-            if (err) throw err;
-            connection.query('CALL Get_UnassignedCollabRoles(0, 20);', (error, results, fields) => {
-                res.send(results);
-                connection.release();
-                if (error) throw error;
-            });
-        });
-    } else {
-        res.redirect('/auth/verification/failed');
-    }
+    });
 });
 
 export default router;

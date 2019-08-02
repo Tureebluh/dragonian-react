@@ -1,5 +1,56 @@
 #ShuffleDetails {
-    /*max-width: 50vw;
-    margin: 25% auto;*/
-    padding: 5%;
+    margin: 10% 15% 10% 0;
+    padding: 3%;
+    text-align: center;
+}
+#ShuffleDetails hr {
+    height: 3px;
+}
+#ShuffleDetails .disclaimer {
+    margin: 5% auto;
+    font-size: 0.9em;
+    font-style: italic;
+    color: whitesmoke;
+    background-color: black;
+    border-radius: 1em;
+    padding: 3%;
+}
+#ShuffleDetails a {
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+}
+#ShuffleDetails .ShuffleParticipant, #ShuffleDetails .Round {
+    margin: 5% auto;
+    box-shadow: 0 3px 5px black;
+}
+#ShuffleDetails .ShuffleParticipant:hover, #ShuffleDetails .Round:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+#ShuffleDetails .RoundFour {
+    background-color: rgb(226, 0, 0);
+}
+#ShuffleDetails .RoundThree {
+    background-color: rgb(240, 128, 0);
+}
+#ShuffleDetails .RoundTwo {
+    background-color: rgb(255, 196, 0);
+}
+#ShuffleDetails .RoundOne {
+    background-color: rgb(129, 177, 34);
+}
+
+/* Desktop Devices */
+@media only screen and (min-width : 1000px) {
+    #ShuffleDetails {
+        margin: 5% auto;
+        max-width: 50%;
+    }
+    #ShuffleDetails .ShuffleParticipant, #ShuffleDetails .Round {
+        width: 2.5em;
+        height: 2.5em;
+        margin: 5% auto;
+        box-shadow: 0 3px 5px grey;
+    }
 }

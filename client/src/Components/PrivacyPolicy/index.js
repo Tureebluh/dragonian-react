@@ -32,6 +32,7 @@ class PrivacyPolicy extends Component {
           How you can correct any inaccuracies in the information.<br/>
           <br/>
           <h2>Information Collection, Use, and Sharing</h2>
+          <br/>
           We are the sole owners of the information collected on this site. We only have access to/collect information that you voluntarily give us via SteamID or other direct contact from you. We will not sell or rent this information to anyone.<br/>
           <br/>
           We will use your information to respond to you, regarding the reason you contacted us. We will not share your information with any third party outside of our organization, other than as necessary to fulfill your request, e.g. to ship a contest prize.<br/>
@@ -39,6 +40,7 @@ class PrivacyPolicy extends Component {
           Unless you ask us not to, we may contact you via Steam in the future to tell you about specials, new products or services, or changes to this privacy policy.<br/>
           <br/>
           <h2>Your Access to and Control Over Information</h2>
+          <br/>
           You may opt out of any future contacts from us at any time. You can do the following at any time by contacting us via the SteamID given on our website:<br/>
           <br/>
           See what data we have about you, if any.<br/>
@@ -57,15 +59,19 @@ class PrivacyPolicy extends Component {
           If you feel that we are not abiding by this privacy policy, you should contact us immediately via Steam.<br/>
           <br/>
           <h2>Registration</h2>
+          <br/>
           In order to use this website, a user must first complete the registration process. During registration a user is required to give certain information (SteamID, Steam Profile Name etc). This information is used to participate in the services on our site in which you have expressed interest.<br/>
           <br/>
-          <h2>Cookies</h2> 
+          <h2>Cookies</h2>
+          <br/> 
           We use "cookies" on this site. A cookie is a piece of data stored on a site visitor's hard drive to help us improve your access to our site and identify repeat visitors to our site. For instance, when we use a cookie to identify you, you would not have to log in through Steam more than once, thereby saving time while on our site.<br/>
           <br/>
           <h2>Links</h2>
+          <br/>
           This website contains links to other sites. Please be aware that we are not responsible for the content or privacy practices of such other sites. We encourage our users to be aware when they leave our site and to read the privacy statements of any other site that collects personally identifiable information.<br/>
           <br/>
           <h2>Surveys & Contests</h2>
+          <br/>
           From time-to-time our site requests information via surveys or contests. Participation in these surveys or contests is completely voluntary and you may choose whether or not to participate and therefore disclose this information. Information requested may include contact information (such as name and shipping address), and demographic information (such as zip code, age level). Contact information will be used to notify the winners and award prizes. Survey information will be used for purposes of monitoring or improving the use and satisfaction of this site.<br/>
           <br/>
         </Container>

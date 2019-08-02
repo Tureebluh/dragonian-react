@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import "./Profile.css";
-import { Avatar, Grid, Button, GridList, GridListTile, GridListTileBar, IconButton, Tooltip, Zoom, Modal } from '@material-ui/core';
+import { Avatar, Grid, Button, GridList, GridListTile, GridListTileBar, IconButton, Tooltip, Zoom, Slide, Modal } from '@material-ui/core';
 import { MdInfoOutline } from 'react-icons/md';
 import ShuffleDetails from '../ShuffleDetails';
 
@@ -86,7 +86,6 @@ class Profile extends Component {
   }
 
   render () {
-    
     return (
       <>
         <Grid container className="ProfileContainer">
@@ -131,14 +130,18 @@ class Profile extends Component {
                 </Grid>
             }
         </Grid>
+        
         <Modal 
           open={this.state.modalOpen}
           onClose={this.handleModalClose}
           aria-labelledby="modal-title"
           aria-describedby="modal-description"
           aria-modal="true"
+          id="ShuffleModal"
         >
-          <ShuffleDetails steamid={this.state.steamid} activeID={this.state.activeModalID}/>
+          <Slide direction="right" in={this.state.modalOpen} mountOnEnter unmountOnExit>
+            <ShuffleDetails steamid={this.state.steamid} activeID={this.state.activeModalID}/>
+          </Slide>
         </Modal>
       </>
     );
