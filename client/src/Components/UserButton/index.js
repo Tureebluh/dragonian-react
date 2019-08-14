@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { NavLink as RouterLink } from "react-router-dom";
 import './UserButton.css';
 import { IconButton, Avatar, Tooltip, Zoom, Link} from '@material-ui/core';
-import { MdPowerSettingsNew } from 'react-icons/md'
+import { MdPowerSettingsNew } from 'react-icons/md';
 
 
 class UserButton extends Component {

@@ -39,6 +39,7 @@ class Home extends Component {
     return (
       <>
         <Container className="HomeContainer">
+          {((this.props.user.loggedIn) && !(this.props.user.voted)) ? <h1>Logged In</h1> : null }
           <Grid container spacing={0} className="HomePanel Jumbotron">
             <Grid item xs={12}>
               <img alt="Dragons Lair Banner" className="Banner" src="/img/dragonian_banner.png"/>

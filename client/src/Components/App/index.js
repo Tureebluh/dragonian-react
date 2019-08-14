@@ -10,6 +10,7 @@ import Home from '../Home';
 import Shuffles from '../Shuffles';
 import Profile from '../Profile';
 import FourOhFour from '../FourOhFour';
+import Moderator from '../Moderator';
 
 
 class App extends Component {
@@ -42,6 +43,7 @@ class App extends Component {
           username: resJson.User.personaname,
           steamid: resJson.User.steamid,
           verified: resJson.User.verified,
+          voted: resJson.User.voted,
           roles: resJson.User.roles
         });
       } else {
@@ -51,7 +53,8 @@ class App extends Component {
           username: 'Guest',
           steamid: '0',
           verified: false,
-          roles: []
+          voted: false,
+          roles: [],
         });
       }
     }).catch(error => console.error(error));
@@ -85,16 +88,18 @@ class App extends Component {
       username: this.state.username,
       steamid: this.state.steamid,
       verified: this.state.verified,
-      roles: this.state.roles
+      roles: this.state.roles,
+      voted: this.state.voted,
     };
     return (
       <Router>
         <>
           <Navbar user={user} toggleDrawer={()=>this.toggleDrawer}/>
-          <SideMenu drawerOpen={this.state.drawerOpen} toggleDrawer={()=>this.toggleDrawer}/>
+          <SideMenu user={user} drawerOpen={this.state.drawerOpen} toggleDrawer={()=>this.toggleDrawer}/>
           <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route path="/shuffles/" component={Shuffles}/>
+            <Route exact path="/" render={() => <Home user={user} />}/>
+            <Route path="/shuffles/" component={Shuffles} user={user}/>
+            <Route path="/moderator/" component={Moderator} user={user}/>
             <Route path="/profile/:steamid" component={Profile}/>
             <Route path="/about-us/" component={About}/>
             <Route path="/privacy-policy/" component={PrivacyPolicy}/>

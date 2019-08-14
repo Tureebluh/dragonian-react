@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { NavLink as RouterLink } from "react-router-dom";
 import './SideMenu.css';
 import { SwipeableDrawer, List, ListItem, Divider, Container, ListItemIcon, Grid, Link, Tooltip, Zoom, Avatar, Typography } from '@material-ui/core';
-import { MdHome, MdPeople } from "react-icons/md";
+import { MdHome, MdPeople, MdSettings } from "react-icons/md";
 
 class SideMenu extends Component {
   constructor(){
@@ -47,6 +47,14 @@ class SideMenu extends Component {
                             Community Shuffles
                         </ListItem>
                     </Link>
+                    {(this.props.user.loggedIn && this.props.user.roles.includes('Moderator')) ? 
+                        <Link component={AdapterLink} className="Link" to="/moderator">
+                            <ListItem className="ListItem" button key="Shuffles">
+                            <ListItemIcon><MdSettings/></ListItemIcon>
+                                Moderator Panel
+                            </ListItem>
+                        </Link>
+                    : null}
                 </List>
 
                 <Divider className="Divider"/>

@@ -18,6 +18,7 @@ const SteamStrategy = new OpenIDStrategy(
             .then(resJson => {
                 dbpool.getConnection( (err, connection) => {
                     let verified;
+                    let voted;
 
                     connection.query('CALL Upsert_User(\'' + resJson.response.players[0].steamid + '\',\'' + resJson.response.players[0].personaname + '\',\'' + resJson.response.players[0].avatarfull + '\');', (error, results, fields) => {
                         if (error) throw error;
@@ -25,6 +26,7 @@ const SteamStrategy = new OpenIDStrategy(
 
                     connection.query('CALL Get_User_Verified(\'' + resJson.response.players[0].steamid + '\');', (error, results, fields) => {
                         verified = (results[0][0].verified === 1) ? true : false;
+                        voted = (results[0][0].voted === 1) ? true : false;
                         if (error) throw error;
                     });
 
@@ -40,7 +42,8 @@ const SteamStrategy = new OpenIDStrategy(
                                 'roles': rolesArray,
                                 'personaname': resJson.response.players[0].personaname,
                                 'avatarfull': resJson.response.players[0].avatarfull,
-                                'verified': verified
+                                'verified': verified,
+                                'voted': voted,
                             };
                             connection.release();
                             if (error) throw error;
