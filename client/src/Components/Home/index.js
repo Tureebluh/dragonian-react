@@ -33,13 +33,14 @@ class Home extends Component {
   render () {
     const AdapterLink = React.forwardRef((props, ref) => <RouterLink innerRef={ref} {...props} />);
 
-    const youtubeLinks = ["https://www.youtube.com/embed/nJTvpmKP1i0",
+    const youtubeLinks = ["https://www.youtube.com/embed/OoZQTdyORYg",
+                          "https://www.youtube.com/embed/nJTvpmKP1i0",
                           "https://www.youtube.com/embed/1mDJzz7Yrzw",
                           "https://www.youtube.com/embed/dYOFx5n4hAg"];
     return (
       <>
         <Container className="HomeContainer">
-          {((this.props.user.loggedIn) && !(this.props.user.voted)) ? <h1>Logged In</h1> : null }
+          {((this.props.user.loggedIn) && !(this.props.user.voted)) ? null : null }
           <Grid container spacing={0} className="HomePanel Jumbotron">
             <Grid item xs={12}>
               <img alt="Dragons Lair Banner" className="Banner" src="/img/dragonian_banner.png"/>
@@ -48,7 +49,7 @@ class Home extends Component {
           <Divider/>
           <Grid container spacing={0} className="HomePanel Twitch">
             <Grid className="TextPanel" item xs={12} lg={6}>
-              <h3>Live Reviews Hosted By <br/> Planet Coaster Featured Creator <br/> R3dDragon</h3>
+              <h3>Live Reviews Hosted By <br/> Planet Coaster&reg; <br/> Featured Creator <br/> R3dDragon</h3>
               <a href="https://www.twitch.tv/r3ddragons" target="_BLANK" rel="noopener noreferrer">
                   <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Watch Live on Twitch">
                       <img alt="Twitch Logo" className="social-media" src="/img/glitchbadge_purple.svg"/>

@@ -187,22 +187,14 @@ router.post('/shuffleplayers', (req, res) => {
         .then((shuffle)=>{
             serverShuffle = shuffle;
             console.log('\nActive shuffle found: ID#' + serverShuffle['Shuffle_ID']);
-            let complete = false;
-            let round = 2;
-            //while(!complete){
-                console.log('\nAttempting shuffle of round ' + round);
-                serverShuffle.shuffleByRound(round)
-                .then(msg => {
-                    res.send({result: msg});
-                    if(round < 4){
-                        round++;
-                    } else {
-                        complete = true;
-                    }
-                }).catch(err => {
-                    res.send({result: err});
-                });
-            //}
+            let round = req.body.round;
+            console.log('\nAttempting shuffle of round ' + round);
+            serverShuffle.shuffleByRound(round)
+            .then(msg => {
+                res.send({result: msg});
+            }).catch(err => {
+                res.send({result: err});
+            });
         }).catch(err => {
             res.send({result: err});
         });

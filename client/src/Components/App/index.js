@@ -87,6 +87,7 @@ class App extends Component {
       username: this.state.username,
       steamid: this.state.steamid,
       verified: this.state.verified,
+      steamprofile: this.state.steamprofile,
       roles: this.state.roles,
       voted: this.state.voted,
     };

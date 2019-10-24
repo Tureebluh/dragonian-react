@@ -16,16 +16,32 @@ class Moderator extends Component {
     
   }
 
-  shufflePlayers(){
+  shufflePlayers(round){
+    let payload = {
+      round: round
+    };
     fetch('/admin/shuffleplayers', {
       credentials: 'include',
-      method: 'post'
+      method: 'post',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
     })
     .then(res => {
       return res.json();
     }).then(resJson => {
-      alert(resJson.result);
-    }).catch(error => console.error(error));
+      if(resJson.result === 'Completed'){
+        if(round < 4){
+          this.shufflePlayers(round + 1);
+        } else {
+          alert('All rounds shuffled');
+        }
+      }
+    }).catch(error => {
+      alert(error.result);
+    });
   }
 
   render () {
@@ -33,7 +49,7 @@ class Moderator extends Component {
       <>
         <Container className="Moderator">
           <Typography className="Title">Create Shuffle</Typography>
-          <Button onClick={()=>{this.shufflePlayers()}} variant="contained" color="primary" className="Submit">Shuffle Players</Button>
+          <Button onClick={()=>{this.shufflePlayers(2)}} variant="contained" color="primary" className="Submit">Shuffle Players</Button>
         </Container>
       </>
     );
