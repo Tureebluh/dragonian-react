@@ -18,6 +18,9 @@ class Profile extends Component {
         modalOpen: false,
         activeModalID: 0,
         steamid: 0,
+        profileurl: '',
+        laststeamid: 0,
+        key: 0,
     }
     this.handleShufflePopover = this.handleShufflePopover.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
@@ -43,6 +46,7 @@ class Profile extends Component {
         this.setState({
             userPic: resJson[0][0].avatarfull,
             userName: resJson[0][0].personaname,
+            profileurl: resJson[0][0].profileurl,
             lastLogin: new Date(resJson[0][0].LastLogIn).toDateString(),
             CreatedDate: new Date(resJson[0][0].CreatedDate).toDateString(),
             verified: resJson[0][0].verified,
@@ -94,6 +98,11 @@ class Profile extends Component {
                 <Grid item xs={12} lg={4} className="UserPanel">
                     <Avatar className="UserAvatar" src={this.state.userPic} alt="User Profile Picture"/>
                     <h3>{this.state.userName}</h3>
+                    <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Steam Profile">
+                      <a href={this.state.profileurl} target="_BLANK" rel="noopener noreferrer">
+                        <Avatar className="SteamProfile" aria-label="Login" src="/img/Steam_logo.svg" alt="Steam Profile Link"/>
+                      </a>
+                    </Tooltip>
                     <h6>Member since: {this.state.CreatedDate}</h6>
                     <h6>Last Login: {this.state.lastLogin}</h6>
                     {(this.state.verified ? <Button variant="contained" color="primary">Verified</Button> :

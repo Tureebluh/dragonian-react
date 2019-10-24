@@ -16,8 +16,6 @@ import Moderator from '../Moderator';
 class App extends Component {
   constructor(){
     super();
-    //App controls state as a single source of truth
-    //Pass data down to children through props
     //Add state variables and bindings here
     this.state = {
       drawerOpen: false,
@@ -40,11 +38,12 @@ class App extends Component {
         this.setState({
           loggedIn: true,
           userPic: resJson.User.avatarfull,
+          steamprofile: resJson.User.profileurl,
           username: resJson.User.personaname,
           steamid: resJson.User.steamid,
           verified: resJson.User.verified,
           voted: resJson.User.voted,
-          roles: resJson.User.roles
+          roles: resJson.User.roles,
         });
       } else {
         this.setState({

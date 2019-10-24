@@ -1,0 +1,12 @@
+.Moderator {
+    text-align: center;
+}
+
+.Moderator .Title {
+    font-size: 2em;
+    margin-top: 3em;
+}
+
+.Moderator .Submit {
+    margin-top: 5em;
+}

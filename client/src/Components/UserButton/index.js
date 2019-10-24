@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import { NavLink as RouterLink } from "react-router-dom";
 import './UserButton.css';
-import { IconButton, Avatar, Tooltip, Zoom, Link} from '@material-ui/core';
+import { IconButton, Avatar, Tooltip, Zoom} from '@material-ui/core';
 import { MdPowerSettingsNew } from 'react-icons/md';
 
 
@@ -43,7 +42,6 @@ class UserButton extends Component {
   }
 
   render () {
-    const AdapterLink = React.forwardRef((props, ref) => <RouterLink innerRef={ref} {...props} />);
     return (
         <div>
             {(this.props.user.loggedIn) ? <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Logout">
@@ -60,9 +58,9 @@ class UserButton extends Component {
               className="ProfileButton"
             >
               {(this.props.user.loggedIn) ? <Tooltip TransitionComponent={Zoom} className="Tooltip" title="My Profile">
-                                              <Link to={"/profile/" + this.props.user.steamid} component={AdapterLink}>
+                                              <a href={"/profile/" + this.props.user.steamid}>
                                                 <Avatar className="UserAvatar" src={this.props.user.userPic} alt="User Profile Picture"/>
-                                              </Link>
+                                              </a>
                                             </Tooltip>
                                           : <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Login">
                                               <Avatar aria-label="Login" src="/img/Steam_logo.svg" alt="Steam Login Button"/>

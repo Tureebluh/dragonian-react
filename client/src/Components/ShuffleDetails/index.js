@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { GridList, GridListTile, Card, Avatar, Typography } from '@material-ui/core';
+import { GridList, GridListTile, Card, Avatar, Typography, Tooltip, Zoom } from '@material-ui/core';
 import "./ShuffleDetails.css";
 
 class ShuffleDetails extends Component {
@@ -81,7 +81,6 @@ class ShuffleDetails extends Component {
       }
     }).then(result => {
         if(typeof result.submissions[0] !== undefined){
-            console.log(result);
             this.setState({
                 submissions: result.submissions,
                 users: result.users,
@@ -100,66 +99,19 @@ class ShuffleDetails extends Component {
       <>
         <Card id="ShuffleDetails" tabIndex={-1}>
             <h1 id="modal-title">{this.state.shuffleName}</h1>
-            <p id="modal-description">All contributors for these submissions</p>
-            <GridList cellHeight={100} cols={4} spacing={20} className="GridList">
+            <h3 id="modal-description">My Team Members</h3>
+            <GridList cellHeight={120} cols={4} spacing={20} className="GridList">
               {this.state.users.map(user => (
                 <GridListTile key={user.SteamID} rows={1} cols={1} className="GridListTile">
-                  <a href={"/profile/" + user.SteamID}>
-                    <Avatar alt="Steam Profile Picture" src={user.avatarfull} className="ShuffleParticipant" />
-                    <Typography>{user.personaname}</Typography>
-                  </a>
+                  <Tooltip TransitionComponent={Zoom} className="Tooltip" title={"Go to " + user.personaname + "'s Profile"}>
+                    <a href={"/profile/" + user.SteamID}>
+                      <Avatar alt="Steam Profile Picture" src={user.avatarfull} className="ShuffleParticipant" />
+                      <Typography>{user.personaname}</Typography>
+                    </a>
+                  </Tooltip>
                 </GridListTile>
               ))}
             </GridList>
-
-            <h2>Final Round</h2>
-            <hr />
-            <GridList cellHeight={75} cols={4} spacing={20} className="GridList">
-              {this.state.submissions.map(sub => (
-                <GridListTile key={sub.r4_SteamID} rows={1} cols={1} className="GridListTile">
-                  <a href={sub.r4_workshop_URL} target="_BLANK" rel="noopener noreferrer">
-                    <Avatar alt="Round Four" className="Round RoundFour">R4</Avatar>
-                  </a>
-                </GridListTile>
-              ))}
-            </GridList>
-
-            <h2>Third Round</h2>
-            <hr />
-            <GridList cellHeight={75} cols={4} spacing={20} className="GridList">
-              {this.state.submissions.map(sub => (
-                <GridListTile key={sub.r3_SteamID} rows={1} cols={1} className="GridListTile">
-                  <a href={sub.r3_workshop_URL} target="_BLANK" rel="noopener noreferrer">
-                    <Avatar alt="Round Three" className="Round RoundThree">R3</Avatar>
-                  </a>
-                </GridListTile>
-              ))}
-            </GridList>
-
-            <h2>Second Round</h2>
-            <hr />
-            <GridList cellHeight={75} cols={4} spacing={20} className="GridList">
-              {this.state.submissions.map(sub => (
-                <GridListTile key={sub.r2_SteamID} rows={1} cols={1} className="GridListTile">
-                  <a href={sub.r2_workshop_URL} target="_BLANK" rel="noopener noreferrer">
-                    <Avatar alt="Round Two" className="Round RoundTwo">R2</Avatar>
-                  </a>
-                </GridListTile>
-              ))}
-            </GridList>
-
-            <h2>First Round</h2>
-            <hr />
-            <GridList cellHeight={75} cols={4} spacing={20} className="GridList">
-              {this.state.submissions.map(sub => (
-                <GridListTile key={sub.r1_SteamID} rows={1} cols={1} className="GridListTile">
-                  <a href={sub.r1_workshop_URL} target="_BLANK" rel="noopener noreferrer">
-                    <Avatar alt="Round One" className="Round RoundOne">R1</Avatar>
-                  </a>
-                </GridListTile>
-              ))}
-            </GridList>
-            <Typography className="disclaimer">Clicking one of the buttons above will open the workshop link in a new tab.</Typography>
         </Card>
       </>
     );

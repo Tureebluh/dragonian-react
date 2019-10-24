@@ -1,41 +1,9 @@
 import express from 'express';
 import dbpool from '../dbpool';
+import ServerShuffle from './ServerShuffle';
 
 const router = express.Router();
 
-//Send Administrator to roles administration page for CRUD operation on roles
-router.get('/reports/shuffle/unread', (req, res) => {
-    if(req.isAuthenticated() && req.user.roles.includes('Administrator')){
-        dbpool.getConnection( (err, connection) => {
-            if(err) throw err;
-            connection.query('CALL Get_Unread_Shuffle_Reports();',
-            (error, results, fields) => {
-                connection.release();
-                if (error) throw error;
-                res.send(results);
-            });
-        });
-    } else {
-        res.redirect('/shuffle');
-    }
-});
-
-//Send Administrator to roles administration page for CRUD operation on roles
-router.post('/reports/shuffle/validate', (req, res) => {
-    if(req.isAuthenticated() && req.user.roles.includes('Administrator')){
-        dbpool.getConnection( (err, connection) => {
-            if(err) throw err;
-            connection.query('CALL Update_Shuffle_Report(' + dbpool.escape(req.body.shuffleReportID) + ',' + dbpool.escape(req.body.isValid) + ');',
-            (error, results, fields) => {
-                connection.release();
-                if (error) throw error;
-                res.send({result: 'Success'});
-            });
-        });
-    } else {
-        res.redirect('/shuffle');
-    }
-});
 
 router.get('/roles/shuffleban/all', (req, res) => {
     if(req.isAuthenticated() && req.user.roles.includes('Administrator')){
@@ -207,6 +175,42 @@ router.post('/create/shuffle', (req, res) => {
         res.redirect('/auth/verification/failed');
     }
 });
+
+//Shuffle players for every round
+router.post('/shuffleplayers', (req, res) => {
+    if(req.isAuthenticated() && req.user.roles.includes('Administrator')){
+        //Create server shuffle object to get active shuffle
+        let serverShuffle = new ServerShuffle();
+
+        //Check for active shuffle and save to servershuffle obj
+        serverShuffle.getActiveShuffle()
+        .then((shuffle)=>{
+            serverShuffle = shuffle;
+            console.log('\nActive shuffle found: ID#' + serverShuffle['Shuffle_ID']);
+            let complete = false;
+            let round = 2;
+            //while(!complete){
+                console.log('\nAttempting shuffle of round ' + round);
+                serverShuffle.shuffleByRound(round)
+                .then(msg => {
+                    res.send({result: msg});
+                    if(round < 4){
+                        round++;
+                    } else {
+                        complete = true;
+                    }
+                }).catch(err => {
+                    res.send({result: err});
+                });
+            //}
+        }).catch(err => {
+            res.send({result: err});
+        });
+    } else {
+        res.send({result: 'No Active Shuffle'});
+    }
+});
+
 
 //Search database for user matching search query
 router.post('/search/users', (req, res) => {
