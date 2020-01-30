@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { NavLink as RouterLink } from "react-router-dom";
 import './SideMenu.css';
-import { SwipeableDrawer, List, ListItem, Divider, Container, ListItemIcon, Grid, Link, Tooltip, Zoom, Avatar, Typography } from '@material-ui/core';
+import { SwipeableDrawer, List, ListItem, Divider, Container, ListItemIcon, Grid, Link, Tooltip, Zoom } from '@material-ui/core';
 import { MdHome, MdPeople, MdSettings } from "react-icons/md";
 
 class SideMenu extends Component {
@@ -30,27 +30,24 @@ class SideMenu extends Component {
             >
                 <List className="List">
                     <ListItem className="ListItemLogo" button key="Logo">
-                        <Avatar className="BrandLogo" component="span" src="/img/dragonegg_eyes.svg" alt="Baby Dragon Hatching"/>
-                        <Typography variant="h6" className="Title">
-                            Dragon's Lair
-                        </Typography>
+                        <img alt="Dragons Lair Banner" className="Banner" src="/img/Title_Banner_Top.svg"/>
                     </ListItem>
                     <Link exact component={AdapterLink} className="Link" to="/">
                         <ListItem className="ListItem" button key="Home">
-                        <ListItemIcon><MdHome/></ListItemIcon>
+                            <ListItemIcon><MdHome/></ListItemIcon>
                             Home
                         </ListItem>
                     </Link>
                     <Link component={AdapterLink} className="Link" to="/shuffles">
                         <ListItem className="ListItem" button key="Shuffles">
-                        <ListItemIcon><MdPeople/></ListItemIcon>
+                            <ListItemIcon><MdPeople/></ListItemIcon>
                             Community Shuffles
                         </ListItem>
                     </Link>
                     {(this.props.user.loggedIn && this.props.user.roles.includes('Moderator')) ? 
                         <Link component={AdapterLink} className="Link" to="/moderator">
                             <ListItem className="ListItem" button key="Shuffles">
-                            <ListItemIcon><MdSettings/></ListItemIcon>
+                                <ListItemIcon><MdSettings/></ListItemIcon>
                                 Moderator Panel
                             </ListItem>
                         </Link>

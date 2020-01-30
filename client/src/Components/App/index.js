@@ -98,7 +98,7 @@ class App extends Component {
           <SideMenu user={user} drawerOpen={this.state.drawerOpen} toggleDrawer={()=>this.toggleDrawer}/>
           <Switch>
             <Route exact path="/" render={() => <Home user={user} />}/>
-            <Route path="/shuffles/" component={Shuffles} user={user}/>
+            <Route path="/shuffles/" render={() => <Shuffles user={user} />}/>
             <Route path="/moderator/" component={Moderator} user={user}/>
             <Route path="/profile/:steamid" component={Profile}/>
             <Route path="/about-us/" component={About}/>

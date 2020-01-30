@@ -41,39 +41,47 @@ class Home extends Component {
       <>
         <Container className="HomeContainer">
           {((this.props.user.loggedIn) && !(this.props.user.voted)) ? null : null }
+          
           <Grid container spacing={0} className="HomePanel Jumbotron">
             <Grid item xs={12}>
-              <img alt="Dragons Lair Banner" className="Banner" src="/img/dragonian_banner.png"/>
+              <img alt="Dragons Lair Banner" className="Banner" src="/img/Title_Banner.svg"/>
+            </Grid>
+            <Grid item xs={5}>
+              <img alt="Dragons Lair Banner" className="Banner" src="/img/tureebluh.svg"/>
+            </Grid>
+            <Grid item xs={1}></Grid>
+            <Grid item xs={6}>
+              <img alt="Dragons Lair Banner" className="Banner" src="/img/r3ddragon.svg"/>
             </Grid>
           </Grid>
           <Divider/>
           <Grid container spacing={0} className="HomePanel Twitch">
             <Grid className="TextPanel" item xs={12} lg={6}>
-              <h3>Live Reviews Hosted By <br/> Planet Coaster&reg; <br/> Featured Creator <br/> R3dDragon</h3>
+              <h3>Chat live with<br/> Planet Coaster&reg; <br/> Featured Creator <br/> R3dDragon</h3>
               <a href="https://www.twitch.tv/r3ddragons" target="_BLANK" rel="noopener noreferrer">
                   <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Watch Live on Twitch">
                       <img alt="Twitch Logo" className="social-media" src="/img/glitchbadge_purple.svg"/>
                   </Tooltip>
               </a>
             </Grid>
-            <Grid item xs={12} lg={6}>
+            <Grid className="TwitchLiveImg" item xs={12} lg={6}>
               <img alt="Dragons Lair Banner" className="Banner" src="/img/twitch_live.png"/>
             </Grid>
           </Grid>
           <Divider/>
           <Grid container spacing={0} className="HomePanel Shuffle">
             <Grid item xs={12} lg={6}>
-              <img alt="Dragons Lair Banner" className="Banner" src="/img/shuffle_banner.png"/>
+              <img alt="Dragons Lair Banner" className="Banner" src="/img/Shuffle_Banner.svg"/>
             </Grid>
             <Grid item xs={12} lg={6}>
-                <h3>Dragonian Community Shuffle Events <br/> Unique 4-Player <br/> Team PlanCo Art Event</h3>
+                <h3>Dragonian Community <br/> Shuffle Events <br/> 4-Player Teams</h3>
                 <Link component={AdapterLink} to="/shuffles"><Button variant="contained" color="primary">Learn more</Button></Link>
             </Grid>
           </Grid>
           <Divider/>
           <Grid container spacing={0} className="HomePanel Collab">
             <Grid item xs={12} lg={6}>
-              <h3>Dragonian Community PlanCo Collaborations <br/> Multiple themes to suit any style.</h3>
+              <h3>Dragonian Community <br/> Collaborations <br/> Multiple themes to suit any style.</h3>
               <a href="https://discord.gg/GabcMqK" target="_BLANK" rel="noopener noreferrer">
                   <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Join Community Discord">
                       <img style={{height: 2.6+'em'}} alt="Discord Logo" className="social-media" src="/img/discord_logo.svg"/>

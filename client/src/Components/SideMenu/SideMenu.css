@@ -17,20 +17,12 @@
     color: black;
 }
 .SideMenu .List .ListItemLogo {
-    padding: 5%;
-}
-.SideMenu .List .ListItemLogo {
     background-color: inherit;
     cursor: default;
 }
-.SideMenu .List .ListItemLogo .Title {
-    font-size: 1.6em;
-    font-weight: 600;
-    line-height: 1.6em;
-    text-shadow: 1px 1px 3px darkgrey;
-}
-.SideMenu .List .ListItemLogo .BrandLogo {
-    margin-left: 10%;
+.SideMenu .List .ListItemLogo .Banner {
+    margin: 0 auto;
+    max-width: 75%;
 }
 
 .SideMenu .List .ListItem:hover {

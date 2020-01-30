@@ -1,0 +1,21 @@
+.Container .GridContainer .GridItem .Banner
+{
+    margin: 15% auto;
+    max-width: 80%;
+}
+.Container .GridContainer .GridItem .SignUpButton
+{
+    width: 12rem;
+    height: 4rem;
+    margin: 0 auto 20% auto;
+}
+/* Small Devices, Tablets */
+@media only screen and (min-width : 700px) {
+    .Container .GridContainer .GridItem .SignUpButton
+    {
+        width: 15rem;
+        height: 5rem;
+        margin: 40% auto;
+        font-size: 1.2rem;
+    }
+}

@@ -98,11 +98,13 @@ class Profile extends Component {
                 <Grid item xs={12} lg={4} className="UserPanel">
                     <Avatar className="UserAvatar" src={this.state.userPic} alt="User Profile Picture"/>
                     <h3>{this.state.userName}</h3>
-                    <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Steam Profile">
+                    
                       <a href={this.state.profileurl} target="_BLANK" rel="noopener noreferrer">
-                        <Avatar className="SteamProfile" aria-label="Login" src="/img/Steam_logo.svg" alt="Steam Profile Link"/>
+                        <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Steam Profile"> 
+                          <Avatar className="SteamProfile" aria-label="Login" src="/img/Steam_logo.svg" alt="Steam Profile Link"/>
+                        </Tooltip>
                       </a>
-                    </Tooltip>
+                    
                     <h6>Member since: {this.state.CreatedDate}</h6>
                     <h6>Last Login: {this.state.lastLogin}</h6>
                     {(this.state.verified ? <Button variant="contained" color="primary">Verified</Button> :

@@ -1,11 +1,8 @@
 .Toolbar .IconButtonMenu {
     margin-right: 0.5em;
 }
-.Toolbar .Title {
-    font-weight: 600;
-    font-size: 1.5em;
-    margin-left: 0.3em;
-    text-shadow: 1px 1px 3px darkgrey;
+.Toolbar .Banner {
+    max-width: 15rem;
 }
 .Toolbar .FlexSpacer {
     flex: 1;
@@ -13,7 +10,7 @@
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 700px) {
-    .Toolbar .Title {
+    .Toolbar .Banner {
         display: none;
     }
 }

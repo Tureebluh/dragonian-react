@@ -49,7 +49,7 @@ class Moderator extends Component {
       <>
         <Container className="Moderator">
           <Typography className="Title">Create Shuffle</Typography>
-          <Button onClick={()=>{this.shufflePlayers(2)}} variant="contained" color="primary" className="Submit">Shuffle Players</Button>
+          <Button onClick={()=>{this.shufflePlayers(1)}} variant="contained" color="primary" className="Submit">Shuffle Players</Button>
         </Container>
       </>
     );
