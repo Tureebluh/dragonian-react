@@ -189,20 +189,16 @@ router.get('/shuffle/all/:shuffleID', (req, res) => {
     }
 });
 
-//Returns back the oldest active shuffle. Could be easily changed for multiple shuffles
-router.get('/shuffle/active', (req, res) => {
-    if(req.isAuthenticated() && !req.user.roles.includes('Shuffle Banned')){
-        dbpool.getConnection( (err, connection) => {
-            if (err) throw err;
-            connection.query('CALL Get_Active_Shuffle();', (error, results, fields) => {
-                connection.release();
-                if (error) throw error;
-                res.send(results);
-            });
+//Returns back the shuffle with active registration
+router.get('/shuffle/registration/active', (req, res) => {
+    dbpool.getConnection( (err, connection) => {
+        if (err) throw err;
+        connection.query('CALL Get_Active_Shuffle();', (error, results, fields) => {
+            connection.release();
+            if (error) throw error;
+            res.send(results);
         });
-    } else {
-        res.redirect('/auth/verification/failed');
-    }
+    });
 });
 
 //Returns back the shuffle progress for the request shuffleID

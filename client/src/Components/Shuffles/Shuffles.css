@@ -1,21 +1,33 @@
-.Container .GridContainer .GridItem .Banner
+.ShuffleContainer .Backdrop {
+    z-index: 1000;
+}
+.ShuffleContainer .GridContainer .GridItem .Banner
 {
     margin: 15% auto;
     max-width: 80%;
 }
-.Container .GridContainer .GridItem .SignUpButton
+.ShuffleContainer .GridContainer .GridItem.Details
 {
-    width: 12rem;
-    height: 4rem;
+    margin: 10% auto;
+    text-align: center;
+    max-width: 80%;
+}
+
+.ShuffleContainer .GridContainer .GridItem.NoShuffle img
+{
     margin: 0 auto 20% auto;
 }
+.ShuffleContainer .GridContainer .GridItem .SignUpButton
+{
+    width: 12rem;
+    margin: 0 auto;
+}
+
 /* Small Devices, Tablets */
 @media only screen and (min-width : 700px) {
-    .Container .GridContainer .GridItem .SignUpButton
+    .ShuffleContainer .GridContainer .GridItem .SignUpButton
     {
         width: 15rem;
-        height: 5rem;
-        margin: 40% auto;
         font-size: 1.2rem;
     }
 }

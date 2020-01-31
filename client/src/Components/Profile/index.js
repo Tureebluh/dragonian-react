@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import "./Profile.css";
-import { Avatar, Grid, Button, GridList, GridListTile, GridListTileBar, IconButton, Tooltip, Zoom, Slide, Modal } from '@material-ui/core';
+import { Avatar, Grid, Button, GridList, GridListTile, Backdrop,
+   GridListTileBar, IconButton, Tooltip, Zoom, Slide, Modal, CircularProgress } from '@material-ui/core';
 import { MdInfoOutline } from 'react-icons/md';
-import ShuffleDetails from '../ShuffleDetails';
+import ProfileShuffleDetails from '../ProfileShuffleDetails';
 
 class Profile extends Component {
   constructor(){
@@ -21,12 +22,16 @@ class Profile extends Component {
         profileurl: '',
         laststeamid: 0,
         key: 0,
+        loading: false,
     }
     this.handleShufflePopover = this.handleShufflePopover.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   componentDidMount(){
+    this.setState({
+      loading: true,
+    });
     let payload = {
         steamid: this.props.match.params.steamid
     };
@@ -68,7 +73,8 @@ class Profile extends Component {
     }).then(resJson => {
       if(typeof resJson[0][0] !== 'undefined'){
         this.setState({
-          shuffles: resJson[0]
+          shuffles: resJson[0],
+          loading: false,
         });
       }
     }).catch(error => console.error(error));
@@ -140,6 +146,9 @@ class Profile extends Component {
                     <img alt="Lazy Dragon" style={{maxWidth: 5 + 'em'}} src="/img/dragon_sm.svg"></img>
                 </Grid>
             }
+            <Backdrop className="Backdrop" open={this.state.loading}>
+              <CircularProgress color="inherit"/>
+            </Backdrop>
         </Grid>
         
         <Modal 
@@ -151,7 +160,7 @@ class Profile extends Component {
           id="ShuffleModal"
         >
           <Slide direction="right" in={this.state.modalOpen} mountOnEnter unmountOnExit>
-            <ShuffleDetails steamid={this.state.steamid} activeID={this.state.activeModalID}/>
+            <ProfileShuffleDetails steamid={this.state.steamid} activeID={this.state.activeModalID}/>
           </Slide>
         </Modal>
       </>

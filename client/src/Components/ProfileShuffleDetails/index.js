@@ -1,19 +1,23 @@
 import React, {Component} from 'react';
-import { GridList, GridListTile, Card, Avatar, Typography, Tooltip, Zoom } from '@material-ui/core';
-import "./ShuffleDetails.css";
+import { GridList, GridListTile, Card, Avatar, Typography, Tooltip, Zoom, Backdrop, CircularProgress } from '@material-ui/core';
+import "./ProfileShuffleDetails.css";
 
-class ShuffleDetails extends Component {
+class ProfileShuffleDetails extends Component {
   constructor(){
     super();
     this.state = {
       shuffleName: "Shuffle",
       submissions: [],
       users: [],
-      controller: new AbortController()
+      controller: new AbortController(),
+      loading: false,
     }
   }
 
   componentDidMount(){
+    this.setState({
+      loading: true,
+    });
     let payload = {
         shuffleID: this.props.activeID,
         steamid: this.props.steamid,
@@ -85,6 +89,7 @@ class ShuffleDetails extends Component {
                 submissions: result.submissions,
                 users: result.users,
                 shuffleName: result.shuffleName,
+                loading: false,
             });
         }
     }).catch(error => console.error(error));
@@ -97,7 +102,7 @@ class ShuffleDetails extends Component {
   render () {
     return (
       <>
-        <Card id="ShuffleDetails" tabIndex={-1}>
+        <Card id="ProfileShuffleDetails" tabIndex={-1}>
             <h1 id="modal-title">{this.state.shuffleName}</h1>
             <h3 id="modal-description">My Team Members</h3>
             <GridList cellHeight={120} cols={4} spacing={20} className="GridList">
@@ -112,10 +117,13 @@ class ShuffleDetails extends Component {
                 </GridListTile>
               ))}
             </GridList>
+            <Backdrop className="Backdrop" open={this.state.loading}>
+              <CircularProgress color="inherit"/>
+            </Backdrop>
         </Card>
       </>
     );
   }
 }
 
-export default ShuffleDetails;
+export default ProfileShuffleDetails;
