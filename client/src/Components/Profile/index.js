@@ -154,6 +154,7 @@ class Profile extends Component {
         <Modal 
           open={this.state.modalOpen}
           onClose={this.handleModalClose}
+          onClick={this.handleModalClose}
           aria-labelledby="modal-title"
           aria-describedby="modal-description"
           aria-modal="true"

@@ -2,6 +2,15 @@
     text-align: center;
 }
 
+.Moderator .ModeratorContainer
+{
+    padding: 5%;
+}
+.Moderator .ModeratorContainer .GridItem .Card
+{
+    padding: 5%;
+}
+
 .Moderator .Title {
     font-size: 2em;
     margin-top: 3em;

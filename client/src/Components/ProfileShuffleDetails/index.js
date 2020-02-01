@@ -39,6 +39,7 @@ class ProfileShuffleDetails extends Component {
     }).then(res => {
         return res.json();
     }).then(resJson => {
+      console.log(resJson);
       if(typeof resJson[0][0] !== 'undefined'){
         resJson[0].forEach(sub => {
             submissions.push(sub);
@@ -84,7 +85,7 @@ class ProfileShuffleDetails extends Component {
           return {};
       }
     }).then(result => {
-        if(typeof result.submissions[0] !== undefined){
+        if(typeof result.submissions !== undefined){
             this.setState({
                 submissions: result.submissions,
                 users: result.users,

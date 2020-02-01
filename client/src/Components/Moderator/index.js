@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Typography, Container, Button } from '@material-ui/core';
+import { Typography, Container, Button, Grid, Card } from '@material-ui/core';
 import "./Moderator.css";
 
 class Moderator extends Component {
@@ -16,28 +16,24 @@ class Moderator extends Component {
     
   }
 
-  shufflePlayers(round){
-    let payload = {
-      round: round
-    };
+  shufflePlayers(){
     fetch('/admin/shuffleplayers', {
       credentials: 'include',
-      method: 'post',
+      method: 'get',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
+      }
     })
     .then(res => {
       return res.json();
     }).then(resJson => {
-      if(resJson.result === 'Completed'){
-        if(round < 4){
-          this.shufflePlayers(round + 1);
-        } else {
+      if(resJson.result === 'Success'){
           alert('All rounds shuffled');
-        }
+      }
+      else
+      {
+        console.log(resJson.result);
       }
     }).catch(error => {
       alert(error.result);
@@ -48,8 +44,14 @@ class Moderator extends Component {
     return (
       <>
         <Container className="Moderator">
-          <Typography className="Title">Create Shuffle</Typography>
-          <Button onClick={()=>{this.shufflePlayers(1)}} variant="contained" color="primary" className="Submit">Shuffle Players</Button>
+          <Grid container className="ModeratorContainer">
+            <Grid item xs={12} md={6} className="GridItem">
+              <Card className="Card">
+                <Typography className="Title">Shuffle Players</Typography>
+                <Button onClick={()=>{this.shufflePlayers()}} variant="contained" color="primary" className="Submit">Shuffle Players</Button>
+              </Card>
+            </Grid>
+          </Grid>
         </Container>
       </>
     );

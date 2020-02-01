@@ -3,24 +3,36 @@
 }
 .ShuffleContainer .GridContainer .GridItem .Banner
 {
-    margin: 15% auto;
+    margin: 10%;
     max-width: 80%;
 }
-.ShuffleContainer .GridContainer .GridItem.Details
+.ShuffleContainer .GridContainer .GridItem.Details .ActiveShuffle
 {
+    max-width: 80%;
     margin: 10% auto;
     text-align: center;
-    max-width: 80%;
+}
+.ShuffleContainer .GridContainer .GridItem.Details .CardMedia
+{
+    height: auto;
 }
 
-.ShuffleContainer .GridContainer .GridItem.NoShuffle img
+.ShuffleContainer .GridContainer .GridItem.NoShuffle
 {
-    margin: 0 auto 20% auto;
+    margin: 5% auto;
 }
 .ShuffleContainer .GridContainer .GridItem .SignUpButton
 {
     width: 12rem;
     margin: 0 auto;
+}
+#HowToModal
+{
+    overflow-y: scroll;
+}
+#HowToModal img
+{
+    margin: 25% 5%;
 }
 
 /* Small Devices, Tablets */
@@ -29,5 +41,23 @@
     {
         width: 15rem;
         font-size: 1.2rem;
+    }
+    .ShuffleContainer .GridContainer .GridItem .Banner
+    {
+        margin: 20% auto;
+    }
+    .ShuffleContainer .GridContainer .GridItem.Details .ActiveShuffle
+    {
+        max-width: 70%;
+        margin: 25% auto;
+        text-align: center;
+    }
+    #HowToModal
+    {
+        padding: 5% 25%;
+    }
+    #HowToModal img
+    {
+        margin: auto;
     }
 }

@@ -1,13 +1,8 @@
 import dbpool from '../dbpool';
 
 class ServerShuffle {
-    constructor(Shuffle_ID, RoundOneStart, RoundTwoStart, RoundThreeStart, RoundFourStart, EndDate) {
+    constructor(Shuffle_ID) {
         this._Shuffle_ID = Shuffle_ID;
-        this._RoundOneStart = RoundOneStart;
-        this._RoundTwoStart = RoundTwoStart;
-        this._RoundThreeStart = RoundThreeStart;
-        this._RoundFourStart = RoundFourStart;
-        this._EndDate = EndDate;
     }
 
     set Shuffle_ID(Shuffle_ID){
@@ -15,41 +10,6 @@ class ServerShuffle {
     }
     get Shuffle_ID(){
         return this._Shuffle_ID;
-    }
-
-    set RoundOneStart(RoundOneStart){
-        this._RoundOneStart = RoundOneStart;
-    }
-    get RoundOneStart(){
-        return this._RoundOneStart;
-    }
-
-    set RoundTwoStart(RoundTwoStart){
-        this._RoundTwoStart = RoundTwoStart;
-    }
-    get RoundTwoStart(){
-        return this._RoundTwoStart;
-    }
-
-    set RoundThreeStart(RoundThreeStart){
-        this._RoundThreeStart = RoundThreeStart;
-    }
-    get RoundThreeStart(){
-        return this._RoundThreeStart;
-    }
-
-    set RoundFourStart(RoundFourStart){
-        this._RoundFourStart = RoundFourStart;
-    }
-    get RoundFourStart(){
-        return this._RoundFourStart;
-    }
-
-    set EndDate(EndDate){
-        this._EndDate = EndDate;
-    }
-    get EndDate(){
-        return this._EndDate;
     }
 
     getActiveShuffle(){
@@ -60,12 +20,8 @@ class ServerShuffle {
                     connection.release();
                     if (error) { throw error; }
                     if (typeof results[0][0] !== 'undefined') {
-                        let roundOne = new Date(results[0][0].RoundOneStart);
-                        let roundTwo = new Date(results[0][0].RoundTwoStart);
-                        let roundThree = new Date(results[0][0].RoundThreeStart);
-                        let roundFour = new Date(results[0][0].RoundFourStart);
-                        let endDate = new Date(results[0][0].EndDate);
-                        resolve(new ServerShuffle(results[0][0].Shuffle_ID, roundOne, roundTwo, roundThree, roundFour, endDate));
+                        //if(results[0][0].Shuffled === 1){ reject('Has already been shuffled') };
+                        resolve(new ServerShuffle(results[0][0].Shuffle_ID));
                     } else {
                         reject('No active shuffle');
                     }
@@ -79,62 +35,60 @@ class ServerShuffle {
         return new Promise((resolve, reject) => {
             let totalIteration = 0;
             let assigned = [];
-            if(typeof this.RoundOneStart !== 'undefined'){
-                dbpool.getConnection((err, connection) => {
-                    if (err) { throw err; }
-                    connection.query('CALL Get_Submissions_For_Shuffling(' + dbpool.escape(this.Shuffle_ID) + ');', (error, results, fields) => {
-                        connection.release();
-                        if (error) { throw error; }
-                        
-                        if (typeof results[0][0] !== 'undefined') {
-                            this.attemptShuffle(assigned, results, round, totalIteration)
-                            .then(shuffled => {
-                                results = shuffled;
-                                console.log('\n*****************   Shuffled   ********************');
+            round = Number(round);
 
-                                dbpool.getConnection((err, connection) => {
-                                    if (err) { throw err; }
-                                    results[0].forEach(element => {
-                                        switch(round){
-                                            case 2:
-                                                this.updateSubmissionInDB(element['shuffle_submission_ID'], element['r2_SteamID'], round, connection)
-                                                .then(message => {
-                                                    console.log(message);
-                                                }).catch(err => {
-                                                    console.error(err);
-                                                });
-                                                break;
-                                            case 3:
-                                                this.updateSubmissionInDB(element['shuffle_submission_ID'], element['r3_SteamID'], round, connection)
-                                                .then(message => {
-                                                    console.log(message);
-                                                }).catch(err => {
-                                                    console.error(err);
-                                                });
-                                                break;
-                                            case 4:
-                                                this.updateSubmissionInDB(element['shuffle_submission_ID'], element['r4_SteamID'], round, connection)
-                                                .then(message => {
-                                                    console.log(message);
-                                                }).catch(err => {
-                                                    console.error(err);
-                                                });
-                                                break;
-                                        }
-                                    });
-                                    connection.release();
-                                    resolve('Completed');
+            dbpool.getConnection((err, connection) => {
+                if (err) { throw err; }
+                connection.query('CALL Get_Submissions_For_Shuffling(' + dbpool.escape(this.Shuffle_ID) + ');', (error, results, fields) => {
+                    connection.release();
+                    if (error) { throw error; }
+                    
+                    if (typeof results[0][0] !== 'undefined') {
+                        this.attemptShuffle(assigned, results, round, totalIteration)
+                        .then(shuffled => {
+                            results = shuffled;
+                            console.log('\n*****************   Shuffled   ********************');
+
+                            dbpool.getConnection((err, connection) => {
+                                if (err) { throw err; }
+                                results[0].forEach(element => {
+                                    switch(round){
+                                        case 2:
+                                            this.updateSubmissionInDB(element['shuffle_submission_ID'], element['r2_SteamID'], round, connection)
+                                            .then(message => {
+                                                console.log(message);
+                                            }).catch(err => {
+                                                console.error(err);
+                                            });
+                                            break;
+                                        case 3:
+                                            this.updateSubmissionInDB(element['shuffle_submission_ID'], element['r3_SteamID'], round, connection)
+                                            .then(message => {
+                                                console.log(message);
+                                            }).catch(err => {
+                                                console.error(err);
+                                            });
+                                            break;
+                                        case 4:
+                                            this.updateSubmissionInDB(element['shuffle_submission_ID'], element['r4_SteamID'], round, connection)
+                                            .then(message => {
+                                                console.log(message);
+                                            }).catch(err => {
+                                                console.error(err);
+                                            });
+                                            break;
+                                    }
                                 });
-                            })
-                            .catch(err => {
-                                reject(err);
+                                connection.release();
+                                resolve('Success');
                             });
-                        }
-                    });
+                        })
+                        .catch(err => {
+                            reject(err);
+                        });
+                    }
                 });
-            } else {
-                reject('No active shuffle');
-            }
+            });
         });   
     }
 

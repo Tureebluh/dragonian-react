@@ -177,7 +177,7 @@ router.post('/create/shuffle', (req, res) => {
 });
 
 //Shuffle players for every round
-router.post('/shuffleplayers', (req, res) => {
+router.get('/shuffleplayers', (req, res) => {
     if(req.isAuthenticated() && req.user.roles.includes('Administrator')){
         //Create server shuffle object to get active shuffle
         let serverShuffle = new ServerShuffle();
@@ -187,14 +187,25 @@ router.post('/shuffleplayers', (req, res) => {
         .then((shuffle)=>{
             serverShuffle = shuffle;
             console.log('\nActive shuffle found: ID#' + serverShuffle['Shuffle_ID']);
-            let round = req.body.round;
-            console.log('\nAttempting shuffle of round ' + round);
-            serverShuffle.shuffleByRound(round)
-            .then(msg => {
-                res.send({result: msg});
-            }).catch(err => {
+            let msg = "";
+            let err = "";
+            for(let i = 2; i <= 4; i++)
+            {
+                msg = TryShuffleRound(i, serverShuffle);
+                if(msg !== "Success")
+                {
+                    err = msg;
+                }
+            }
+            if(err === "")
+            {
+                res.send({result: msg})
+            }
+            else
+            {
                 res.send({result: err});
-            });
+            }
+            
         }).catch(err => {
             res.send({result: err});
         });
@@ -202,6 +213,16 @@ router.post('/shuffleplayers', (req, res) => {
         res.send({result: 'No Active Shuffle'});
     }
 });
+async function TryShuffleRound(round, serverShuffle)
+{
+    console.log('\nAttempting shuffle of round ' + round);
+    await serverShuffle.shuffleByRound(round)
+    .then(msg => {
+        return msg;
+    }).catch(err => {
+        return err;
+    });
+}
 
 
 //Search database for user matching search query
