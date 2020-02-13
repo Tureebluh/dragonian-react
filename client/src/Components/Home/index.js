@@ -40,8 +40,6 @@ class Home extends Component {
     return (
       <>
         <Container className="HomeContainer">
-          {((this.props.user.loggedIn) && !(this.props.user.voted)) ? null : null }
-          
           <Grid container spacing={0} className="HomePanel Jumbotron">
             <Grid item xs={12}>
               <img alt="Dragons Lair Banner" className="Banner" src="/img/Title_Banner.svg"/>
@@ -84,7 +82,7 @@ class Home extends Component {
               <h3>Dragonian Community <br/> Collaborations <br/> Multiple themes to suit any style.</h3>
               <a href="https://discord.gg/GabcMqK" target="_BLANK" rel="noopener noreferrer">
                   <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Join Community Discord">
-                      <img style={{height: 2.6+'em'}} alt="Discord Logo" className="social-media" src="/img/discord_logo.svg"/>
+                      <img style={{height: 2.6+'em'}} alt="Discord Logo" className="social-media" src="/img/discord_purple.svg"/>
                   </Tooltip>
               </a>
             </Grid>

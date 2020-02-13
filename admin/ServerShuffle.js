@@ -20,8 +20,11 @@ class ServerShuffle {
                     connection.release();
                     if (error) { throw error; }
                     if (typeof results[0][0] !== 'undefined') {
-                        //if(results[0][0].Shuffled === 1){ reject('Has already been shuffled') };
-                        resolve(new ServerShuffle(results[0][0].Shuffle_ID));
+                        if(results[0][0].Shuffled === 1){
+                            reject('Has already been shuffled');
+                        } else {
+                            resolve(new ServerShuffle(results[0][0].Shuffle_ID));
+                        }
                     } else {
                         reject('No active shuffle');
                     }

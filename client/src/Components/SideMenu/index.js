@@ -73,7 +73,7 @@ class SideMenu extends Component {
                         <Grid item xs={4}>
                             <a href="https://discord.gg/GabcMqK" target="_BLANK" rel="noopener noreferrer">
                                 <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Join Community Discord">
-                                    <img style={{height: 2.6+'em'}} alt="Discord Logo" className="social-media" src="/img/discord_logo.svg"/>
+                                    <img style={{height: 2.6+'em'}} alt="Discord Logo" className="social-media" src="/img/discord_purple.svg"/>
                                 </Tooltip>
                             </a>
                         </Grid>

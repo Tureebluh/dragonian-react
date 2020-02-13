@@ -22,7 +22,7 @@ class TOS extends Component {
       <>
         <Container className="Container">
           <h1>Terms of Use (&quot;Terms&quot;)</h1>
-          <p>Last updated: 06/13/2019</p>
+          <p>Last updated: 02/13/2020</p>
           <p>Please read these Terms of Use (&quot;Terms&quot;, &quot;Terms of Use&quot;) carefully before using the www.dragonian.xyz website (the &quot;Service&quot;) operated by The Dragon's Lair (&quot;us&quot;, &quot;we&quot;, or &quot;our&quot;).</p>
           <p>Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.</p>
           <p>By accessing or using the Service you agree to be bound by these Terms. If you disagree with any part of the terms then you may not access the Service.</p>
@@ -49,7 +49,7 @@ class TOS extends Component {
                   b. In contests in which winners are selected based upon skill or accomplishments, winners will be chosen by us on the merits of each entry, in our sole and absolute discretion.
                   c. In contests in which winners are selected on the basis of being the nth person to complete a stated action, the winner shall be that person provided that he or she validly completes the action, validity being determined by us, in our sole and absolute discretion.
                   d. In contests and polls in which we solicit votes by the public to help decide the winner, while the results of such polls may be a considered factor in determining the winner, the winner will ultimately be selected by us in our sole and absolute discretion.</p>
-          <p>17. No payment of any consideration is necessary to enter the contest. All contestants must own a valid license for Planet Coaster associated with the Steam Account entered into the contest.</p>
+          <p>17. No payment of any consideration is necessary to enter the contest. All contestants must own a valid game license for the chosen contest game and be associated with the Steam Account entered into the contest.</p>
           <h2>Links To Other Web Sites</h2>
           <p>Our Service may contain links to third-party web sites or services that are not owned or controlled by us.</p>
           <p>We has no control over, and assumes no responsibility for, the content, privacy policies, or practices of any third party web sites or services. You further acknowledge and agree that we shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such content, goods or services available on or through any such web sites or services.</p>

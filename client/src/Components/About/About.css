@@ -1,0 +1,30 @@
+.AboutContainer .AboutPanel 
+{
+    text-align: center;
+    color: whitesmoke;
+    text-shadow: 2px 3px 8px black;
+    margin: 10% auto;
+    font-size: 1.2rem;
+    line-height: 2em;
+}
+.AboutContainer .AboutPanel img
+{
+    max-width: 60%;
+}
+.AboutContainer .AboutPanel .Divider
+{
+    margin: 10%;
+}
+.AboutContainer .AboutPanel .LearnMoreButton 
+{
+    margin: 0 1%;
+    border-radius: 1rem;
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 700px) {
+    .AboutContainer .AboutPanel 
+    {
+        font-size: 1.6rem;
+    }
+}

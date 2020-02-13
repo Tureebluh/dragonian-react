@@ -6,6 +6,10 @@
     margin: 10%;
     max-width: 80%;
 }
+.ShuffleContainer .GridContainer .GridItem
+{
+    text-align: center;
+}
 .ShuffleContainer .GridContainer .GridItem.Details .ActiveShuffle
 {
     max-width: 80%;
@@ -16,7 +20,6 @@
 {
     height: auto;
 }
-
 .ShuffleContainer .GridContainer .GridItem.NoShuffle
 {
     margin: 5% auto;
@@ -49,7 +52,7 @@
     .ShuffleContainer .GridContainer .GridItem.Details .ActiveShuffle
     {
         max-width: 70%;
-        margin: 25% auto;
+        margin: 35% auto;
         text-align: center;
     }
     #HowToModal

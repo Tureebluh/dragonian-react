@@ -15,7 +15,7 @@ class Profile extends Component {
         lastLogin: '',
         CreatedDate: '',
         verified: 0,
-        shuffles: [{}],
+        shuffles: [],
         modalOpen: false,
         activeModalID: 0,
         steamid: 0,
@@ -74,6 +74,10 @@ class Profile extends Component {
       if(typeof resJson[0][0] !== 'undefined'){
         this.setState({
           shuffles: resJson[0],
+          loading: false,
+        });
+      } else {
+        this.setState({
           loading: false,
         });
       }

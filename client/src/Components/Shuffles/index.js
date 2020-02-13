@@ -25,7 +25,7 @@ class Shuffles extends Component {
     .then(res => {
       return res.json();
     }).then(resJson => {
-      if(resJson){
+      if(resJson[0][0]){
         let temp = resJson[0][0];
         this.setState({
           activeShuffle: true,
@@ -33,6 +33,10 @@ class Shuffles extends Component {
           shufflePoster: temp.Poster,
           shuffleTheme: temp.Theme,
           shuffleStyle: temp.Style,
+          loading: false,
+        });
+      } else {
+        this.setState({
           loading: false,
         });
       }
@@ -69,6 +73,7 @@ class Shuffles extends Component {
           <Grid className="GridContainer" container>
             <Grid className="GridItem" item xs={12} sm={6}>
               <img alt="Shuffle Banner" className="Banner" src="/img/Shuffle_Banner.svg"/>
+              <Button className="HowItWorksButton" color="primary" variant="contained" onClick={() => this.handleShufflePopover()}>Learn more</Button>
             </Grid>
             {this.state.activeShuffle ?
               <Grid className="GridItem Details" item xs={12} sm={6}>
@@ -117,10 +122,8 @@ class Shuffles extends Component {
                       Login Required
                     </Button>
                   }
-                  <Button variant="outlined" onClick={() => this.handleShufflePopover()}>Learn more</Button>
                   </CardActions>
                 </Card>
-                
               </Grid>
             : 
               <Grid className="GridItem NoShuffle" item xs={12} sm={6}>
