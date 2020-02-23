@@ -3,20 +3,46 @@ import { NavLink as RouterLink } from "react-router-dom";
 import { Grid, MobileStepper, Button, Container, Divider, Zoom, Tooltip, Link } from '@material-ui/core';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import "./Home.css";
+import ShuffleVoting from '../ShuffleVoting';
 
 class Home extends Component {
   constructor(){
     super();
 
     this.state = {
-      activeCollab: 0
+      activeCollab: 0,
+      youtubeLinks: [],
     }
     this.handleNextCollab = this.handleNextCollab.bind(this);
     this.handlePrevCollab = this.handlePrevCollab.bind(this);
   }
 
   componentDidMount(){
-    
+    this.setState({
+      loading: true
+    });
+    fetch('/api/shuffle/youtube/collab')
+    .then(res => {
+      return res.json();
+    }).then(resJson => {
+      if(resJson[0][0]){
+        let temp = [];
+
+        resJson[0].forEach(obj => {
+          temp.push(obj.url);
+        });
+
+        this.setState({
+          activeShuffle: true,
+          youtubeLinks: temp,
+          loading: false,
+        });
+      } else {
+        this.setState({
+          loading: false,
+        });
+      }
+    }).catch(error => console.error(error));
   }
 
   handleNextCollab(){
@@ -33,12 +59,9 @@ class Home extends Component {
   render () {
     const AdapterLink = React.forwardRef((props, ref) => <RouterLink innerRef={ref} {...props} />);
 
-    const youtubeLinks = ["https://www.youtube.com/embed/OoZQTdyORYg",
-                          "https://www.youtube.com/embed/nJTvpmKP1i0",
-                          "https://www.youtube.com/embed/1mDJzz7Yrzw",
-                          "https://www.youtube.com/embed/dYOFx5n4hAg"];
     return (
       <>
+        {(this.props.user.Voted) ? null : <ShuffleVoting />}
         <Container className="HomeContainer">
           <Grid container spacing={0} className="HomePanel Jumbotron">
             <Grid item xs={12}>
@@ -88,17 +111,17 @@ class Home extends Component {
             </Grid>
             <Grid item xs={12} lg={6}>
               <div className="videoContainer">
-                <iframe title="Collaboration Video" width="560" height="315" src={youtubeLinks[this.state.activeCollab]} frameBorder="0"
+                <iframe title="Collaboration Video" width="560" height="315" src={this.state.youtubeLinks[this.state.activeCollab]} frameBorder="0"
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
               </div>
               <MobileStepper
                 variant="progress"
-                steps={youtubeLinks.length}
+                steps={this.state.youtubeLinks.length}
                 position="static"
                 activeStep={this.state.activeCollab}
                 className="CollabMobileStepper"
                 nextButton={
-                  <Button size="small" onClick={this.handleNextCollab} disabled={this.state.activeCollab === youtubeLinks.length - 1}>
+                  <Button size="small" onClick={this.handleNextCollab} disabled={this.state.activeCollab === this.state.youtubeLinks.length - 1}>
                     Next
                     {<MdKeyboardArrowRight />}
                   </Button>

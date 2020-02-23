@@ -109,6 +109,31 @@ router.get('/shuffle/registration/active', (req, res) => {
     });
 });
 
+//Returns back the shuffle with active registration
+router.get('/shuffle/voting/options', (req, res) => {
+    dbpool.getConnection( (err, connection) => {
+        if (err) throw err;
+        connection.query('CALL Get_Shuffle_Options(true);', (error, results, fields) => {
+            connection.release();
+            if (error) throw error;
+            res.send(results);
+        });
+    });
+});
+
+//Returns back the collaboration youtube video links
+router.get('/shuffle/youtube/collab', (req, res) => {
+    dbpool.getConnection( (err, connection) => {
+        if (err) throw err;
+        connection.query('CALL Get_Collab_Links(true);', (error, results, fields) => {
+            connection.release();
+            if (error) throw error;
+            res.send(results);
+        });
+    });
+});
+
+
 //Returns back the shuffle progress for the request shuffleID
 router.post('/shuffle/details', (req, res) => {
     dbpool.getConnection( (err, connection) => {

@@ -12,6 +12,7 @@ class Shuffles extends Component {
       activeShuffle: false,
       loading: false,
       modalOpen: false,
+      shufflePoster: "#",
     }
     this.joinEvent = this.joinEvent.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
