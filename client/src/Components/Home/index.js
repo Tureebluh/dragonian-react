@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { NavLink as RouterLink } from "react-router-dom";
-import { Grid, MobileStepper, Button, Container, Divider, Zoom, Tooltip, Link } from '@material-ui/core';
+import { Grid, MobileStepper, Button, Container, Divider, Zoom, Tooltip, Link, Modal, Slide, Typography } from '@material-ui/core';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import "./Home.css";
 import ShuffleVoting from '../ShuffleVoting';
@@ -12,9 +12,14 @@ class Home extends Component {
     this.state = {
       activeCollab: 0,
       youtubeLinks: [],
+      modalOpen: false,
+      loading: false,
     }
     this.handleNextCollab = this.handleNextCollab.bind(this);
     this.handlePrevCollab = this.handlePrevCollab.bind(this);
+    this.handleModalOpen = this.handleModalOpen.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
+    this.handleLoading = this.handleLoading.bind(this);
   }
 
   componentDidMount(){
@@ -55,13 +60,29 @@ class Home extends Component {
       activeCollab: this.state.activeCollab - 1
     });
   }
+  handleModalOpen(){
+    this.setState({
+      modalOpen: true,
+    });
+  }
+  handleModalClose(){
+    this.setState({
+      modalOpen: false
+    });
+  }
+  handleLoading(trueOrFalse){
+    this.setState({
+      loading: trueOrFalse,
+    });
+  }
 
   render () {
     const AdapterLink = React.forwardRef((props, ref) => <RouterLink innerRef={ref} {...props} />);
 
     return (
       <>
-        {(this.props.user.Voted) ? null : <ShuffleVoting />}
+        TODO Add Verification Button Events on profile page
+        
         <Container className="HomeContainer">
           <Grid container spacing={0} className="HomePanel Jumbotron">
             <Grid item xs={12}>
@@ -77,6 +98,15 @@ class Home extends Component {
           </Grid>
           <Divider/>
           <Grid container spacing={0} className="HomePanel Twitch">
+            {(!this.props.user.voted && this.props.user.loggedIn) ?
+              <Grid item xs={12} className="VotingActiveGrid">
+                <Typography className="VotingActiveText">Voting for the next <br/> Dragonian Shuffle is now live!</Typography>
+                <Button className="VotingActiveButton" color="primary" variant="contained" onClick={this.handleModalOpen}>Vote Now</Button>
+                <Divider/>
+              </Grid>
+            : 
+              null
+            }
             <Grid className="TextPanel" item xs={12} lg={6}>
               <h3>Chat live with<br/> Planet Coaster&reg; <br/> Featured Creator <br/> R3dDragon</h3>
               <a href="https://www.twitch.tv/r3ddragons" target="_BLANK" rel="noopener noreferrer">
@@ -135,6 +165,19 @@ class Home extends Component {
               />
             </Grid>
           </Grid>
+
+          <Modal 
+            open={this.state.modalOpen}
+            onClose={this.handleModalClose}
+            aria-labelledby="modal-title"
+            aria-describedby="modal-description"
+            aria-modal="true"
+            id="VotingModal"
+          >
+            <Slide direction="right" in={this.state.modalOpen} mountOnEnter unmountOnExit>
+              <ShuffleVoting close={this.handleModalClose}/>
+            </Slide>
+          </Modal>
         </Container>
       </>
     );

@@ -1,0 +1,31 @@
+#ShuffleVoting
+{
+    margin: 0 auto;
+    padding: 5%;
+}
+#ShuffleVoting .SubmitVotingButton
+{
+    margin: 10% auto 0 auto;
+}
+#ShuffleVoting .ErrorMessage
+{
+    color: red;
+    text-align: center;
+    padding: 5%;
+}
+#ShuffleVoting .VotingClose
+{
+    font-size: 1.5rem;
+    text-align: right;
+    margin: 0 auto 1em auto;
+}
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 700px) {
+    #ShuffleVoting
+    {
+        max-width: 25%;
+        padding: 3%;
+    }
+    
+}

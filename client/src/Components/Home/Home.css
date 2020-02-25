@@ -39,6 +39,22 @@
     box-shadow: 1px 1px 3px rgb(56, 56, 56);
 }
 
+#VotingModal 
+{
+    padding: 5%;
+    overflow-y: scroll;
+}
+.HomeContainer .HomePanel.Twitch .VotingActiveText
+{
+    font-size: 1.3rem;
+    color: white;
+}
+
+.HomeContainer .HomePanel.Twitch .VotingActiveButton
+{
+    margin: 10%;
+}
+
 .videoContainer {
     position: relative;
     padding-bottom: 56.25%;
@@ -66,5 +82,14 @@
     }
     .HomeContainer .Title {
         font-size: 5rem;
+    }
+    .HomeContainer .HomePanel.Twitch .VotingActiveText
+    {
+        font-size: 2rem;
+    }
+    .HomeContainer .HomePanel.Twitch .VotingActiveButton
+    {
+        font-size: 1.5rem;
+        margin: 5%;
     }
 }

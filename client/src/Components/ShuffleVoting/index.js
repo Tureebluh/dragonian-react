@@ -1,104 +1,173 @@
 import React, {Component} from 'react';
-import { GridList, GridListTile, Card, Backdrop, CircularProgress, IconButton, ListSubheader, GridListTileBar, Icon } from '@material-ui/core';
-import { FaVoteYea } from 'react-icons/fa';
-import { GiSpikedDragonHead } from 'react-icons/gi';
+import { Card, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Grid, Button, Typography, IconButton } from '@material-ui/core';
+import { MdClose } from 'react-icons/md';
 import "./ShuffleVoting.css";
 
 class ShuffleVoting extends Component {
-  constructor(){
-    super();
-    this.state = {
-      loading: false,
-      theme: [],
-      style: [],
+    constructor(){
+        super();
+        this.state = {
+            theme: [],
+            style: [],
+            chosenTheme: "",
+            chosenStyle: "",
+            errorMessage: "Choose one Style and Theme and click 'Send Vote'",
+            controller: new AbortController(),
+            submitDisabled: true,
+        }
+        this.handleStyleChange = this.handleStyleChange.bind(this);
+        this.handleThemeChange = this.handleThemeChange.bind(this);
+        this.handleVotingSubmit = this.handleVotingSubmit.bind(this);
     }
-  }
 
-  componentDidMount(){
-    this.setState({
-        loading: true,
-    });
-
-    fetch('/api/shuffle/voting/options')
-    .then(res => {
-        return res.json();
-    }).then(resJson => {
-        if(typeof resJson[0][0] !== 'undefined'){
-            let tempTheme = [];
-            let tempStyle = [];
-            resJson[0].forEach(option => 
+    componentDidMount(){
+        fetch('/api/shuffle/voting/options', {
+            signal: this.state.controller.signal
+        })
+        .then(res => {
+            return res.json();
+        }).then(resJson => {
+            if(typeof resJson[0][0] !== 'undefined')
             {
-                if(option.IsTheme === '1')
+                let tempTheme = [];
+                let tempStyle = [];
+
+                resJson[0].forEach(option => 
                 {
-                    tempTheme.push(option);
-                }
-                else 
-                {
-                    tempStyle.push(option);
-                }
-            });
+                    if(option.IsTheme === '1')
+                    {
+                        tempTheme.push(option);
+                    }
+                    else 
+                    {
+                        tempStyle.push(option);
+                    }
+                });
+                this.setState({
+                    theme: tempTheme,
+                    style: tempStyle,
+                });
+            }
+        }).catch(error => console.error(error));
+    }
+
+    componentWillUnmount(){
+        this.state.controller.abort();
+    }
+
+    handleStyleChange(event){
+        if(this.state.chosenTheme)
+        {
             this.setState({
-                theme: tempTheme,
-                style: tempStyle,
-                loading: false,
+                chosenStyle: event.target.value,
+                errorMessage: "",
+                submitDisabled: false,
             });
         }
-    }).catch(error => console.error(error));
-  }
+        else
+        {
+            this.setState({
+                chosenStyle: event.target.value,
+                errorMessage: "Must choose Theme and Style",
+                submitDisabled: true,
+            });
+        }
+        
+    }
+  
+    handleThemeChange(event){
+        if(this.state.chosenStyle)
+        {
+            this.setState({
+                chosenTheme: event.target.value,
+                chosenThemeID: event.target.key,
+                errorMessage: "",
+                submitDisabled: false,
+            });
+        }
+        else
+        {
+            this.setState({
+                chosenTheme: event.target.value,
+                errorMessage: "Must choose Theme and Style",
+                submitDisabled: true,
+            });
+        }
+    }
 
-  componentWillUnmount(){
-    this.state.controller.abort();
-  }
+    handleVotingSubmit()
+    {
+        if(this.state.chosenStyle && this.state.chosenTheme)
+        {
+            let themeID;
+            let styleID;
+            this.state.style.map(style => {
+                if(style.Name === this.state.chosenStyle)
+                {
+                    styleID = style.ID;
+                }
+            });
+            this.state.theme.map(theme => {
+                if(theme.Name === this.state.chosenTheme)
+                {
+                    themeID = theme.ID;
+                }
+            });
+            
+            
+        }
+        else
+        {
+            this.setState({
+                errorMessage: "Must choose Theme and Style",
+                submitDisabled: true,
+            });
+        }
+    }
 
-  render () {
-    return (
-      <>
-        <Card id="ShuffleVoting" tabIndex={-1}>
-            <GridList cellHeight={180} className="ShuffleVotingThemes">
-                <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-                    <ListSubheader component="div">Themes</ListSubheader>
-                </GridListTile>
-                {this.state.theme.map(theme => 
-                (
-                    <GridListTile key={theme.ID}>
-                        {theme.Icon}
-                        <GridListTileBar
-                            title={theme.Name}
-                            actionIcon={
-                                <IconButton aria-label={`info about {theme.Name}`} className="ThemeButton">
-                                    <FaVoteYea />
-                                </IconButton>
-                            }
-                        />
-                    </GridListTile>
-                ))}
-            </GridList>
-            <GridList cellHeight={180} className="ShuffleVotingThemes">
-                <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-                    <ListSubheader component="div">Styles</ListSubheader>
-                </GridListTile>
-                {this.state.style.map(style => 
-                (
-                    <GridListTile key={style.ID}>
-                        {style.Icon}
-                        <GridListTileBar
-                            title={style.Name}
-                            actionIcon={
-                                <IconButton aria-label={`info about {style.Name}`} className="StyleButton">
-                                    <FaVoteYea />
-                                </IconButton>
-                            }
-                        />
-                    </GridListTile>
-                ))}
-            </GridList>
-            <Backdrop className="Backdrop" open={this.state.loading}>
-              <CircularProgress color="inherit"/>
-            </Backdrop>
-        </Card>
-      </>
-    );
-  }
+    render () {
+        return (
+        <>
+            <Card id="ShuffleVoting" tabIndex={-1}>
+                <FormControl component="fieldset" className="ShuffleVotingFC">
+                    <Grid container>
+                        <Grid item xs={12} className="VotingClose"><IconButton onClick={this.props.close}><MdClose /></IconButton></Grid>
+                        
+                        <Grid item xs={6}>
+                            <FormLabel component="legend">Styles</FormLabel>
+                            <RadioGroup aria-label="Style Choice" name="StyleChoice" value={this.state.chosenStyle} onChange={(event)=>this.handleStyleChange(event)}>
+                                {
+                                    this.state.style.map(style => (
+                                        <FormControlLabel key={style.ID} value={style.Name} control={<Radio />} label={style.Name} />
+                                    ))
+                                }
+                            </RadioGroup>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <FormLabel style={{textAlign: "right"}} component="legend">Themes</FormLabel>
+                            <RadioGroup aria-label="Theme Choice" name="ThemeChoice" value={this.state.chosenTheme} onChange={(event)=>this.handleThemeChange(event)}>
+                                {
+                                    this.state.theme.map(theme => (
+                                        <FormControlLabel key={theme.ID} value={theme.Name} control={<Radio />} label={theme.Name} labelPlacement="start" />
+                                    ))
+                                }
+                            </RadioGroup>
+                        </Grid>
+
+                        
+                        <Grid item xs={6}>
+                            <Button className="SubmitVotingButton" onClick={this.handleVotingSubmit} variant="contained" color="primary" disabled={this.state.submitDisabled}>Send Vote</Button>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <FormLabel className="ErrorMessage" component="legend">{this.state.errorMessage}</FormLabel>
+                        </Grid>
+                    </Grid>
+                </FormControl>
+            </Card>
+        </>
+        );
+    }
 }
 
 export default ShuffleVoting;
