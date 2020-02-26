@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Card, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Grid, Button, Typography, IconButton } from '@material-ui/core';
+import { Card, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Grid, Button, IconButton } from '@material-ui/core';
 import { MdClose } from 'react-icons/md';
 import "./ShuffleVoting.css";
 
@@ -11,7 +11,8 @@ class ShuffleVoting extends Component {
             style: [],
             chosenTheme: "",
             chosenStyle: "",
-            errorMessage: "Choose one Style and Theme and click 'Send Vote'",
+            errorMessage: "",
+            successMessage: "Choose one Style and Theme and click 'Send Vote'",
             controller: new AbortController(),
             submitDisabled: true,
         }
@@ -61,6 +62,7 @@ class ShuffleVoting extends Component {
             this.setState({
                 chosenStyle: event.target.value,
                 errorMessage: "",
+                successMessage: "",
                 submitDisabled: false,
             });
         }
@@ -68,7 +70,8 @@ class ShuffleVoting extends Component {
         {
             this.setState({
                 chosenStyle: event.target.value,
-                errorMessage: "Must choose Theme and Style",
+                errorMessage: "Please choose a Theme",
+                successMessage: "",
                 submitDisabled: true,
             });
         }
@@ -82,6 +85,7 @@ class ShuffleVoting extends Component {
                 chosenTheme: event.target.value,
                 chosenThemeID: event.target.key,
                 errorMessage: "",
+                successMessage: "",
                 submitDisabled: false,
             });
         }
@@ -89,7 +93,8 @@ class ShuffleVoting extends Component {
         {
             this.setState({
                 chosenTheme: event.target.value,
-                errorMessage: "Must choose Theme and Style",
+                errorMessage: "Please choose a Style",
+                successMessage: "",
                 submitDisabled: true,
             });
         }
@@ -101,20 +106,52 @@ class ShuffleVoting extends Component {
         {
             let themeID;
             let styleID;
-            this.state.style.map(style => {
+            this.state.style.forEach(style => {
                 if(style.Name === this.state.chosenStyle)
                 {
                     styleID = style.ID;
                 }
             });
-            this.state.theme.map(theme => {
+            this.state.theme.forEach(theme => {
                 if(theme.Name === this.state.chosenTheme)
                 {
                     themeID = theme.ID;
                 }
             });
             
-            
+            let payload = {
+                shuffleThemeID: themeID,
+                shuffleStyleID: styleID,
+            };
+        
+            fetch('/api/shuffle/voting/submit', {
+                credentials: 'include',
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload),
+                signal: this.state.controller.signal
+            }).then(res => {
+                return res.json();
+            }).then(resJson => {
+                if(resJson.Error)
+                {
+                    this.setState({
+                        errorMessage: resJson.Error
+                    });
+                }
+                else
+                {
+                    if(resJson.Success)
+                    {
+                        this.setState({
+                            successMessage: resJson.Success
+                        });
+                    }
+                }
+            }).catch(error => console.error(error));
         }
         else
         {
@@ -161,6 +198,9 @@ class ShuffleVoting extends Component {
                         </Grid>
                         <Grid item xs={6}>
                             <FormLabel className="ErrorMessage" component="legend">{this.state.errorMessage}</FormLabel>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormLabel className="SuccessMessage" component="legend">{this.state.successMessage}</FormLabel>
                         </Grid>
                     </Grid>
                 </FormControl>

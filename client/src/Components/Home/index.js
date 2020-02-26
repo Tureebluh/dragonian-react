@@ -81,7 +81,13 @@ class Home extends Component {
 
     return (
       <>
-        TODO Add Verification Button Events on profile page
+        TODO
+        <br/>
+        Add Verification Button Events on profile page
+        <br/>
+        Add Submission Event To I'm In Button on Shuffle Page
+        <br/>
+        Finishing voting submission and validation
         
         <Container className="HomeContainer">
           <Grid container spacing={0} className="HomePanel Jumbotron">

@@ -11,6 +11,12 @@
 {
     color: red;
     text-align: center;
+    padding: 7%;
+}
+#ShuffleVoting .SuccessMessage
+{
+    color: #4bb543;
+    text-align: center;
     padding: 5%;
 }
 #ShuffleVoting .VotingClose

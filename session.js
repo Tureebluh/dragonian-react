@@ -2,7 +2,7 @@ import session from 'express-session';
 import dbpool from './dbpool';
 
 const MYSQLStore = require('express-mysql-session')(session);
-//86400000 = 1 days
+//86400000 = 1 day
 const sessionStore = new MYSQLStore({clearExpired: false, expiration: 86400000 * 30}, dbpool);
 
 //Run daily to delete all expired sessions from database

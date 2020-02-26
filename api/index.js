@@ -131,6 +131,31 @@ router.get('/shuffle/voting/options', (req, res) => {
     }
 });
 
+//Returns back the shuffle progress for the request shuffleID
+router.post('/shuffle/voting/submit', (req, res) => {
+    if(!req.body.shuffleStyleID || !req.body.shuffleThemeID)
+    {
+        res.send({Error: "Submission field value missing. Vote was not successfully submitted."});
+    }
+    else if(req.user.voted){
+        res.send({Error: "You have already voted."});
+    } else {
+        dbpool.getConnection( (err, connection) => {
+            if (err) throw err;
+            connection.query('CALL Insert_Voting_Submission('   + dbpool.escape(req.body.shuffleThemeID) +
+                                                        ',' + dbpool.escape(req.body.shuffleStyleID) +
+                                                        ',' + dbpool.escape(req.user.steamid) +
+                                                        ');',
+            (error, results, fields) => {
+                connection.release();
+                if (error) throw error;
+                req.user.voted  = true;
+                res.send({Success: "Vote successfully submitted. Thank you for participating!"});
+            });
+        });
+    }
+});
+
 //Returns back the collaboration youtube video links
 router.get('/shuffle/youtube/collab', (req, res) => {
     dbpool.getConnection( (err, connection) => {

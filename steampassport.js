@@ -17,20 +17,9 @@ const SteamStrategy = new OpenIDStrategy(
             })
             .then(resJson => {
                 dbpool.getConnection( (err, connection) => {
-                    let verified;
-                    let voted;
-
-                    connection.query('CALL Upsert_User(\'' + resJson.response.players[0].steamid + '\',\'' + resJson.response.players[0].personaname + '\',\'' + resJson.response.players[0].avatarfull + '\',\'' + resJson.response.players[0].profileurl + '\');', (error, results, fields) => {
-                        if (error) throw error;
-                    });
-
-                    connection.query('CALL Get_User_Verified(\'' + resJson.response.players[0].steamid + '\');', (error, results, fields) => {
-                        verified = (results[0][0].verified === 1) ? true : false;
-                        voted = (results[0][0].voted === 1) ? true : false;
-                        if (error) throw error;
-                    });
-
+                    
                     connection.query('CALL Get_UserRoles(' + resJson.response.players[0].steamid + ');', (error, results, fields) => {
+                        if (error) throw error;
                         let tempArray = results[0];
                         let rolesArray = [];
                         tempArray.forEach((obj)=>{
@@ -43,12 +32,18 @@ const SteamStrategy = new OpenIDStrategy(
                                 'personaname': resJson.response.players[0].personaname,
                                 'avatarfull': resJson.response.players[0].avatarfull,
                                 'profileurl': resJson.response.players[0].profileurl,
-                                'verified': verified,
-                                'voted': voted,
+                                'verified': false,
+                                'voted': false,
                             };
-                            connection.release();
-                            if (error) throw error;
-                            return done(null, userJson);
+                            connection.query('CALL Upsert_User(\'' + resJson.response.players[0].steamid + '\',\'' + resJson.response.players[0].personaname +
+                            '\',\'' + resJson.response.players[0].avatarfull + '\',\'' + resJson.response.players[0].profileurl + '\');', (errorTwo, resultsTwo, fields) => {
+                                if (errorTwo) throw errorTwo;
+                                
+                                userJson.verified = (resultsTwo[0][0].verified === 1) ? true : false;
+                                userJson.voted = (resultsTwo[0][0].voted === '1') ? true : false;
+                                connection.release();
+                                return done(null, userJson);
+                            });
                         } else {
                             connection.release();
                             return done(null, false);
