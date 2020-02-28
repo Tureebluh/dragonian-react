@@ -42,7 +42,6 @@ class App extends Component {
           username: resJson.User.personaname,
           steamid: resJson.User.steamid,
           verified: resJson.User.verified,
-          voted: resJson.User.voted,
           roles: resJson.User.roles,
         });
       } else {

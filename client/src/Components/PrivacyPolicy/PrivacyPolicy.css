@@ -1,12 +1,6 @@
-.Container {
+#PrivacyContainer {
     font-size: 1.2em;
     font-weight: 400;
     text-align: center;
     padding: 5%;
-}
-.Container h1, .Container h2 {
-    background-color: whitesmoke;
-    display: inline-block;
-    padding: 3%;
-    border-radius: 2em;
 }

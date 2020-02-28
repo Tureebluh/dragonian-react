@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Card, FormControl, FormLabel, RadioGroup, Radio, FormControlLabel, Grid, Button, IconButton } from '@material-ui/core';
 import { MdClose } from 'react-icons/md';
+import { FaVoteYea } from 'react-icons/fa';
 import "./ShuffleVoting.css";
 
 class ShuffleVoting extends Component {
@@ -169,7 +170,7 @@ class ShuffleVoting extends Component {
                 <FormControl component="fieldset" className="ShuffleVotingFC">
                     <Grid container>
                         <Grid item xs={12} className="VotingClose"><IconButton onClick={this.props.close}><MdClose /></IconButton></Grid>
-                        
+                        <Grid item xs={12} className="VotingIcon"><FaVoteYea /></Grid>
                         <Grid item xs={6}>
                             <FormLabel component="legend">Styles</FormLabel>
                             <RadioGroup aria-label="Style Choice" name="StyleChoice" value={this.state.chosenStyle} onChange={(event)=>this.handleStyleChange(event)}>

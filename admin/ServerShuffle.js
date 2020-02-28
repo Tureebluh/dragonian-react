@@ -23,7 +23,7 @@ class ServerShuffle {
                         if(results[0][0].Shuffled === 1){
                             reject('Has already been shuffled');
                         } else {
-                            resolve(new ServerShuffle(results[0][0].Shuffle_ID));
+                            resolve(new ServerShuffle(results[0][0].ShuffleID));
                         }
                     } else {
                         reject('No active shuffle');

@@ -13,6 +13,8 @@ class Shuffles extends Component {
       loading: false,
       modalOpen: false,
       shufflePoster: "#",
+      errorMessage: "",
+      successMessage: "",
     }
     this.joinEvent = this.joinEvent.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
@@ -34,6 +36,7 @@ class Shuffles extends Component {
           shufflePoster: temp.Poster,
           shuffleTheme: temp.Theme,
           shuffleStyle: temp.Style,
+          shuffleID: temp.ShuffleID,
           loading: false,
         });
       } else {
@@ -45,13 +48,47 @@ class Shuffles extends Component {
   }
 
   joinEvent(e){
-    if(this.props.user.loggedIn)
+    if(this.props.user.loggedIn && this.state.shuffleID)
     {
-      alert("" + this.props.user.username);
+      this.setState({
+        loading: true,
+      });
+      let payload = {
+        ShuffleID: this.state.shuffleID,
+      };
+  
+      fetch('/api//shuffle/registration/submit', {
+          credentials: 'include',
+          method: 'POST',
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+      }).then(res => {
+          return res.json();
+      }).then(resJson => {
+        if(resJson.Error)
+        {
+          this.setState({
+            loading: false,
+            errorMessage: resJson.Error,
+            successMessage: "",
+          });
+        }
+        else
+        {
+          this.setState({
+            loading: false,
+            successMessage: resJson.Success,
+            errorMessage: "",
+          });
+        }
+      }).catch(error => console.error(error));
     }
     else
     {
-      alert("Not logged in");
+      alert("You must be logged in to join the event.");
     }
   }
 
@@ -96,6 +133,8 @@ class Shuffles extends Component {
                         <br/>
                         Style: {this.state.shuffleStyle}
                       </Typography>
+                      <Typography className="ErrorMessage">{this.state.errorMessage}</Typography>
+                      <Typography className="SuccessMessage">{this.state.successMessage}</Typography>
                     </CardContent>
                   </CardActionArea>
                   <CardActions>

@@ -7,8 +7,8 @@ const SteamStrategy = new OpenIDStrategy(
     {
         providerURL: 'https://steamcommunity.com/openid',
         stateless: true,
-        returnURL: (config.nodeEnv === 'development') ? 'http://localhost:5000/auth/login/return' : 'https://www.dragonian.xyz/auth/login/return',
-        realm: (config.nodeEnv === 'development') ? 'http://localhost:5000' : 'https://www.dragonian.xyz'
+        returnURL: (config.nodeEnv === 'development') ? 'http://192.168.86.39:5000/auth/login/return' : 'https://www.dragonian.xyz/auth/login/return',
+        realm: (config.nodeEnv === 'development') ? 'http://192.168.86.39:5000' : 'https://www.dragonian.xyz'
     },
         function(identifier, done){
             fetch('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + process.env.STEAM_API_KEY + '&steamids=' + identifier.match(/\d+$/)[0])
@@ -38,10 +38,8 @@ const SteamStrategy = new OpenIDStrategy(
                             connection.query('CALL Upsert_User(\'' + resJson.response.players[0].steamid + '\',\'' + resJson.response.players[0].personaname +
                             '\',\'' + resJson.response.players[0].avatarfull + '\',\'' + resJson.response.players[0].profileurl + '\');', (errorTwo, resultsTwo, fields) => {
                                 if (errorTwo) throw errorTwo;
-                                
-                                userJson.verified = (resultsTwo[0][0].verified === 1) ? true : false;
-                                userJson.voted = (resultsTwo[0][0].voted === '1') ? true : false;
                                 connection.release();
+                                userJson.verified = (resultsTwo[0][0].verified === 1) ? true : false;
                                 return done(null, userJson);
                             });
                         } else {

@@ -186,7 +186,7 @@ router.get('/shuffleplayers', (req, res) => {
         serverShuffle.getActiveShuffle()
         .then((shuffle)=>{
             serverShuffle = shuffle;
-            console.log('\nActive shuffle found: ID#' + serverShuffle['Shuffle_ID']);
+            console.log('\nActive shuffle found: ID#' + serverShuffle['ShuffleID']);
             let msg = "";
             let err = "";
             for(let i = 2; i <= 4; i++)

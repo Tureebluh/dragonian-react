@@ -84,6 +84,11 @@ class Profile extends Component {
     }).catch(error => console.error(error));
   }
 
+  handleVerification()
+  {
+    
+  }
+
   handleShufflePopover(shuffleID){
     if(typeof shuffleID !== 'undefined'){
       this.setState({
@@ -118,7 +123,7 @@ class Profile extends Component {
                     <h6>Member since: {this.state.CreatedDate}</h6>
                     <h6>Last Login: {this.state.lastLogin}</h6>
                     {(this.state.verified ? <Button variant="contained" color="primary">Verified</Button> :
-                                            <Button variant="contained" color="secondary">Not Verified</Button>)}
+                                            <Button onClick={this.handleVerification} variant="contained" color="secondary">Not Verified</Button>)}
                 </Grid>
                 <Grid item xs={12} lg={8} className="ShufflePanel">
                     <GridList cellHeight={200} cols={6} spacing={20} className="GridList">

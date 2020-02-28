@@ -16,6 +16,16 @@
     margin: 10% auto;
     text-align: center;
 }
+.ShuffleContainer .GridContainer .GridItem.Details .ActiveShuffle .ErrorMessage
+{
+    margin: 10% auto;
+    color: red;
+}
+.ShuffleContainer .GridContainer .GridItem.Details .ActiveShuffle .SuccessMessage
+{
+    color: #4bb543;
+}
+
 .ShuffleContainer .GridContainer .GridItem.Details .CardMedia
 {
     height: auto;

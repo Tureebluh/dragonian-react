@@ -7,6 +7,23 @@ let ShuffleVotingOptions = {};
 
 /*********************************************************************************************************************************
 *
+*                                                        CONTENT-MANAGEMENT
+*
+**********************************************************************************************************************************/
+//Returns back the collaboration youtube video links
+router.get('/youtube/collab', (req, res) => {
+    dbpool.getConnection( (err, connection) => {
+        if (err) throw err;
+        connection.query('CALL Get_Collab_Links(true);', (error, results, fields) => {
+            connection.release();
+            if (error) throw error;
+            res.send(results);
+        });
+    });
+});
+
+/*********************************************************************************************************************************
+*
 *                                                           USER-PROFILE
 *
 **********************************************************************************************************************************/
@@ -110,6 +127,41 @@ router.get('/shuffle/registration/active', (req, res) => {
     });
 });
 
+
+//Returns back the shuffle options and caches for one hour
+router.get('/shuffle/voting/verify', (req, res) => {
+    if(req.isAuthenticated()){
+        dbpool.getConnection( (err, connection) => {
+            if (err) throw err;
+            connection.query('CALL Get_Active_Voting();', (error, results, fields) => {
+                if (error) throw error;
+                
+                if(results[0][0].Active === '1')
+                {
+                    connection.query('CALL Verify_Shuffle_Voting(' + dbpool.escape(req.user.steamid) + ');',
+                    (errorTwo, resultsTwo, fields) => {
+                        connection.release();
+                        if (errorTwo) throw error;
+                        if(resultsTwo[0][0].Voted === '1')
+                        {
+                            res.send({Voted: true, Active: true});
+                        }
+                        else
+                        {
+                            res.send({Voted: false, Active: true});
+                        }
+                    });
+                }
+                else
+                {
+                    res.send({Active: false})
+                }
+            });
+            
+        });
+    }
+});
+
 //Returns back the shuffle options and caches for one hour
 router.get('/shuffle/voting/options', (req, res) => {
     if(ShuffleVotingOptions.Results && (ShuffleVotingOptions.Modified + 3600000) > Date.now())
@@ -137,9 +189,20 @@ router.post('/shuffle/voting/submit', (req, res) => {
     {
         res.send({Error: "Submission field value missing. Vote was not successfully submitted."});
     }
-    else if(req.user.voted){
+    else if(req.user.voted)
+    {
         res.send({Error: "You have already voted."});
-    } else {
+    }
+    else if(!req.isAuthenticated())
+    {
+        res.send({Error: "You're not logged in."});
+    }
+    else if(req.user.roles.includes('Shuffle Banned'))
+    {
+        res.send({Error: "You do not have access to Shuffle Events."});
+    }
+    else
+    {
         dbpool.getConnection( (err, connection) => {
             if (err) throw err;
             connection.query('CALL Insert_Voting_Submission('   + dbpool.escape(req.body.shuffleThemeID) +
@@ -156,18 +219,42 @@ router.post('/shuffle/voting/submit', (req, res) => {
     }
 });
 
-//Returns back the collaboration youtube video links
-router.get('/shuffle/youtube/collab', (req, res) => {
-    dbpool.getConnection( (err, connection) => {
-        if (err) throw err;
-        connection.query('CALL Get_Collab_Links(true);', (error, results, fields) => {
-            connection.release();
-            if (error) throw error;
-            res.send(results);
+//Returns back all the shuffle_ID's and Name's of all the shuffles
+router.post('/shuffle/registration/submit', (req, res) => {
+    if(!req.isAuthenticated())
+    {
+        res.send({Error: "You're not logged in."});
+    } 
+    else if(req.user.roles.includes('Shuffle Banned'))
+    {
+        res.send({Error: "You do not have access to Shuffle Events."});
+    }
+    else if(!req.body.ShuffleID)
+    {
+        res.send({Error: "Error: No ShuffleID Provided. Please contact the administrator if the problem continues."});
+    }
+    else
+    {
+        dbpool.getConnection( (err, connection) => {
+            if (err) throw err;
+            connection.query('CALL Insert_Shuffle_Submission(' + 
+                                        dbpool.escape(req.body.ShuffleID) + ',' + 
+                                        dbpool.escape(req.user.steamid) +
+                                         ');', (error, results, fields) => {
+                connection.release();
+                if (error) throw error;
+                if(results.affectedRows)
+                {
+                    res.send({Success: "Your shuffle submission was successful. Thank you for your participation!"});
+                }
+                else
+                {
+                    res.send({Success: "You're already participating in this shuffle."});
+                }
+            });
         });
-    });
+    }
 });
-
 
 //Returns back the shuffle progress for the request shuffleID
 router.post('/shuffle/details', (req, res) => {

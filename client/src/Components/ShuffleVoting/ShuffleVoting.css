@@ -25,6 +25,12 @@
     text-align: right;
     margin: 0 auto 1em auto;
 }
+#ShuffleVoting .VotingIcon
+{
+    font-size: 4rem;
+    text-align: center;
+    margin: 0 auto 0.5em auto;
+}
 
 /* Small Devices, Tablets */
 @media only screen and (min-width : 700px) {

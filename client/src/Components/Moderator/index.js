@@ -33,7 +33,7 @@ class Moderator extends Component {
       }
       else
       {
-        alert(resJson.result);
+        console.log(resJson.result);
       }
     }).catch(error => {
       alert(error.result);

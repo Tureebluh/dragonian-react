@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { NavLink as RouterLink } from "react-router-dom";
-import { Grid, MobileStepper, Button, Container, Divider, Zoom, Tooltip, Link, Modal, Slide, Typography } from '@material-ui/core';
+import { Grid, MobileStepper, Button, Container, Divider, Zoom, Tooltip, Link, Modal, Slide, Typography, Backdrop, CircularProgress } from '@material-ui/core';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import "./Home.css";
 import ShuffleVoting from '../ShuffleVoting';
@@ -14,19 +14,19 @@ class Home extends Component {
       youtubeLinks: [],
       modalOpen: false,
       loading: false,
+      voted: false,
     }
     this.handleNextCollab = this.handleNextCollab.bind(this);
     this.handlePrevCollab = this.handlePrevCollab.bind(this);
     this.handleModalOpen = this.handleModalOpen.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
-    this.handleLoading = this.handleLoading.bind(this);
   }
 
   componentDidMount(){
     this.setState({
       loading: true
     });
-    fetch('/api/shuffle/youtube/collab')
+    fetch('/api/youtube/collab')
     .then(res => {
       return res.json();
     }).then(resJson => {
@@ -40,13 +40,29 @@ class Home extends Component {
         this.setState({
           activeShuffle: true,
           youtubeLinks: temp,
-          loading: false,
         });
-      } else {
+      } 
+    }).catch(error => console.error(error));
+
+    fetch('/api/shuffle/voting/verify')
+    .then(res => {
+      return res.json();
+    }).then(resJson => {
+      if(resJson.Active)
+      {
         this.setState({
           loading: false,
+          voted: resJson.Voted,
         });
       }
+      else
+      {
+        this.setState({
+          loading: false,
+          voted: true,
+        });
+      }
+      
     }).catch(error => console.error(error));
   }
 
@@ -70,11 +86,6 @@ class Home extends Component {
       modalOpen: false
     });
   }
-  handleLoading(trueOrFalse){
-    this.setState({
-      loading: trueOrFalse,
-    });
-  }
 
   render () {
     const AdapterLink = React.forwardRef((props, ref) => <RouterLink innerRef={ref} {...props} />);
@@ -84,10 +95,6 @@ class Home extends Component {
         TODO
         <br/>
         Add Verification Button Events on profile page
-        <br/>
-        Add Submission Event To I'm In Button on Shuffle Page
-        <br/>
-        Finishing voting submission and validation
         
         <Container className="HomeContainer">
           <Grid container spacing={0} className="HomePanel Jumbotron">
@@ -104,7 +111,7 @@ class Home extends Component {
           </Grid>
           <Divider/>
           <Grid container spacing={0} className="HomePanel Twitch">
-            {(!this.props.user.voted && this.props.user.loggedIn) ?
+            {(!this.state.voted && this.props.user.loggedIn) ?
               <Grid item xs={12} className="VotingActiveGrid">
                 <Typography className="VotingActiveText">Voting for the next <br/> Dragonian Shuffle is now live!</Typography>
                 <Button className="VotingActiveButton" color="primary" variant="contained" onClick={this.handleModalOpen}>Vote Now</Button>
@@ -172,6 +179,10 @@ class Home extends Component {
             </Grid>
           </Grid>
 
+          <Backdrop className="Backdrop" open={this.state.loading}>
+            <CircularProgress color="inherit"/>
+          </Backdrop>
+
           <Modal 
             open={this.state.modalOpen}
             onClose={this.handleModalClose}
@@ -184,6 +195,8 @@ class Home extends Component {
               <ShuffleVoting close={this.handleModalClose}/>
             </Slide>
           </Modal>
+
+          
         </Container>
       </>
     );

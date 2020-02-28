@@ -6,6 +6,9 @@
     font-size: 1.2rem;
     line-height: 3em;
 }
+.HomeContainer .Backdrop {
+    z-index: 1000;
+}
 .HomeContainer .Title {
     font-size: 3rem;
 }
