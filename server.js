@@ -25,6 +25,35 @@ const sess = {
     saveUninitialized: false
 };
 
+//Middleware to easily get json data from endpoints
+server.use(bodyParser.urlencoded({limit: '100kb', extended: true}));
+server.use(bodyParser.json());
+
+//Middleware to use express sessions and load session store
+server.use(session(sess));
+
+//Middleware to use passport for authentication
+//NOTE: passport.session() must be called AFTER session has been created and passed to express
+server.use(passport.initialize());
+server.use(passport.session());
+
+//Sets the req.user object to a global instance that EJS has access to
+server.use((req,res,next) => {
+    res.locals.user = req.user;
+    next();
+});
+
+//Endpoint routers for express to separate concerns
+server.use('/api', apiRouter);
+server.use('/auth', authRouter);
+server.use('/admin', adminRouter);
+
+server.use(express.static('client/build'));
+server.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
+
 //CHANGE BACK TO (301)
 //If server is running in production all request will be permanently(301) routed to https
 if(config.nodeEnv === 'production'){
@@ -50,34 +79,6 @@ if(config.nodeEnv === 'production'){
     server.set('trust proxy', 1);
     sess.cookie.secure = true;
 }
-
-//Middleware to easily get json data from endpoints
-server.use(bodyParser.urlencoded({limit: '100kb', extended: true}));
-server.use(bodyParser.json());
-
-//Middleware to use express sessions and load session store
-server.use(session(sess));
-
-//Middleware to use passport for authentication
-//NOTE: passport.session() must be called AFTER session has been created and passed to express
-server.use(passport.initialize());
-server.use(passport.session());
-
-//Sets the req.user object to a global instance that EJS has access to
-server.use((req,res,next) => {
-    res.locals.user = req.user;
-    next();
-});
-
-//Endpoint routers for express to separate concerns
-server.use('/api', apiRouter);
-server.use('/auth', authRouter);
-server.use('/admin', adminRouter);
-
-server.use(express.static(path.join(__dirname,'client/build')));
-server.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
 
 //Set express to listen for request on the port specified in config.port
 server.listen(config.port, () => {

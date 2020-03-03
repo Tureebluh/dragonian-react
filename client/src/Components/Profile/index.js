@@ -26,6 +26,7 @@ class Profile extends Component {
     }
     this.handleShufflePopover = this.handleShufflePopover.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
+    this.handleVerification = this.handleVerification.bind(this);
   }
 
   componentDidMount(){
@@ -86,7 +87,27 @@ class Profile extends Component {
 
   handleVerification()
   {
-    
+    this.setState({
+      loading: true,
+    });
+    fetch('/api/profile/user/verify', {
+      credentials: 'include',
+      method: 'GET'
+    }).then(res => {
+        return res.json();
+    }).then(resJson => {
+      if(resJson.result === true){
+        this.setState({
+          loading: false,
+          verified: true,
+        });
+      } else {
+        this.setState({
+          loading: false,
+          verified: false,
+        });
+      }
+    }).catch(error => console.error(error));
   }
 
   handleShufflePopover(shuffleID){

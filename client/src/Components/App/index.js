@@ -51,7 +51,6 @@ class App extends Component {
           username: 'Guest',
           steamid: '0',
           verified: false,
-          voted: false,
           roles: [],
         });
       }
@@ -88,7 +87,6 @@ class App extends Component {
       verified: this.state.verified,
       steamprofile: this.state.steamprofile,
       roles: this.state.roles,
-      voted: this.state.voted,
     };
     return (
       <Router>

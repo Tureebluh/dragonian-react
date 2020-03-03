@@ -74,21 +74,19 @@ router.get('/profile/user/verify', (req, res) => {
                                                                         ');',
                             (error, results, fields) => {
                                 req.user.verified = true;
-                                res.send({result: 1});
+                                res.send({result: true});
                                 connection.release();
                                 if (error) throw error;
                         });
                     });
                 } else {
-                    res.send({result: 0});
+                    res.send({result: false});
                 }
             })
             .catch(err => console.error(err));
         } else {
-            res.send({result: 1});
+            res.send({result: true});
         }
-    } else {
-        res.redirect('/auth/verification/failed');
     }
 });
 
@@ -154,11 +152,15 @@ router.get('/shuffle/voting/verify', (req, res) => {
                 }
                 else
                 {
-                    res.send({Active: false})
+                    res.send({Active: false});
                 }
             });
             
         });
+    }
+    else
+    {
+       res.send({Active: false});
     }
 });
 
