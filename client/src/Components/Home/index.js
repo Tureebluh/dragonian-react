@@ -95,7 +95,7 @@ class Home extends Component {
         <Container className="HomeContainer">
           <Grid container spacing={0} className="HomePanel Jumbotron">
             <Grid item xs={12}>
-              <img alt="Dragons Lair Banner" className="Banner" src="/img/Title_Banner.svg"/>
+              <img alt="Dragons Lair Banner" className="Banner" src="/img/title_banner.svg"/>
             </Grid>
             <Grid item xs={5}>
               <img alt="Dragons Lair Banner" className="Banner" src="/img/tureebluh.svg"/>
