@@ -21,7 +21,7 @@ class About extends Component {
         <Container className="AboutContainer">
           <Grid container spacing={0} className="AboutPanel">
               <Grid item xs={12}>
-                <img alt="Dragons Lair Banner" className="Banner" src="/img/Title_Banner.svg"/>
+                <img alt="Dragons Lair Banner" className="Banner" src="/img/title_banner.svg"/>
               </Grid>
               <Grid item xs={5}>
                 <img alt="Dragons Lair Banner" className="Banner" src="/img/tureebluh.svg"/>
