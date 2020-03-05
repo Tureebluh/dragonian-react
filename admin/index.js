@@ -121,19 +121,8 @@ router.post('/roles/remove/siteban', (req, res) => {
 
 //Administrators can POST to this endpoint for contest creation
 router.post('/create/shuffle', (req, res) => {
-    if(req.isAuthenticated() && (req.user.roles.includes('Administrator') || req.user.roles.includes('Shuffle Moderator'))){
+    if(req.isAuthenticated() && (req.user.roles.includes('Administrator'))){
         dbpool.getConnection( (err, connection) => {
-
-            let roundOne = new Date(req.body.shuffleRoundOne.toString());
-
-            let roundTwo = new Date(req.body.shuffleRoundTwo.toString());
-
-            let roundThree = new Date(req.body.shuffleRoundThree.toString());
-
-            let roundFour = new Date(req.body.shuffleRoundFour.toString());
-
-            let endDate = new Date(req.body.shuffleEndDate.toString());
-
             if(req.body.shuffleID > 0) {
                 connection.query('CALL Upsert_Shuffle(' + dbpool.escape(req.body.shuffleID) +
                                                             ',' + dbpool.escape(req.body.shuffleName) +
@@ -172,7 +161,7 @@ router.post('/create/shuffle', (req, res) => {
             res.redirect('/admin/shuffle' + '?result=success');
         });
     } else {
-        res.redirect('/auth/verification/failed');
+        res.send({Error: "Unauthorized access."})
     }
 });
 
@@ -185,27 +174,36 @@ router.get('/shuffleplayers', (req, res) => {
         //Check for active shuffle and save to servershuffle obj
         serverShuffle.getActiveShuffle()
         .then((shuffle)=>{
-            serverShuffle = shuffle;
-            console.log('\nActive shuffle found: ID#' + serverShuffle['ShuffleID']);
-            let msg = "";
+            console.log(shuffle);
+            console.log('\nActive shuffle found: ID#' + shuffle['Shuffle_ID']);
+            let msg = "Success";
+            let resultJson = {};
             let err = "";
-            for(let i = 2; i <= 4; i++)
-            {
-                msg = TryShuffleRound(i, serverShuffle);
-                if(msg !== "Success")
+            shuffle.getSubmissions()
+            .then(result => {
+                if(result)
                 {
-                    err = msg;
+                    for(let i = 2; i <= 4; i++)
+                    {
+                        resultJson = TryShuffleRound(i, shuffle, result);
+                        if(resultJson.Error)
+                        {
+                            err = resultJson.Error;
+                        }
+                    }
+                    if(err === "")
+                    {
+                        res.send({result: msg})
+                    }
+                    else
+                    {
+                        res.send({result: err});
+                    }
                 }
-            }
-            if(err === "")
-            {
-                res.send({result: msg})
-            }
-            else
-            {
+            })
+            .catch(err => {
                 res.send({result: err});
-            }
-            
+            });
         }).catch(err => {
             res.send({result: err});
         });
@@ -213,14 +211,15 @@ router.get('/shuffleplayers', (req, res) => {
         res.send({result: 'No Active Shuffle'});
     }
 });
-async function TryShuffleRound(round, serverShuffle)
+
+async function TryShuffleRound(round, shuffle, result)
 {
     console.log('\nAttempting shuffle of round ' + round);
-    await serverShuffle.shuffleByRound(round)
-    .then(msg => {
-        return msg;
+    await shuffle.shuffleByRound(round, result)
+    .then(success => {
+        return {Result: success};
     }).catch(err => {
-        return err;
+        return {Error: err};
     });
 }
 

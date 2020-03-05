@@ -45,12 +45,28 @@ class Moderator extends Component {
       <>
         <Container className="Moderator">
           <Grid container className="ModeratorContainer">
+
+            <Grid item xs={12} md={6} className="GridItem">
+              <Card className="Card">
+                <Typography className="Title">Start Voting</Typography>
+                <Button variant="contained" color="primary" className="Submit">Start Voting</Button>
+              </Card>
+            </Grid>
+
+            <Grid item xs={12} md={6} className="GridItem">
+              <Card className="Card">
+                <Typography className="Title">End Voting</Typography>
+                <Button variant="contained" color="primary" className="Submit">End Voting</Button>
+              </Card>
+            </Grid>
+
             <Grid item xs={12} md={6} className="GridItem">
               <Card className="Card">
                 <Typography className="Title">Shuffle Players</Typography>
                 <Button onClick={()=>{this.shufflePlayers()}} variant="contained" color="primary" className="Submit">Shuffle Players</Button>
               </Card>
             </Grid>
+            
           </Grid>
         </Container>
       </>

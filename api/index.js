@@ -126,7 +126,7 @@ router.get('/shuffle/registration/active', (req, res) => {
 });
 
 
-//Returns back the shuffle options and caches for one hour
+//Returns back the users voted status
 router.get('/shuffle/voting/verify', (req, res) => {
     if(req.isAuthenticated()){
         dbpool.getConnection( (err, connection) => {
@@ -142,10 +142,12 @@ router.get('/shuffle/voting/verify', (req, res) => {
                         if (errorTwo) throw error;
                         if(resultsTwo[0][0].Voted === '1')
                         {
+                            req.user.voted = true;
                             res.send({Voted: true, Active: true});
                         }
                         else
                         {
+                            req.user.voted = false;
                             res.send({Voted: false, Active: true});
                         }
                     });
@@ -199,6 +201,10 @@ router.post('/shuffle/voting/submit', (req, res) => {
     {
         res.send({Error: "You're not logged in."});
     }
+    else if(!req.user.verified)
+    {
+        res.send({Error: "You must verify your account on the profile page."});
+    }
     else if(req.user.roles.includes('Shuffle Banned'))
     {
         res.send({Error: "You do not have access to Shuffle Events."});
@@ -235,6 +241,10 @@ router.post('/shuffle/registration/submit', (req, res) => {
     {
         res.send({Error: "Error: No ShuffleID Provided. Please contact the administrator if the problem continues."});
     }
+    else if(!req.user.verified)
+    {
+        res.send({Error: "You must verify your account on the profile page."});
+    }
     else
     {
         dbpool.getConnection( (err, connection) => {
@@ -247,11 +257,11 @@ router.post('/shuffle/registration/submit', (req, res) => {
                 if (error) throw error;
                 if(results.affectedRows)
                 {
-                    res.send({Success: "Your shuffle submission was successful. Thank you for your participation!"});
+                    res.send({Success: "Your entry into the Shuffle was successful. Thank you for your participation!"});
                 }
                 else
                 {
-                    res.send({Success: "You're already participating in this shuffle."});
+                    res.send({Success: "You're already participating in this Shuffle."});
                 }
             });
         });

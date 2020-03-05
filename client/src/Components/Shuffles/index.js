@@ -32,6 +32,7 @@ class Shuffles extends Component {
         let temp = resJson[0][0];
         this.setState({
           activeShuffle: true,
+          hasBeenShuffled: (temp.Shuffled === 1 ? true : false),
           shuffleName: temp.Name,
           shufflePoster: temp.Poster,
           shuffleTheme: temp.Theme,
@@ -113,7 +114,7 @@ class Shuffles extends Component {
               <img alt="Shuffle Banner" className="Banner" src="/img/Shuffle_Banner.svg"/>
               <Button className="HowItWorksButton" color="primary" variant="contained" onClick={() => this.handleShufflePopover()}>Learn more</Button>
             </Grid>
-            {this.state.activeShuffle ?
+            {(this.state.activeShuffle && !this.state.hasBeenShuffled) ?
               <Grid className="GridItem Details" item xs={12} sm={6}>
                 <Card className="ActiveShuffle" tabIndex={-1}>
                   <CardActionArea>

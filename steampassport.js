@@ -33,7 +33,7 @@ const SteamStrategy = new OpenIDStrategy(
                                 'avatarfull': resJson.response.players[0].avatarfull,
                                 'profileurl': resJson.response.players[0].profileurl,
                                 'verified': false,
-                                'voted': false,
+                                'voted': true,
                             };
                             connection.query('CALL Upsert_User(\'' + resJson.response.players[0].steamid + '\',\'' + resJson.response.players[0].personaname +
                             '\',\'' + resJson.response.players[0].avatarfull + '\',\'' + resJson.response.players[0].profileurl + '\');', (errorTwo, resultsTwo, fields) => {

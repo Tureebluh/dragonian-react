@@ -44,7 +44,9 @@ class SideMenu extends Component {
                             Community Shuffles
                         </ListItem>
                     </Link>
-                    {(this.props.user.loggedIn && this.props.user.roles.includes('Moderator')) ? 
+                    {(this.props.user.loggedIn && (this.props.user.roles.includes('Moderator') ||
+                                                    this.props.user.roles.includes('Administrator'))
+                    ) ? 
                         <Link component={AdapterLink} className="Link" to="/moderator">
                             <ListItem className="ListItem" button key="Shuffles">
                                 <ListItemIcon><MdSettings/></ListItemIcon>
