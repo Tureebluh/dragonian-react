@@ -58,7 +58,7 @@ class Shuffles extends Component {
         ShuffleID: this.state.shuffleID,
       };
   
-      fetch('/api//shuffle/registration/submit', {
+      fetch('/api/shuffle/registration/submit', {
           credentials: 'include',
           method: 'POST',
           headers: {

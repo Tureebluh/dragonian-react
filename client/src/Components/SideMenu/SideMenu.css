@@ -53,3 +53,11 @@
 .SideMenu .Footer .GridSocial img:hover {
     transform: scale(1.2);
 }
+
+/* Desktop */
+@media only screen and (min-width : 700px) {
+    .SideMenu
+    {
+        min-width: 15%;
+    }
+}

@@ -78,10 +78,14 @@
     height: 100%;
 }
 
-/* Small Devices, Tablets */
+/* Desktop */
 @media only screen and (min-width : 700px) {
     .HomeContainer .HomePanel.Jumbotron, .HomeContainer .HomePanel.Twitch, .HomeContainer .HomePanel.Shuffle, .HomeContainer .HomePanel.Collab {
-        font-size: 1.8em;
+        font-size: 1.8rem;
+    }
+    .HomeContainer .HomePanel.Jumbotron .Banner
+    {
+        max-width: 50%;
     }
     .HomeContainer .Title {
         font-size: 5rem;

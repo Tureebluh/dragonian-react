@@ -119,46 +119,58 @@ router.post('/roles/remove/siteban', (req, res) => {
     }
 });
 
-//Administrators can POST to this endpoint for contest creation
-router.post('/create/shuffle', (req, res) => {
+//Administrators can POST to this endpoint for shuffle creation
+router.get('/create/shuffle', (req, res) => {
     if(req.isAuthenticated() && (req.user.roles.includes('Administrator'))){
         dbpool.getConnection( (err, connection) => {
-            if(req.body.shuffleID > 0) {
-                connection.query('CALL Upsert_Shuffle(' + dbpool.escape(req.body.shuffleID) +
-                                                            ',' + dbpool.escape(req.body.shuffleName) +
-                                                            ',' + dbpool.escape(roundOne.toISOString().replace('T', ' ')) +
-                                                            ',' + dbpool.escape(roundTwo.toISOString().replace('T', ' ')) +
-                                                            ',' + dbpool.escape(roundThree.toISOString().replace('T', ' ')) +
-                                                            ',' + dbpool.escape(roundFour.toISOString().replace('T', ' ')) +
-                                                            ',' + dbpool.escape(endDate.toISOString().replace('T', ' ')) +
-                                                            ',' + dbpool.escape(req.body.shuffleDescription) + 
-                                                        ',' + ((typeof req.body.shuffleActive === 'undefined') ? 0 : 1) +
-                                                        ',@insertID);',
-                (error, results, fields) => {
-                    if (error) throw error;
-                });
-                
-            } else {
-                let insertID = 0;
-                connection.query('CALL Upsert_Shuffle(' + null +
-                                                            ',' + dbpool.escape(req.body.shuffleName) +
-                                                            ',' + dbpool.escape(roundOne.toISOString().replace('T', ' ')) +
-                                                            ',' + dbpool.escape(roundTwo.toISOString().replace('T', ' ')) +
-                                                            ',' + dbpool.escape(roundThree.toISOString().replace('T', ' ')) +
-                                                            ',' + dbpool.escape(roundFour.toISOString().replace('T', ' ')) +
-                                                            ',' + dbpool.escape(endDate.toISOString().replace('T', ' ')) +
-                                                            ',' + dbpool.escape(req.body.shuffleDescription) + 
-                                                        ',' + ((typeof req.body.shuffleActive === 'undefined') ? 0 : 1) +
-                                                        ',@insertID);', 
-                (error, results, fields) => {
-                    if (error) throw error;
-                });
-            }
-
             if(err) throw err;
+            connection.query('CALL Create_Shuffle();',
+            (error, results, fields) => {
+                if (error) throw error;
+                connection.release();
+                if(results.affectedRows)
+                {
+                    res.send({Success: true});
+                }
+                else
+                {
+                    res.send({Failed: true});
+                }
+            });
+        });
+    } else {
+        res.send({Error: "Unauthorized access."})
+    }
+});
 
-            connection.release();
-            res.redirect('/admin/shuffle' + '?result=success');
+//Administrators can POST to this endpoint for shuffle creation
+router.get('/voting/stop', (req, res) => {
+    if(req.isAuthenticated() && (req.user.roles.includes('Administrator'))){
+        dbpool.getConnection( (err, connection) => {
+            if(err) throw err;
+            connection.query('CALL Get_Active_Voting();', (error, results, fields) => {
+                if (error) throw error;
+                if(results[0][0].Active === '1')
+                {
+                    connection.query('CALL End_Shuffle_Voting(' + dbpool.escape(results[0][0]['Shuffle_ID']) + ');',
+                    (error, results, fields) => {
+                        if (error) throw error;
+                        connection.release();
+                        if(results.affectedRows)
+                        {
+                            res.send({Success: true});
+                        }
+                        else
+                        {
+                            res.send({Failed: true});
+                        }
+                    });
+                }
+                else
+                {
+                    res.send({Failed: true});
+                }
+            });
         });
     } else {
         res.send({Error: "Unauthorized access."})
@@ -168,13 +180,12 @@ router.post('/create/shuffle', (req, res) => {
 //Shuffle players for every round
 router.get('/shuffleplayers', (req, res) => {
     if(req.isAuthenticated() && req.user.roles.includes('Administrator')){
-        //Create server shuffle object to get active shuffle
+        //Create server shuffle object
         let serverShuffle = new ServerShuffle();
 
-        //Check for active shuffle and save to servershuffle obj
+        //Check for active shuffle
         serverShuffle.getActiveShuffle()
         .then((shuffle)=>{
-            console.log(shuffle);
             console.log('\nActive shuffle found: ID#' + shuffle['Shuffle_ID']);
             let msg = "Success";
             let resultJson = {};
@@ -193,7 +204,7 @@ router.get('/shuffleplayers', (req, res) => {
                     }
                     if(err === "")
                     {
-                        res.send({result: msg})
+                        res.send({result: msg});
                     }
                     else
                     {
@@ -208,13 +219,11 @@ router.get('/shuffleplayers', (req, res) => {
             res.send({result: err});
         });
     } else {
-        res.send({result: 'No Active Shuffle'});
+        res.send({result: 'Unauthorized Access'});
     }
 });
-
 async function TryShuffleRound(round, shuffle, result)
 {
-    console.log('\nAttempting shuffle of round ' + round);
     await shuffle.shuffleByRound(round, result)
     .then(success => {
         return {Result: success};

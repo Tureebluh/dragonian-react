@@ -98,11 +98,11 @@ class Home extends Component {
               <img alt="Dragons Lair Banner" className="Banner" src="/img/title_banner.svg"/>
             </Grid>
             <Grid item xs={5}>
-              <img alt="Dragons Lair Banner" className="Banner" src="/img/tureebluh.svg"/>
+              <img alt="Tureebluh" className="Banner" src="/img/tureebluh.svg"/>
             </Grid>
             <Grid item xs={1}></Grid>
             <Grid item xs={6}>
-              <img alt="Dragons Lair Banner" className="Banner" src="/img/r3ddragon.svg"/>
+              <img alt="R3ddragon" className="Banner" src="/img/r3ddragon.svg"/>
             </Grid>
           </Grid>
           <Divider/>

@@ -3,21 +3,28 @@ import { Typography, Container, Button, Grid, Card } from '@material-ui/core';
 import "./Moderator.css";
 
 class Moderator extends Component {
-  constructor(){
+  constructor()
+  {
     super();
 
-    this.state = {
+    this.state = 
+    {
       
     }
     this.shufflePlayers = this.shufflePlayers.bind(this);
+    this.startVoting = this.startVoting.bind(this);
+    this.endVoting = this.endVoting.bind(this);
   }
 
-  componentDidMount(){
+  componentDidMount()
+  {
     
   }
 
-  shufflePlayers(){
-    fetch('/admin/shuffleplayers', {
+  shufflePlayers()
+  {
+    fetch('/admin/shuffleplayers', 
+    {
       credentials: 'include',
       method: 'get',
       headers: {
@@ -28,15 +35,70 @@ class Moderator extends Component {
     .then(res => {
       return res.json();
     }).then(resJson => {
-      if(resJson.result === 'Success'){
-          alert('All rounds shuffled');
+      if(resJson.result === 'Success')
+      {
+        alert('All rounds shuffled');
       }
       else
       {
-        console.log(resJson.result);
+        alert(resJson.result);
       }
     }).catch(error => {
       alert(error.result);
+    });
+  }
+
+  startVoting()
+  {
+    fetch('/admin/create/shuffle', 
+    {
+      credentials: 'include',
+      method: 'get',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      return res.json();
+    }).then(resJson => {
+      if(resJson.Success)
+      {
+        alert('Shuffle successfully started.');
+      }
+      else
+      {
+        alert('Another shuffle is already being voted on.');
+      }
+    }).catch(error => {
+      alert(error);
+    });
+  }
+
+  endVoting()
+  {
+    fetch('/admin/voting/stop', 
+    {
+      credentials: 'include',
+      method: 'get',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      return res.json();
+    }).then(resJson => {
+      if(resJson.Success)
+      {
+        alert('Voting successfully ended.');
+      }
+      else
+      {
+        alert('Either voting has already ended or no votes were cast.');
+      }
+    }).catch(error => {
+      alert(error);
     });
   }
 
@@ -49,14 +111,14 @@ class Moderator extends Component {
             <Grid item xs={12} md={6} className="GridItem">
               <Card className="Card">
                 <Typography className="Title">Start Voting</Typography>
-                <Button variant="contained" color="primary" className="Submit">Start Voting</Button>
+                <Button onClick={()=>{this.startVoting()}} variant="contained" color="primary" className="Submit">Start Voting</Button>
               </Card>
             </Grid>
 
             <Grid item xs={12} md={6} className="GridItem">
               <Card className="Card">
                 <Typography className="Title">End Voting</Typography>
-                <Button variant="contained" color="primary" className="Submit">End Voting</Button>
+                <Button onClick={()=>{this.endVoting()}} variant="contained" color="primary" className="Submit">End Voting</Button>
               </Card>
             </Grid>
 

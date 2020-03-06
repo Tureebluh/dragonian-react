@@ -68,7 +68,6 @@ class ServerShuffle {
             
             this.attemptShuffle(assigned, this.shuffledArray, round, totalIteration)
             .then(shuffled => {
-                console.log('\n*****************   Shuffled   ********************');
                 this.shuffledArray = shuffled;
 
                 dbpool.getConnection((err, connection) => {
