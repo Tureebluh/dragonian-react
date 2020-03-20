@@ -199,7 +199,7 @@ router.post('/shuffle/voting/submit', (req, res) => {
     }
     else if(!req.isAuthenticated())
     {
-        res.send({Error: "You're not logged in."});
+        res.send({Error: "You are not logged in."});
     }
     else if(!req.user.verified)
     {
@@ -231,7 +231,7 @@ router.post('/shuffle/voting/submit', (req, res) => {
 router.post('/shuffle/registration/submit', (req, res) => {
     if(!req.isAuthenticated())
     {
-        res.send({Error: "You're not logged in."});
+        res.send({Error: "You are not logged in."});
     } 
     else if(req.user.roles.includes('Shuffle Banned'))
     {
@@ -239,7 +239,7 @@ router.post('/shuffle/registration/submit', (req, res) => {
     }
     else if(!req.body.ShuffleID)
     {
-        res.send({Error: "Error: No ShuffleID Provided. Please contact the administrator if the problem continues."});
+        res.send({Error: "Error: No Shuffle Credentials Provided. Please contact the administrator if the problem continues."});
     }
     else if(!req.user.verified)
     {
@@ -261,7 +261,7 @@ router.post('/shuffle/registration/submit', (req, res) => {
                 }
                 else
                 {
-                    res.send({Success: "You're already participating in this Shuffle."});
+                    res.send({Success: "You are already participating in this Shuffle."});
                 }
             });
         });

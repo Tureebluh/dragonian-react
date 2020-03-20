@@ -36,7 +36,7 @@ class About extends Component {
               <Grid item xs={12}>
                 <p>
                   Our father-son duo started in 2017 and continues on to this day.  From it's inception this community has maintained the mission
-                  of creating a mature, respectful art community for anyone to enjoy.  We provide a regular stream to showcase our communities 
+                  of creating a mature, respectful art community for anyone to enjoy.  We provide a show to display our communities 
                   amazing artwork with a fair and free approach to what content is shown.  You can visit our Twitch page by clicking here.
                   <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Watch Live on Twitch">
                     <a href="https://twitch.tv/r3ddragons" target="_BLANK" rel="noopener noreferrer">
@@ -50,7 +50,7 @@ class About extends Component {
               <Grid item xs={12}>
                 <p>
                   We wanted to come up with a game that removed the competitive aspect of most events and offered
-                  the ability to collaborate with fellow players. With this goal in mind, we developed the Community Shuffle.
+                  the ability to collaborate with fellow players. With this in mind, we developed the Community Shuffle.
                   These are completely randomized by the system for fairness and each player must own a license of the chosen game
                   to participate. You can learn more by exploring the shuffle page here.
                   <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Go To Shuffle Page">

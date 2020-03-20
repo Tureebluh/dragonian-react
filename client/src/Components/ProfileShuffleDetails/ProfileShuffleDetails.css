@@ -3,6 +3,14 @@
     padding: 10%;
     text-align: center;
 }
+#ProfileShuffleDetails #modal-title
+{
+    margin: 0 auto 1em auto;
+}
+#ProfileShuffleDetails .GridList .Submission
+{
+    margin: 0 auto;
+}
 #ProfileShuffleDetails .Backdrop {
     z-index: 1000;
     color: white;

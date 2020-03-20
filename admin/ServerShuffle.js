@@ -68,6 +68,7 @@ class ServerShuffle {
             
             this.attemptShuffle(assigned, this.shuffledArray, round, totalIteration)
             .then(shuffled => {
+                console.log('SHUFFLING ROUND ' + round);
                 this.shuffledArray = shuffled;
 
                 dbpool.getConnection((err, connection) => {
@@ -100,8 +101,18 @@ class ServerShuffle {
                                 break;
                         }
                     });
-                    connection.release();
-                    resolve("Success");
+                    if(round === 4)
+                    {
+                        connection.query('CALL End_Shuffle_Entry(' + dbpool.escape(this.Shuffle_ID) + ');', (error, results, fields) => {
+                            connection.release();
+                            if (error) { throw error; }
+                            resolve("Success");
+                        });
+                    } else
+                    {
+                        connection.release();
+                        resolve("Success");
+                    }
                 });
             })
             .catch(err => {

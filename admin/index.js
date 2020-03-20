@@ -187,9 +187,8 @@ router.get('/shuffleplayers', (req, res) => {
         serverShuffle.getActiveShuffle()
         .then((shuffle)=>{
             console.log('\nActive shuffle found: ID#' + shuffle['Shuffle_ID']);
-            let msg = "Success";
             let resultJson = {};
-            let err = "";
+            let err = false;
             shuffle.getSubmissions()
             .then(result => {
                 if(result)
@@ -199,24 +198,24 @@ router.get('/shuffleplayers', (req, res) => {
                         resultJson = TryShuffleRound(i, shuffle, result);
                         if(resultJson.Error)
                         {
-                            err = resultJson.Error;
+                            err = true;
                         }
                     }
-                    if(err === "")
+                    if(!err)
                     {
-                        res.send({result: msg});
+                        res.send({Success: true});
                     }
                     else
                     {
-                        res.send({result: err});
+                        res.send({Error: err});
                     }
                 }
             })
             .catch(err => {
-                res.send({result: err});
+                res.send({Error: err});
             });
         }).catch(err => {
-            res.send({result: err});
+            res.send({Error: err});
         });
     } else {
         res.send({result: 'Unauthorized Access'});
@@ -226,7 +225,7 @@ async function TryShuffleRound(round, shuffle, result)
 {
     await shuffle.shuffleByRound(round, result)
     .then(success => {
-        return {Result: success};
+        return {Success: success};
     }).catch(err => {
         return {Error: err};
     });

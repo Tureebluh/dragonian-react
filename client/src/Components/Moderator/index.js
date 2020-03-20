@@ -21,33 +21,6 @@ class Moderator extends Component {
     
   }
 
-  shufflePlayers()
-  {
-    fetch('/admin/shuffleplayers', 
-    {
-      credentials: 'include',
-      method: 'get',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(res => {
-      return res.json();
-    }).then(resJson => {
-      if(resJson.result === 'Success')
-      {
-        alert('All rounds shuffled');
-      }
-      else
-      {
-        alert(resJson.result);
-      }
-    }).catch(error => {
-      alert(error.result);
-    });
-  }
-
   startVoting()
   {
     fetch('/admin/create/shuffle', 
@@ -101,6 +74,34 @@ class Moderator extends Component {
       alert(error);
     });
   }
+
+  shufflePlayers()
+  {
+    fetch('/admin/shuffleplayers', 
+    {
+      credentials: 'include',
+      method: 'get',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => {
+      return res.json();
+    }).then(resJson => {
+      if(resJson.Success)
+      {
+        alert('All rounds shuffled');
+      }
+      else
+      {
+        alert(resJson.Error + '\n\nThere was an error shuffling the rounds. Please contact the administrator.');
+      }
+    }).catch(error => {
+      alert(error.Error);
+    });
+  }
+
 
   render () {
     return (
