@@ -7,9 +7,51 @@
 {
     margin: 0 auto 1em auto;
 }
-#ProfileShuffleDetails .GridList .Submission
+#ProfileShuffleDetails #modal-description
 {
-    margin: 0 auto;
+    font-size: 1.2em;
+    font-style: italic;
+    font-weight: 600;
+}
+#ProfileShuffleDetails .GridList.Submission
+{
+    padding: 5% 0;
+    max-height: 10em;
+}
+
+#ProfileShuffleDetails .GridList.Submission .GridListTile
+{
+    max-height: 5em;
+}
+#ProfileShuffleDetails .GridList.Submission:nth-child(7) 
+{
+    background-color: rgb(220, 220, 220);
+    border: 1px black solid;
+    border-left: black 1em solid;
+    border-right: black 1em solid;
+    border-radius: 0.8em;
+}
+#ProfileShuffleDetails .GridList.Submission:nth-child(8) 
+{
+    border: 1px black solid;
+    border-left: black 1em solid;
+    border-right: black 1em solid;
+    border-radius: 0.8em;
+}
+#ProfileShuffleDetails .GridList.Submission:nth-child(9)
+{
+    background-color: rgb(220, 220, 220);
+    border: 1px black solid;
+    border-left: black 1em solid;
+    border-right: black 1em solid;
+    border-radius: 0.8em;
+}
+#ProfileShuffleDetails .GridList.Submission:nth-child(10)
+{
+    border: 1px black solid;
+    border-left: black 1em solid;
+    border-right: black 1em solid;
+    border-radius: 0.8em;
 }
 #ProfileShuffleDetails .Backdrop {
     z-index: 1000;
@@ -17,8 +59,10 @@
 }
 #ProfileShuffleDetails hr {
     height: 3px;
+    margin: 1em 0;
 }
-#ProfileShuffleDetails .disclaimer {
+#ProfileShuffleDetails .disclaimer
+{
     margin: 5% auto;
     font-size: 0.9em;
     font-style: italic;
@@ -27,40 +71,50 @@
     border-radius: 1em;
     padding: 3%;
 }
-#ProfileShuffleDetails a {
+#ProfileShuffleDetails a
+{
     text-decoration: none;
     cursor: pointer;
     color: black;
 }
-#ProfileShuffleDetails .ShuffleParticipant, #ProfileShuffleDetails .Round {
+#ProfileShuffleDetails .ShuffleParticipant, #ProfileShuffleDetails .Round
+{
     margin: 5% auto;
     box-shadow: 0 3px 5px black;
 }
-#ProfileShuffleDetails .ShuffleParticipant:hover, #ProfileShuffleDetails .Round:hover {
+#ProfileShuffleDetails .ShuffleParticipant:hover, #ProfileShuffleDetails .Round:hover
+{
     transform: scale(1.1);
     cursor: pointer;
 }
-#ProfileShuffleDetails .RoundFour {
+#ProfileShuffleDetails .RoundFour
+{
     background-color: rgb(226, 0, 0);
 }
-#ProfileShuffleDetails .RoundThree {
+#ProfileShuffleDetails .RoundThree
+{
     background-color: rgb(240, 128, 0);
 }
-#ProfileShuffleDetails .RoundTwo {
+#ProfileShuffleDetails .RoundTwo
+{
     background-color: rgb(255, 196, 0);
 }
-#ProfileShuffleDetails .RoundOne {
+#ProfileShuffleDetails .RoundOne
+{
     background-color: rgb(129, 177, 34);
 }
 
 /* Desktop Devices */
-@media only screen and (min-width : 1000px) {
-    #ProfileShuffleDetails {
+@media only screen and (min-width : 1000px)
+{
+    #ProfileShuffleDetails
+    {
         margin: 5% auto;
         max-width: 50%;
         padding: 5%;
     }
-    #ProfileShuffleDetails .ShuffleParticipant, #ProfileShuffleDetails .Round {
+    #ProfileShuffleDetails .ShuffleParticipant, #ProfileShuffleDetails .Round
+    {
         width: 2.5em;
         height: 2.5em;
         margin: 5% auto;

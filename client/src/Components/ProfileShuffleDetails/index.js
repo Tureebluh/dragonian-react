@@ -105,7 +105,8 @@ class ProfileShuffleDetails extends Component {
       <>
         <Card id="ProfileShuffleDetails" tabIndex={-1}>
             <h1 id="modal-title">{this.state.shuffleName}</h1>
-            <p id="modal-description">Contributors for each round</p>
+            <hr />
+            <p id="modal-description">Contributors for each Blueprint listed horizontally.</p>
             <hr />
             <GridList cellHeight={25} cols={4} spacing={20} className="GridList Header">
               <GridListTile key={1} rows={1} cols={1} className="GridListTile">
@@ -123,7 +124,7 @@ class ProfileShuffleDetails extends Component {
             </GridList>
             <hr />
             {this.state.submissions.map(sub => (
-              <GridList cellHeight={75} cols={4} spacing={20} className="GridList Submission">
+              <GridList style={{marginBottom: 1+ 'em'}} cols={4} spacing={20} className="GridList Submission">
                 <GridListTile key={"R1" + sub.r1_SteamID} rows={1} cols={1} className="GridListTile">
                   <a href={sub.r1_profileurl} target="_BLANK" rel="noopener noreferrer">
                     <Avatar alt="Steam Profile Picture" src={this.state.users[sub.r1_SteamID].avatarfull} className="ShuffleParticipant" />
@@ -146,7 +147,6 @@ class ProfileShuffleDetails extends Component {
                 </GridListTile>
               </GridList>
             ))}
-
             <Backdrop className="Backdrop" open={this.state.loading}>
               <CircularProgress color="inherit"/>
             </Backdrop>
