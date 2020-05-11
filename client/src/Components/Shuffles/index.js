@@ -4,6 +4,8 @@ import { Container, Grid, Button, Backdrop, CircularProgress, Card, CardActionAr
 import { MdAssignmentTurnedIn, MdAssignmentLate } from 'react-icons/md';
 import "./Shuffles.css";
 import ShuffleBanner from '../Images/ShuffleBanner';
+import NoActiveShuffle from '../Images/NoActiveShuffle';
+import ShuffleHowTo from '../Images/ShuffleHowTo';
 
 class Shuffles extends Component {
   constructor(){
@@ -169,7 +171,7 @@ class Shuffles extends Component {
               </Grid>
             : 
               <Grid className="GridItem NoShuffle" item xs={12} sm={6}>
-                <img alt="No Active Shuffles" src="/img/NoActiveShuffle.svg"/>
+                <NoActiveShuffle alt="No Active Shuffles"/>
               </Grid>
             }
           </Grid>
@@ -187,7 +189,7 @@ class Shuffles extends Component {
             id="HowToModal"
           >
             <Slide direction="right" in={this.state.modalOpen} mountOnEnter unmountOnExit>
-              <img alt="Shuffle How It Works" src="/img/Shuffle_HowTo.svg"/>
+              <ShuffleHowTo alt="Shuffle How It Works"/>
             </Slide>
           </Modal>
 

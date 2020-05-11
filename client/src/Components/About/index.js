@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
 import {Container, Grid, Divider, Typography, Tooltip, Zoom, Button } from '@material-ui/core';
+import TitleBanner from '../Images/TitleBanner';
+import Tureebluh from '../Images/Tureebluh';
+import RedDragon from '../Images/RedDragon';
+import TwitchIcon from '../Images/TwitchIcon';
+import DiscordIcon from '../Images/DiscordIcon';
 import "./About.css";
 
 class About extends Component {
@@ -21,16 +26,16 @@ class About extends Component {
         <Container className="AboutContainer">
           <Grid container spacing={0} className="AboutPanel">
               <Grid item xs={12}>
-                <img alt="Dragons Lair Banner" className="Banner" src="/img/title_banner.svg"/>
+                <TitleBanner alt="Dragon's Lair Banner" className="Banner"/>
               </Grid>
               <Grid item xs={5}>
-                <img alt="Dragons Lair Banner" className="Banner" src="/img/tureebluh.svg"/>
-                <Typography variant="h6">Tureebluh</Typography>
+                <Tureebluh alt="Tureebluh" className="Banner"/>
+                <Typography variant="h4">Tureebluh</Typography>
               </Grid>
               <Grid item xs={1}></Grid>
               <Grid item xs={6}>
-                <img alt="Dragons Lair Banner" className="Banner" src="/img/r3ddragon.svg"/>
-                <Typography variant="h6">R3dDragon</Typography>
+                <RedDragon alt="Dragons Lair Banner" className="Banner"/>
+                <Typography variant="h4">R3dDragon</Typography>
               </Grid>
               <Grid item xs={12} className="Divider"><Divider /></Grid>
               <Grid item xs={12}>
@@ -40,9 +45,7 @@ class About extends Component {
                   amazing artwork with a fair and free approach to what content is shown.  You can visit our Twitch page by clicking here.
                   <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Watch Live on Twitch">
                     <a href="https://twitch.tv/r3ddragons" target="_BLANK" rel="noopener noreferrer">
-                      <Button className="LearnMoreButton" variant="contained" color="primary">
-                        <img alt="Twitch Logo" className="social-media" src="/img/glitchbadge_white.svg"/>
-                      </Button>
+                        <TwitchIcon fill="#9146FF" alt="Twitch Logo" className="social-media"/>
                     </a>
                   </Tooltip>
                 </p>
@@ -66,9 +69,7 @@ class About extends Component {
                   from within the Discord server.  If you'd like to check out what the Discord server has to offer, you can join by clicking here.
                   <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Join Discord Server">
                     <a href="https://discord.gg/GabcMqK" target="_BLANK" rel="noopener noreferrer">
-                      <Button className="LearnMoreButton" variant="contained" color="primary">
-                        <img alt="Twitch Logo" className="social-media" src="/img/discord_white.svg"/>
-                      </Button>
+                        <DiscordIcon fill="#738ADB" alt="Discord Logo" className="social-media"/>
                     </a>
                   </Tooltip>
                 </p>

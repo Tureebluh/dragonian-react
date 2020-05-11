@@ -20,6 +20,7 @@ class Icon extends Component {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 1366 768"
+      className={this.props.className}
     >
       <g>
         <path fill="#f2f2f2" d="M0.5 0.5H1365.5V767.5H0.5z"></path>

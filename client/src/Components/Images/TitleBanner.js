@@ -17,11 +17,12 @@ class Icon extends Component {
     return (
       <>
         <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      data-name="Layer 1"
-      viewBox="0 0 835.13 195"
-    >
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          data-name="Layer 1"
+          viewBox="0 0 835.13 195"
+          className={this.props.className}
+        >
       <g
         fill="none"
         stroke="#7d6611"

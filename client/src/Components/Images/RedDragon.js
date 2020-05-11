@@ -17,9 +17,10 @@ class Icon extends Component {
     return (
       <>
         <svg
-      xmlns="http://www.w3.org/2000/svg"
-      xmlnsXlink="http://www.w3.org/1999/xlink"
-      viewBox="0 0 797.315 764"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlnsXlink="http://www.w3.org/1999/xlink"
+          viewBox="0 0 797.315 764"
+          className={this.props.className}
     >
       <defs>
         <clipPath id="a" transform="translate(-.528 -11)">

@@ -7,9 +7,10 @@
     font-size: 1.2rem;
     line-height: 2em;
 }
-.AboutContainer .AboutPanel img
+.AboutContainer .AboutPanel .social-media
 {
-    max-width: 60%;
+    max-width: 5%;
+    margin: 0.1em 1em;
 }
 .AboutContainer .AboutPanel .Divider
 {

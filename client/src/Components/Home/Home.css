@@ -9,25 +9,27 @@
 .HomeContainer .Backdrop {
     z-index: 1000;
 }
-.HomeContainer .Title {
-    font-size: 3rem;
-}
 .HomeContainer .HomePanel .TextPanel {
     padding: 0 10%;
 }
-.HomeContainer .HomePanel.Jumbotron {
-    margin: 10% auto 0 auto;
+.HomeContainer .HomePanel svg.Banner.Title {
+    max-width: 100%;
+    margin: 0 auto;
 }
-.HomeContainer .HomePanel svg, .HomeContainer .HomePanel img {
-    max-width: 75%;
-}
-.HomeContainer .HomePanel.Twitch .TwitchLiveImg
+.HomeContainer .HomePanel.Jumbotron .Banner
 {
-    margin: 10% auto 0 auto;
+    max-width: 60%;
 }
+
 .HomeContainer .HomePanel.Twitch svg, .HomeContainer .HomePanel.Collab svg {
     color: #738ADB;
     max-width: 3em;
+}
+
+.HomeContainer .HomePanel.Twitch .TwitchLiveImg
+{
+    max-width: 75%;
+    margin: 10% auto 0 auto;
 }
 
 .HomeContainer .HomePanel.Collab .CollabMobileStepper {
@@ -78,9 +80,10 @@
     .HomeContainer .HomePanel.Jumbotron, .HomeContainer .HomePanel.Twitch, .HomeContainer .HomePanel.Shuffle, .HomeContainer .HomePanel.Collab {
         font-size: 1.8rem;
     }
+
     .HomeContainer .HomePanel.Jumbotron .Banner
     {
-        max-width: 50%;
+        max-width: 33%;
     }
     .HomeContainer .Title {
         font-size: 5rem;

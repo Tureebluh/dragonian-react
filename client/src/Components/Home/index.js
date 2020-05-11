@@ -5,7 +5,6 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import "./Home.css";
 import Tureebluh from '../Images/Tureebluh';
 import RedDragon from '../Images/RedDragon';
-import TwitchLive from '../Images/TwitchLive';
 import ShuffleBanner from '../Images/ShuffleBanner';
 import DiscordIcon from '../Images/DiscordIcon';
 import TwitchIcon from '../Images/TwitchIcon';
@@ -103,14 +102,10 @@ class Home extends Component {
         <Container className="HomeContainer">
           <Grid container spacing={0} className="HomePanel Jumbotron">
             <Grid item xs={12}>
-              <TitleBanner className="Banner"/>
+              <TitleBanner className="Banner Title"/>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={12}>
               <Tureebluh className="Banner" />
-            </Grid>
-            <Grid item xs={1}></Grid>
-            <Grid item xs={6}>
-              <RedDragon className="Banner" />
             </Grid>
           </Grid>
           <Divider/>
@@ -130,8 +125,8 @@ class Home extends Component {
                 <TwitchIcon fill="#9146FF" className="social-media"/>
               </a>
             </Grid>
-            <Grid className="TwitchLiveImg" item xs={12} lg={6}>
-              <TwitchLive className="TwitchLiveImg"/>
+            <Grid item xs={12} lg={6}>
+              <RedDragon className="TwitchLiveImg" />
             </Grid>
           </Grid>
           <Divider/>

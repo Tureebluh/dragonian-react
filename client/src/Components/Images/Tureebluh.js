@@ -20,6 +20,7 @@ class Icon extends Component {
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 545.65 610.99"
+      className={this.props.className}
     >
       <defs>
         <linearGradient

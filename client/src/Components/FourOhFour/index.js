@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Container } from '@material-ui/core';
+import LazyDragon from '../Images/LazyDragon';
 import "./FourOhFour.css";
 
 class FourOhFour extends Component {
@@ -20,7 +21,7 @@ class FourOhFour extends Component {
       <>
         <Container className="FourOhFour">
           <h1>Hmm... this is awkward.</h1>
-          <img alt="Lazy Dragon" style={{maxWidth: 10 + 'em'}} src="/img/dragon_sm.svg"></img>
+          <LazyDragon alt="Lazy Dragon" className="LazyDragon"/>
           <h3>Page not found <br/> 404 Error</h3>
         </Container>
       </>

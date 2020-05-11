@@ -5,6 +5,9 @@ import { Avatar, Grid, Button, GridList, GridListTile, Backdrop,
 import { MdInfoOutline } from 'react-icons/md';
 import ProfileShuffleDetails from '../ProfileShuffleDetails';
 import SteamIcon from '../Images/SteamIcon';
+import DefaultShuffle from '../Images/DefaultShuffle';
+import BetaTester from '../Images/BetaTester';
+import LazyDragon from '../Images/LazyDragon';
 
 class Profile extends Component {
   constructor(){
@@ -24,6 +27,10 @@ class Profile extends Component {
         laststeamid: 0,
         key: 0,
         loading: false,
+        icons: {
+          Default: <DefaultShuffle className="ShuffleIcon"/>,
+          BetaTester: <BetaTester className="ShuffleIcon"/>,
+        }
     }
     this.handleShufflePopover = this.handleShufflePopover.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
@@ -156,7 +163,7 @@ class Profile extends Component {
                       </GridListTile>
                       {this.state.shuffles.map(shuffle => (
                         <GridListTile key={shuffle.Shuffle_ID} rows={1} cols={1} className="GridListTile">
-                          <img alt="Shuffle" src={shuffle.Poster}/>
+                          {this.state.icons[shuffle.Poster]}
                           <GridListTileBar
                             title={shuffle.Name}
                             className="GridListTileBar"
@@ -176,7 +183,7 @@ class Profile extends Component {
             : 
                 <Grid item xs={12} className="UserPanel">
                     <h1>No user found</h1>
-                    <img alt="Lazy Dragon" style={{maxWidth: 5 + 'em'}} src="/img/dragon_sm.svg"></img>
+                    <LazyDragon className="LazyDragon"/>
                 </Grid>
             }
             <Backdrop className="Backdrop" open={this.state.loading}>
