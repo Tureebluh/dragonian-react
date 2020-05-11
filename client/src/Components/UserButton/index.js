@@ -62,8 +62,8 @@ class UserButton extends Component {
                                                 <Avatar className="UserAvatar" src={this.props.user.userPic} alt="User Profile Picture"/>
                                               </a>
                                             </Tooltip>
-                                          : <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Login">
-                                              <Avatar aria-label="Login" src="/img/Steam_logo.svg" alt="Steam Login Button"/>
+                                          : <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Login With Steam">
+                                              <Avatar/>
                                             </Tooltip>}
               
             </IconButton>

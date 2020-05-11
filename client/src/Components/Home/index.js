@@ -1,9 +1,17 @@
 import React, {Component} from 'react';
 import { NavLink as RouterLink } from "react-router-dom";
-import { Grid, MobileStepper, Button, Container, Divider, Zoom, Tooltip, Link, Modal, Slide, Typography, Backdrop, CircularProgress } from '@material-ui/core';
+import { Grid, MobileStepper, Button, Container, Divider, Link, Modal, Slide, Typography, Backdrop, CircularProgress } from '@material-ui/core';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import "./Home.css";
+import Tureebluh from '../Images/Tureebluh';
+import RedDragon from '../Images/RedDragon';
+import TwitchLive from '../Images/TwitchLive';
+import ShuffleBanner from '../Images/ShuffleBanner';
+import DiscordIcon from '../Images/DiscordIcon';
+import TwitchIcon from '../Images/TwitchIcon';
 import ShuffleVoting from '../ShuffleVoting';
+import TitleBanner from '../Images/TitleBanner';
+
 
 class Home extends Component {
   constructor(){
@@ -95,14 +103,14 @@ class Home extends Component {
         <Container className="HomeContainer">
           <Grid container spacing={0} className="HomePanel Jumbotron">
             <Grid item xs={12}>
-              <img alt="Dragons Lair Banner" className="Banner" src="/img/title_banner.svg"/>
+              <TitleBanner className="Banner"/>
             </Grid>
             <Grid item xs={5}>
-              <img alt="Tureebluh" className="Banner" src="/img/tureebluh.svg"/>
+              <Tureebluh className="Banner" />
             </Grid>
             <Grid item xs={1}></Grid>
             <Grid item xs={6}>
-              <img alt="R3ddragon" className="Banner" src="/img/r3ddragon.svg"/>
+              <RedDragon className="Banner" />
             </Grid>
           </Grid>
           <Divider/>
@@ -119,22 +127,20 @@ class Home extends Component {
             <Grid className="TextPanel" item xs={12} lg={6}>
               <h3>Chat live with<br/> Planet Coaster&reg; <br/> Featured Creator <br/> R3dDragon</h3>
               <a href="https://www.twitch.tv/r3ddragons" target="_BLANK" rel="noopener noreferrer">
-                  <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Watch Live on Twitch">
-                      <img alt="Twitch Logo" className="social-media" src="/img/glitchbadge_purple.svg"/>
-                  </Tooltip>
+                <TwitchIcon fill="#9146FF" className="social-media"/>
               </a>
             </Grid>
             <Grid className="TwitchLiveImg" item xs={12} lg={6}>
-              <img alt="Dragons Lair Banner" className="Banner" src="/img/twitch_live.png"/>
+              <TwitchLive className="TwitchLiveImg"/>
             </Grid>
           </Grid>
           <Divider/>
           <Grid container spacing={0} className="HomePanel Shuffle">
             <Grid item xs={12} lg={6}>
-              <img alt="Dragons Lair Banner" className="Banner" src="/img/Shuffle_Banner.svg"/>
+              <ShuffleBanner className="Banner" />
             </Grid>
             <Grid item xs={12} lg={6}>
-                <h3>Dragonian Community <br/> Shuffle Events <br/> 4-Player Teams</h3>
+                <h3>Dragonian Community <br/> Shuffle Events <br/> 4-Player Mini-Collabs</h3>
                 <Link component={AdapterLink} to="/shuffles"><Button variant="contained" color="primary">Learn more</Button></Link>
             </Grid>
           </Grid>
@@ -143,9 +149,7 @@ class Home extends Component {
             <Grid item xs={12} lg={6}>
               <h3>Dragonian Community <br/> Collaborations <br/> Multiple themes to suit any style.</h3>
               <a href="https://discord.gg/GabcMqK" target="_BLANK" rel="noopener noreferrer">
-                  <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Join Community Discord">
-                      <img style={{height: 2.6+'em'}} alt="Discord Logo" className="social-media" src="/img/discord_purple.svg"/>
-                  </Tooltip>
+                <DiscordIcon fill="#738ADB" className="social-media"/>
               </a>
             </Grid>
             <Grid item xs={12} lg={6}>

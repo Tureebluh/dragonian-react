@@ -20,9 +20,9 @@
     background-color: inherit;
     cursor: default;
 }
-.SideMenu .List .ListItemLogo .Banner {
+.SideMenu .Banner {
     margin: 0 auto;
-    max-width: 75%;
+    max-width: 80%;
 }
 
 .SideMenu .List .ListItem:hover {
@@ -46,11 +46,11 @@
 .SideMenu .Footer .GridSocial {
     margin: 10% 0;
 }
-.SideMenu .Footer .GridSocial img {
+.SideMenu .Footer .GridSocial svg {
     height: 2em;
     transition: transform 200ms ease-in-out;
 }
-.SideMenu .Footer .GridSocial img:hover {
+.SideMenu .Footer .GridSocial svg:hover {
     transform: scale(1.2);
 }
 

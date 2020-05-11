@@ -78,6 +78,7 @@ if(config.nodeEnv === 'production'){
 
     server.set('trust proxy', 1);
     sess.cookie.secure = true;
+    sess.cookie.sameSite = 'none';
 }
 
 //Set express to listen for request on the port specified in config.port

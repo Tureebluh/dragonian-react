@@ -40,7 +40,6 @@ class Navbar extends Component {
             <IconButton onClick={this.props.toggleDrawer()} edge="start" className="IconButtonMenu" color="inherit" aria-label="Menu">
               <MdMenu />
             </IconButton>
-            <img alt="Dragons Lair Banner" className="Banner" src="/img/Title_Banner_Top.svg"/>
             <span className="FlexSpacer"></span>
             <UserButton user={this.props.user}/>
           </Toolbar>

@@ -3,6 +3,11 @@ import { NavLink as RouterLink } from "react-router-dom";
 import './SideMenu.css';
 import { SwipeableDrawer, List, ListItem, Divider, Container, ListItemIcon, Grid, Link, Tooltip, Zoom } from '@material-ui/core';
 import { MdHome, MdPeople, MdSettings } from "react-icons/md";
+import DiscordIcon from '../Images/DiscordIcon';
+import TwitchIcon from '../Images/TwitchIcon';
+import YoutubeIcon from '../Images/YoutubeIcon';
+import TitleBannerTwo from '../Images/TitleBannerTwo';
+
 
 class SideMenu extends Component {
   constructor(){
@@ -29,9 +34,8 @@ class SideMenu extends Component {
                 onKeyDown={this.props.toggleDrawer()}
             >
                 <List className="List">
-                    <ListItem className="ListItemLogo" button key="Logo">
-                        <img alt="Dragons Lair Banner" className="Banner" src="/img/Title_Banner_Top.svg"/>
-                    </ListItem>
+                    <TitleBannerTwo className="Banner"/>
+                    
                     <Link exact component={AdapterLink} className="Link" to="/">
                         <ListItem className="ListItem" button key="Home">
                             <ListItemIcon><MdHome/></ListItemIcon>
@@ -73,25 +77,31 @@ class SideMenu extends Component {
                     
                     <Grid container className="GridSocial">
                         <Grid item xs={4}>
-                            <a href="https://discord.gg/GabcMqK" target="_BLANK" rel="noopener noreferrer">
-                                <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Join Community Discord">
-                                    <img style={{height: 2.6+'em'}} alt="Discord Logo" className="social-media" src="/img/discord_purple.svg"/>
-                                </Tooltip>
-                            </a>
+                            <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Join Discord Server">
+                                <a href="https://discord.gg/GabcMqK" target="_BLANK" rel="noopener noreferrer">
+                                    <span>
+                                        <DiscordIcon fill="#738ADB" className="social-media"/>
+                                    </span>    
+                                </a>
+                            </Tooltip>
                         </Grid>
                         <Grid item xs={4}>
-                            <a href="https://www.youtube.com/channel/UC2DTPpS9zb--p9Rm7jZPKrA" target="_BLANK" rel="noopener noreferrer">
-                                <Tooltip TransitionComponent={Zoom} className="Tooltip" title="YouTube Channel">
-                                    <img alt="YouTube Logo" className="social-media" src="/img/youtube_light.svg"/>
-                                </Tooltip>
-                            </a>
+                            <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Follow Us On YouTube">
+                                <a href="https://www.youtube.com/channel/UC2DTPpS9zb--p9Rm7jZPKrA" target="_BLANK" rel="noopener noreferrer">
+                                    <span>
+                                        <YoutubeIcon fill="red" className="social-media"/>
+                                    </span>    
+                                </a>
+                            </Tooltip>
                         </Grid>
                         <Grid item xs={4}>
-                            <a href="https://www.twitch.tv/r3ddragons" target="_BLANK" rel="noopener noreferrer">
-                                <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Watch Live on Twitch">
-                                    <img alt="Twitch Logo" className="social-media" src="/img/glitchbadge_purple.svg"/>
-                                </Tooltip>
-                            </a>
+                            <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Watch Live on Twitch">
+                                <a href="https://twitch.tv/r3ddragons" target="_BLANK" rel="noopener noreferrer">
+                                    <span>
+                                        <TwitchIcon fill="#9146FF" className="social-media"/>
+                                    </span>
+                                </a>
+                            </Tooltip>
                         </Grid>
                     </Grid>
                     

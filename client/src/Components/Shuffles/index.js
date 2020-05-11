@@ -3,6 +3,7 @@ import { Container, Grid, Button, Backdrop, CircularProgress, Card, CardActionAr
   CardActions, CardContent, CardMedia, Typography, Modal, Slide } from '@material-ui/core';
 import { MdAssignmentTurnedIn, MdAssignmentLate } from 'react-icons/md';
 import "./Shuffles.css";
+import ShuffleBanner from '../Images/ShuffleBanner';
 
 class Shuffles extends Component {
   constructor(){
@@ -111,7 +112,7 @@ class Shuffles extends Component {
         <Container className="ShuffleContainer">
           <Grid className="GridContainer" container>
             <Grid className="GridItem" item xs={12} sm={6}>
-              <img alt="Shuffle Banner" className="Banner" src="/img/Shuffle_Banner.svg"/>
+              <ShuffleBanner className="Banner"/>
               <Button className="HowItWorksButton" color="primary" variant="contained" onClick={() => this.handleShufflePopover()}>Learn more</Button>
             </Grid>
             {(this.state.activeShuffle && !this.state.hasBeenShuffled) ?

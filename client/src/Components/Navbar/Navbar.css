@@ -1,5 +1,6 @@
 .Toolbar .IconButtonMenu {
     margin-right: 0.5em;
+    font-size: 2.5rem;
 }
 .Toolbar .Banner {
     max-width: 15rem;
@@ -10,7 +11,5 @@
 
 /* Small Devices, Tablets */
 @media only screen and (max-width : 700px) {
-    .Toolbar .Banner {
-        display: none;
-    }
+    
 }

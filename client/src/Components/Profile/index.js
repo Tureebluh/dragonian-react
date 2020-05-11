@@ -4,6 +4,7 @@ import { Avatar, Grid, Button, GridList, GridListTile, Backdrop,
    GridListTileBar, IconButton, Tooltip, Zoom, Slide, Modal, CircularProgress } from '@material-ui/core';
 import { MdInfoOutline } from 'react-icons/md';
 import ProfileShuffleDetails from '../ProfileShuffleDetails';
+import SteamIcon from '../Images/SteamIcon';
 
 class Profile extends Component {
   constructor(){
@@ -136,8 +137,10 @@ class Profile extends Component {
                     <h3>{this.state.userName}</h3>
                     
                       <a href={this.state.profileurl} target="_BLANK" rel="noopener noreferrer">
-                        <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Steam Profile"> 
-                          <Avatar className="SteamProfile" aria-label="Login" src="/img/Steam_logo.svg" alt="Steam Profile Link"/>
+                        <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Steam Profile">
+                          <span>
+                            <SteamIcon/>
+                          </span>
                         </Tooltip>
                       </a>
                     

@@ -18,21 +18,16 @@
 .HomeContainer .HomePanel.Jumbotron {
     margin: 10% auto 0 auto;
 }
-.HomeContainer .HomePanel img {
+.HomeContainer .HomePanel svg, .HomeContainer .HomePanel img {
     max-width: 75%;
 }
 .HomeContainer .HomePanel.Twitch .TwitchLiveImg
 {
     margin: 10% auto 0 auto;
 }
-.HomeContainer .HomePanel.Twitch img {
-    box-shadow: 2px 3px 8px black;
-    border-radius: 0.5em;
-}
-.HomeContainer .HomePanel.Twitch .social-media {
-    box-shadow: none;
-    border-radius: 0;
-    max-width: 2em;
+.HomeContainer .HomePanel.Twitch svg, .HomeContainer .HomePanel.Collab svg {
+    color: #738ADB;
+    max-width: 3em;
 }
 
 .HomeContainer .HomePanel.Collab .CollabMobileStepper {

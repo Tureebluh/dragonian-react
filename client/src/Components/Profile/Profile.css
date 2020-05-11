@@ -20,6 +20,10 @@
     box-shadow: 1px 4px 10px black;
 }
 
+.ProfileContainer .UserPanel svg {
+    max-width: 5rem;
+}
+
 .ProfileContainer .ShufflePanel .GridList {
     padding: 3%;
 }
