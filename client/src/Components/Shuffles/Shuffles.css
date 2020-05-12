@@ -43,7 +43,7 @@
 {
     overflow-y: scroll;
 }
-#HowToModal img
+#HowToModal svg
 {
     margin: 25% 5%;
 }
@@ -57,7 +57,7 @@
     }
     .ShuffleContainer .GridContainer .GridItem .Banner
     {
-        margin: 20% auto;
+        margin: 20% 10% 5% auto;
     }
     .ShuffleContainer .GridContainer .GridItem.Details .ActiveShuffle
     {

@@ -3,7 +3,6 @@ import dbpool from '../dbpool';
 import fetch from 'node-fetch';
 
 const router = express.Router();
-let ShuffleVotingOptions = {};
 
 /*********************************************************************************************************************************
 *
@@ -168,23 +167,14 @@ router.get('/shuffle/voting/verify', (req, res) => {
 
 //Returns back the shuffle options and caches for one hour
 router.get('/shuffle/voting/options', (req, res) => {
-    if(ShuffleVotingOptions.Results && (ShuffleVotingOptions.Modified + 3600000) > Date.now())
-    {
-        res.send(ShuffleVotingOptions.Results);
-    }
-    else
-    {
-        dbpool.getConnection( (err, connection) => {
-            if (err) throw err;
-            connection.query('CALL Get_Shuffle_Options(true);', (error, results, fields) => {
-                connection.release();
-                if (error) throw error;
-                ShuffleVotingOptions.Results = results;
-                ShuffleVotingOptions.Modified = Date.now();
-                res.send(results);
-            });
+    dbpool.getConnection( (err, connection) => {
+        if (err) throw err;
+        connection.query('CALL Get_Shuffle_Options(true);', (error, results, fields) => {
+            connection.release();
+            if (error) throw error;
+            res.send(results);
         });
-    }
+    });
 });
 
 //Returns back the shuffle progress for the request shuffleID

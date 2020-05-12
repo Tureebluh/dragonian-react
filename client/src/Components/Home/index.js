@@ -104,21 +104,25 @@ class Home extends Component {
             <Grid item xs={12}>
               <TitleBanner className="Banner Title"/>
             </Grid>
+            {(!this.state.voted && this.props.user.loggedIn && this.props.user.verified) ?
+            <>
+              <Grid item xs={6}>
+                <Tureebluh className="Banner" />
+              </Grid>
+              <Grid item xs={6} className="VotingActiveGrid">
+                <Typography className="VotingActiveText">Voting for the next <br/> Dragonian Shuffle is now live!</Typography>
+                <Button className="VotingActiveButton" color="primary" variant="contained" onClick={this.handleModalOpen}>Vote Now</Button>
+              </Grid>
+            </>
+            : 
             <Grid item xs={12}>
               <Tureebluh className="Banner" />
             </Grid>
+            }
           </Grid>
           <Divider/>
           <Grid container spacing={0} className="HomePanel Twitch">
-            {(!this.state.voted && this.props.user.loggedIn && this.props.user.verified) ?
-              <Grid item xs={12} className="VotingActiveGrid">
-                <Typography className="VotingActiveText">Voting for the next <br/> Dragonian Shuffle is now live!</Typography>
-                <Button className="VotingActiveButton" color="primary" variant="contained" onClick={this.handleModalOpen}>Vote Now</Button>
-                <Divider/>
-              </Grid>
-            : 
-              null
-            }
+            
             <Grid className="TextPanel" item xs={12} lg={6}>
               <h3>Chat live with<br/> Planet Coaster&reg; <br/> Featured Creator <br/> R3dDragon</h3>
               <a href="https://www.twitch.tv/r3ddragons" target="_BLANK" rel="noopener noreferrer">

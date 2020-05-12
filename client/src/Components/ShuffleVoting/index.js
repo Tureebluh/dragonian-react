@@ -171,6 +171,7 @@ class ShuffleVoting extends Component {
                     <Grid container>
                         <Grid item xs={12} className="VotingClose"><IconButton onClick={this.props.close}><MdClose /></IconButton></Grid>
                         <Grid item xs={12} className="VotingIcon"><FaVoteYea /></Grid>
+                        
                         <Grid item xs={6}>
                             <FormLabel component="legend">Styles</FormLabel>
                             <RadioGroup aria-label="Style Choice" name="StyleChoice" value={this.state.chosenStyle} onChange={(event)=>this.handleStyleChange(event)}>

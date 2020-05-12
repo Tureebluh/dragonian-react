@@ -2,7 +2,7 @@
     text-align: center;
     color: whitesmoke;
     text-shadow: 2px 3px 8px black;
-    margin: 10% auto;
+    margin: 5% auto;
     font-size: 1.2rem;
     line-height: 3em;
 }
@@ -13,12 +13,12 @@
     padding: 0 10%;
 }
 .HomeContainer .HomePanel svg.Banner.Title {
-    max-width: 100%;
-    margin: 0 auto;
+    max-width: 70%;
+    margin: 0 auto 5% auto;
 }
 .HomeContainer .HomePanel.Jumbotron .Banner
 {
-    max-width: 60%;
+    max-width: 80%;
 }
 
 .HomeContainer .HomePanel.Twitch svg, .HomeContainer .HomePanel.Collab svg {
@@ -44,15 +44,19 @@
     padding: 5%;
     overflow-y: scroll;
 }
-.HomeContainer .HomePanel.Twitch .VotingActiveText
+.HomeContainer .HomePanel.Jumbotron .VotingActiveText
 {
     font-size: 1.3rem;
     color: white;
 }
 
-.HomeContainer .HomePanel.Twitch .VotingActiveButton
+.HomeContainer .HomePanel.Jumbotron .VotingActiveButton
 {
     margin: 10%;
+}
+
+.HomeContainer .HomePanel.Shuffle svg {
+    max-width: 75%;
 }
 
 .videoContainer {
@@ -83,16 +87,18 @@
 
     .HomeContainer .HomePanel.Jumbotron .Banner
     {
-        max-width: 33%;
+        max-width: 60%;
     }
     .HomeContainer .Title {
         font-size: 5rem;
     }
-    .HomeContainer .HomePanel.Twitch .VotingActiveText
+    .HomeContainer .HomePanel.Jumbotron .VotingActiveText
     {
-        font-size: 2rem;
+        margin: 1em auto;
+        line-height: 2em;
+        font-size: 2.5rem;
     }
-    .HomeContainer .HomePanel.Twitch .VotingActiveButton
+    .HomeContainer .HomePanel.Jumbotron .VotingActiveButton
     {
         font-size: 1.5rem;
         margin: 5%;
