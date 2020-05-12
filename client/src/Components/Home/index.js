@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { NavLink as RouterLink } from "react-router-dom";
-import { Grid, MobileStepper, Button, Container, Divider, Link, Modal, Slide, Typography, Backdrop, CircularProgress } from '@material-ui/core';
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
+import { Grid, MobileStepper, Button, Container, Divider, Link, Modal, Slide, Typography, Backdrop, CircularProgress, Card } from '@material-ui/core';
+import LinearProgressWithLabel from '../LinearProgressWithLabel';
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight, MdAssessment } from "react-icons/md";
 import "./Home.css";
 import Tureebluh from '../Images/Tureebluh';
 import RedDragon from '../Images/RedDragon';
@@ -19,9 +20,14 @@ class Home extends Component {
     this.state = {
       activeCollab: 0,
       youtubeLinks: [],
+      themeVotes: [],
+      styleVotes:[],
+      themeTotalVotes: 0,
+      styleTotalVotes: 0,
       modalOpen: false,
       loading: false,
       voted: false,
+      activeShuffle: false,
     }
     this.handleNextCollab = this.handleNextCollab.bind(this);
     this.handlePrevCollab = this.handlePrevCollab.bind(this);
@@ -45,7 +51,6 @@ class Home extends Component {
         });
 
         this.setState({
-          activeShuffle: true,
           youtubeLinks: temp,
         });
       } 
@@ -58,18 +63,39 @@ class Home extends Component {
       if(resJson.Active)
       {
         this.setState({
-          loading: false,
           voted: resJson.Voted,
+          activeShuffle: true,
         });
+        fetch('/api/shuffle/voting/results')
+        .then(res => {
+          return res.json();
+        }).then(resJson => {
+          
+          let themeTotalVotes = 0;
+          let styleTotalVotes = 0;
+          resJson.themeResults[0].forEach(theme=>{
+            themeTotalVotes += Number(theme.Votes);
+          });
+          resJson.styleResults[0].forEach(style=>{
+            styleTotalVotes+= Number(style.Votes);
+          });
+          this.setState({
+            loading: false,
+            themeVotes: resJson.themeResults[0],
+            styleVotes: resJson.styleResults[0],
+            themeTotalVotes: themeTotalVotes,
+            styleTotalVotes: styleTotalVotes,
+          });
+        }).catch(error => console.error(error));
       }
       else
       {
         this.setState({
+          activeShuffle: false,
           loading: false,
-          voted: true,
+          voted: false,
         });
       }
-      
     }).catch(error => console.error(error));
   }
 
@@ -104,21 +130,43 @@ class Home extends Component {
             <Grid item xs={12}>
               <TitleBanner className="Banner Title"/>
             </Grid>
-            {(!this.state.voted && this.props.user.loggedIn && this.props.user.verified) ?
-            <>
-              <Grid item xs={6}>
-                <Tureebluh className="Banner" />
-              </Grid>
-              <Grid item xs={6} className="VotingActiveGrid">
-                <Typography className="VotingActiveText">Voting for the next <br/> Dragonian Shuffle is now live!</Typography>
-                <Button className="VotingActiveButton" color="primary" variant="contained" onClick={this.handleModalOpen}>Vote Now</Button>
-              </Grid>
-            </>
-            : 
-            <Grid item xs={12}>
-              <Tureebluh className="Banner" />
-            </Grid>
-            }
+            {(this.state.activeShuffle) ? 
+              (!this.state.voted && this.props.user.loggedIn && this.props.user.verified) ?
+              <>
+                <Grid item xs={6}>
+                  <Tureebluh className="Banner" />
+                </Grid>
+                <Grid item xs={6} className="VotingActiveGrid">
+                  <Typography className="VotingNowText">Voting for the next <br/> Dragonian Shuffle is now live!</Typography>
+                  <Button className="VotingActiveButton" color="primary" variant="contained" onClick={this.handleModalOpen}>Vote Now</Button>
+                </Grid>
+              </>
+              :
+              <>
+                <Grid item xs={12} lg={6}>
+                  <Tureebluh className="Banner" />
+                </Grid>
+                <Grid item xs={12} lg={6}>
+                  <Card className="VotingResultsPanel">
+                    <Typography className="VotingActiveText"><MdAssessment/> Current Poll Results <MdAssessment/></Typography>
+                    <Divider/>
+                    <Typography className="VotingActiveText" style={{textAlign: "justify", marginTop: 2 + 'em'}} variant="h4">Styles</Typography>
+                    {this.state.styleVotes.map(style=>(
+                      <LinearProgressWithLabel breakpoint={40} key={style.shuffle_style_id} className="LinPro" variant="determinate" value={(style.Votes / this.state.styleTotalVotes)* 100} label={style.Style + ' - ' + style.Votes + ' vote(s)'}/>
+                    ))}
+                    <Divider className="Divider"/>
+                    <Typography className="VotingActiveText" style={{textAlign: "justify", marginTop: 2 + 'em'}} variant="h4">Themes</Typography>
+                    {this.state.themeVotes.map(theme=>(
+                      <LinearProgressWithLabel breakpoint={40} key={theme.shuffle_theme_id} className="LinPro" variant="determinate" value={(theme.Votes / this.state.themeTotalVotes)* 100} label={theme.Theme + ' - ' + theme.Votes + ' vote(s)'}/>
+                    ))}
+                  </Card>
+                </Grid>
+              </>
+            : <>
+                  <Grid item xs={6}>
+                    <Tureebluh className="Banner" />
+                  </Grid>
+              </>}
           </Grid>
           <Divider/>
           <Grid container spacing={0} className="HomePanel Twitch">

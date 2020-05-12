@@ -165,7 +165,7 @@ router.get('/shuffle/voting/verify', (req, res) => {
     }
 });
 
-//Returns back the shuffle options and caches for one hour
+//Returns back the shuffle options
 router.get('/shuffle/voting/options', (req, res) => {
     dbpool.getConnection( (err, connection) => {
         if (err) throw err;
@@ -176,6 +176,26 @@ router.get('/shuffle/voting/options', (req, res) => {
         });
     });
 });
+
+//Returns back the shuffle options
+router.get('/shuffle/voting/results', (req, res) => {
+    let allResults = {};
+    dbpool.getConnection( (err, connection) => {
+        if (err) throw err;
+        connection.query('CALL Get_Shuffle_Theme_Votes();', (error, results, fields) => {
+            if (error) throw error;
+            allResults.themeResults = results;
+        });
+        connection.query('CALL Get_Shuffle_Style_Votes();', (error, results, fields) => {
+            connection.release();
+            if (error) throw error;
+            allResults.styleResults = results;
+            res.send(allResults);
+        });
+    });
+});
+
+
 
 //Returns back the shuffle progress for the request shuffleID
 router.post('/shuffle/voting/submit', (req, res) => {

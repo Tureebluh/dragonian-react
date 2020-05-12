@@ -1,0 +1,19 @@
+span.label {
+    text-shadow: none;
+    font-weight: 600;
+    font-size: 1rem;
+    float: right;
+}
+span.label-right {
+    color: black;
+}
+span.label-left {
+    color: white;
+}
+
+@media only screen and (min-width : 700px) 
+{
+    span.label {
+        font-size: 1.2rem;
+    }
+}
