@@ -17,33 +17,18 @@
     max-width: 70%;
     margin: 0 auto 5% auto;
 }
-.HomeContainer .HomePanel.Jumbotron .LinPro
-{
-    margin: 1em auto;
-    height: 1em;
-    border-radius: 1em;
-    box-shadow: 0 2px 3px black;
-    background-color: whitesmoke;
-}
-.HomeContainer .HomePanel.Jumbotron .LinPro > div {
-    
-}
-
 .HomeContainer .HomePanel.Jumbotron .Banner
 {
     max-width: 60%;
     margin: 1em auto;
 }
 
-.HomeContainer .HomePanel.Jumbotron .VotingResultsPanel {
-    padding: 1em;
-    transform: scale(0.8);
-    margin: 0 auto;
+.HomeContainer .HomePanel.Jumbotron .SoloBanner
+{
+    max-width: 50%;
+    margin: 1em auto;
 }
 
-.HomeContainer .HomePanel.Jumbotron .VotingResultsPanel .Divider {
-    margin: 4em auto;
-}
 
 .HomeContainer .HomePanel.Twitch svg, .HomeContainer .HomePanel.Collab svg {
     color: #738ADB;
@@ -63,26 +48,6 @@
     box-shadow: 1px 1px 3px rgb(56, 56, 56);
 }
 
-#VotingModal 
-{
-    padding: 5%;
-    overflow-y: scroll;
-}
-.HomeContainer .HomePanel.Jumbotron .VotingActiveText
-{
-    font-size: 1.3rem;
-    color: black;
-    text-shadow: none;
-}
-.HomeContainer .HomePanel.Jumbotron .VotingNowText
-    {
-        font-size: 1.3rem;
-    }
-
-.HomeContainer .HomePanel.Jumbotron .VotingActiveButton
-{
-    margin: 10%;
-}
 
 .HomeContainer .HomePanel.Shuffle svg {
     max-width: 75%;
@@ -113,6 +78,11 @@
     .HomeContainer .HomePanel.Jumbotron, .HomeContainer .HomePanel.Twitch, .HomeContainer .HomePanel.Shuffle, .HomeContainer .HomePanel.Collab {
         font-size: 1.8rem;
     }
+    .HomeContainer .HomePanel.Jumbotron .SoloBanner
+    {
+        max-width: 40%;
+        margin: 1em auto;
+    }
 
     .HomeContainer .HomePanel.Jumbotron .Banner
     {
@@ -122,24 +92,5 @@
     .HomeContainer .Title {
         font-size: 5rem;
     }
-    .HomeContainer .HomePanel.Jumbotron .VotingActiveText
-    {
-        margin: 0 auto;
-        line-height: 2em;
-        font-size: 2.5rem;
-    }
-    .HomeContainer .HomePanel.Jumbotron .VotingNowText
-    {
-        margin: 5em auto 0 auto;
-        line-height: 2em;
-        font-size: 2.5rem;
-    }
-    .HomeContainer .HomePanel.Jumbotron .VotingActiveButton
-    {
-        font-size: 1.5rem;
-        margin: 2em;
-    }
-    .HomeContainer .HomePanel.Jumbotron .VotingResultsPanel .Divider{
-        margin: 2em auto;
-    }
+    
 }
