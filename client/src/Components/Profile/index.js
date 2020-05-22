@@ -30,7 +30,7 @@ class Profile extends Component {
         icons: {
           Default: <DefaultShuffle className="ShuffleIcon"/>,
           BetaTester: <BetaTester className="ShuffleIcon"/>,
-        }
+        },
     }
     this.handleShufflePopover = this.handleShufflePopover.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);

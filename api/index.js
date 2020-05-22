@@ -124,6 +124,55 @@ router.get('/shuffle/registration/active', (req, res) => {
     });
 });
 
+//Registration Submission for Shuffle
+router.post('/shuffle/registration/submit', (req, res) => {
+    if(!req.isAuthenticated())
+    {
+        res.send({Error: "You are not logged in."});
+    } 
+    else if(req.user.roles.includes('Shuffle Banned'))
+    {
+        res.send({Error: "You do not have access to Shuffle Events."});
+    }
+    else if(!req.body.ShuffleID)
+    {
+        res.send({Error: "Error: No Shuffle Credentials Provided. Please contact the administrator if the problem continues."});
+    }
+    else if(!req.body.SubmissionName)
+    {
+        res.send({Error: "Error: You must submit an initial blueprint name although your final blueprint name may change."});
+    }
+    else if(req.body.SubmissionName.length > 45)
+    {
+        res.send({Error: "Error: Blueprint name must be less than 45 characters"});
+    }
+    else if(!req.user.verified)
+    {
+        res.send({Error: "You must verify your account on the profile page."});
+    }
+    else
+    {
+        dbpool.getConnection( (err, connection) => {
+            if (err) throw err;
+            connection.query('CALL Insert_Shuffle_Submission(' + 
+                                        dbpool.escape(req.body.ShuffleID) + ',' + 
+                                        dbpool.escape(req.user.steamid) + ',' +
+                                        dbpool.escape(req.body.SubmissionName) +
+                                         ');', (error, results, fields) => {
+                connection.release();
+                if (error) throw error;
+                if(results.affectedRows)
+                {
+                    res.send({Success: "Your entry into the Shuffle was successful. Thank you for your participation!"});
+                }
+                else
+                {
+                    res.send({Success: "You are already participating in this Shuffle."});
+                }
+            });
+        });
+    }
+});
 
 //Returns back the users voted status
 router.get('/shuffle/voting/verify', (req, res) => {
@@ -232,47 +281,6 @@ router.post('/shuffle/voting/submit', (req, res) => {
                 if (error) throw error;
                 req.user.voted  = true;
                 res.send({Success: "Vote successfully submitted. Thank you for participating!"});
-            });
-        });
-    }
-});
-
-//Returns back all the shuffle_ID's and Name's of all the shuffles
-router.post('/shuffle/registration/submit', (req, res) => {
-    if(!req.isAuthenticated())
-    {
-        res.send({Error: "You are not logged in."});
-    } 
-    else if(req.user.roles.includes('Shuffle Banned'))
-    {
-        res.send({Error: "You do not have access to Shuffle Events."});
-    }
-    else if(!req.body.ShuffleID)
-    {
-        res.send({Error: "Error: No Shuffle Credentials Provided. Please contact the administrator if the problem continues."});
-    }
-    else if(!req.user.verified)
-    {
-        res.send({Error: "You must verify your account on the profile page."});
-    }
-    else
-    {
-        dbpool.getConnection( (err, connection) => {
-            if (err) throw err;
-            connection.query('CALL Insert_Shuffle_Submission(' + 
-                                        dbpool.escape(req.body.ShuffleID) + ',' + 
-                                        dbpool.escape(req.user.steamid) +
-                                         ');', (error, results, fields) => {
-                connection.release();
-                if (error) throw error;
-                if(results.affectedRows)
-                {
-                    res.send({Success: "Your entry into the Shuffle was successful. Thank you for your participation!"});
-                }
-                else
-                {
-                    res.send({Success: "You are already participating in this Shuffle."});
-                }
             });
         });
     }

@@ -6,10 +6,7 @@
     max-width: 100%;
     padding: 10% 15%;
 }
-.ShuffleContainer .GridContainer .GridItem .HowItWorksButton
-{
-    height: 3em;
-}
+
 .ShuffleContainer .GridContainer .GridItem
 {
     text-align: center;
@@ -76,7 +73,16 @@
     color: #4bb543;
 }
 
-.ShuffleContainer .GridContainer .GridItem.Details .CardMedia
+.ShuffleContainer .GridContainer .GridItem.Details .SecondaryText
+{
+    margin: 0 auto 10% auto;
+}
+.ShuffleContainer .GridContainer .GridItem.Details .submissionTextField
+{
+    margin: 10% auto 0 auto;
+}
+
+.ShuffleContainer .GridContainer .GridItem.Details .ShuffleIcon
 {
     height: auto;
 }
@@ -107,8 +113,8 @@
     }
     .ShuffleContainer .GridContainer .GridItem .HowItWorksButton
     {
-        font-size: 1.5rem;
-        padding: 2%;
+        font-size: 1.2rem;
+        width: 15rem;
     }
     .ShuffleContainer .GridContainer .GridItem .Banner
     {
@@ -117,8 +123,17 @@
     .ShuffleContainer .GridContainer .GridItem.Details .ActiveShuffle
     {
         max-width: 70%;
-        margin: 35% auto;
         text-align: center;
+    }
+    .ShuffleContainer .GridContainer .GridItem.Details .SecondaryText
+    {
+        font-size: 2rem;
+        margin: 0 auto 5% auto;
+    }
+    .ShuffleContainer .GridContainer .GridItem.Details .submissionTextField
+    {
+        margin: 5% auto 0 auto;
+        width: 50%;
     }
     #HowToModal
     {

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Container, Grid, Button, Backdrop, CircularProgress, Card, CardActionArea,
-  CardActions, CardContent, CardMedia, Typography, Modal, Slide, Divider } from '@material-ui/core';
+  CardActions, CardContent, Typography, Modal, Slide, Divider, TextField } from '@material-ui/core';
 import LinearProgressWithLabel from '../LinearProgressWithLabel';
 import { MdAssignmentTurnedIn, MdAssignmentLate, MdAssessment } from 'react-icons/md';
 import "./Shuffles.css";
@@ -8,15 +8,18 @@ import ShuffleBanner from '../Images/ShuffleBanner';
 import NoActiveShuffle from '../Images/NoActiveShuffle';
 import ShuffleHowTo from '../Images/ShuffleHowTo';
 import ShuffleVoting from '../ShuffleVoting';
+import DefaultShuffle from '../Images/DefaultShuffle';
+import BetaTester from '../Images/BetaTester';
 
 class Shuffles extends Component {
   constructor(){
     super();
 
     this.state = {
-      activeShuffle: false,
       loading: false,
       isHowToModalOpen: false,
+      registrationActive: false,
+      votingActive: false,
       isVotingModalOpen: false,
       themeVotes: [],
       styleVotes:[],
@@ -25,14 +28,19 @@ class Shuffles extends Component {
       shufflePoster: "#",
       errorMessage: "",
       successMessage: "",
-      refreshPage: false,
+      submissionTextError: false,
+      submissionTextFieldValue: "",
+      icons: {
+        Default: <DefaultShuffle className="ShuffleIcon"/>,
+        BetaTester: <BetaTester className="ShuffleIcon"/>,
+      },
     }
     this.joinEvent = this.joinEvent.bind(this);
     this.handleHowToModalClose = this.handleHowToModalClose.bind(this);
     this.handleVotingModalClose = this.handleVotingModalClose.bind(this);
     this.handleVotingModalOpen = this.handleVotingModalOpen.bind(this);
   }
-
+  
   componentDidMount(){
     this.setState({
       loading: true
@@ -100,15 +108,22 @@ class Shuffles extends Component {
       }
     }).catch(error => console.error(error));
   }
-
+  
   joinEvent(e){
     if(this.props.user.loggedIn && this.state.shuffleID)
     {
+      if(!this.state.submissionTextFieldValue){
+        this.setState({
+          submissionTextError: true,
+        });
+        return;
+      }
       this.setState({
         loading: true,
       });
       let payload = {
         ShuffleID: this.state.shuffleID,
+        SubmissionName: this.state.submissionTextFieldValue
       };
   
       fetch('/api/shuffle/registration/submit', {
@@ -127,6 +142,7 @@ class Shuffles extends Component {
           this.setState({
             loading: false,
             errorMessage: resJson.Error,
+            submissionTextError: true,
             successMessage: "",
           });
         }
@@ -145,35 +161,42 @@ class Shuffles extends Component {
       alert("You must be logged in to join the event.");
     }
   }
-
+  
   handleShufflePopover(){
       this.setState({
         isHowToModalOpen: true,
       });
   }
-
+  
   handleHowToModalClose(){
     this.setState({
       isHowToModalOpen: false,
     });
   }
-
+  
   handleVotingModalOpen(){
     this.setState({
       isVotingModalOpen: true,
     });
   }
+  
   handleVotingModalClose(){
     this.setState({
       isVotingModalOpen: false,
-      refreshPage: true
     });
   }
 
+  handleSubmissionTextChange(e){
+    this.setState({
+      submissionTextError: ((e.target.value) ? false : true),
+      submissionTextFieldValue: e.target.value
+    });
+  }
+  
   render () {
     return (
       <>
-        {this.state.refreshPage ? <></>: <></>}
+        
         <Container className="ShuffleContainer">
           <Grid className="GridContainer" container>
             <Grid className="GridItem" item xs={12}>
@@ -217,18 +240,12 @@ class Shuffles extends Component {
               </>}
 
             {(this.state.registrationActive && !this.state.hasBeenShuffled) ?
-              <Grid className="GridItem Details" item xs={12} sm={6}>
+              <Grid className="GridItem Details" item xs={12}>
                 <Card className="ActiveShuffle" tabIndex={-1}>
                   <CardActionArea>
-                    <CardMedia
-                      component="img"
-                      alt={this.state.shuffleName}
-                      className="CardMedia"
-                      image={this.state.shufflePoster}
-                      title={this.state.shuffleName}
-                    />
+                    {this.state.icons[this.state.shufflePoster]}
                     <CardContent>
-                      <Typography gutterBottom variant="h5" component="h2">
+                      <Typography gutterBottom variant="h4" component="h2">
                         {this.state.shuffleName}
                       </Typography>
                       <Typography className="SecondaryText" variant="h5" color="textSecondary" component="h2">
@@ -236,8 +253,16 @@ class Shuffles extends Component {
                         <br/>
                         Style: {this.state.shuffleStyle}
                       </Typography>
-                      <Typography className="ErrorMessage">{this.state.errorMessage}</Typography>
-                      <Typography className="SuccessMessage">{this.state.successMessage}</Typography>
+                      {(this.state.errorMessage) ? <Typography className="ErrorMessage">{this.state.errorMessage}</Typography> : null}
+                      {(this.state.successMessage) ? <Typography className="SuccessMessage">{this.state.successMessage}</Typography> : null}
+                      <TextField
+                        error={this.state.submissionTextError}
+                        label="Enter your blueprint name"
+                        value={this.state.submissionTextFieldValue}
+                        onChange={(event) => this.handleSubmissionTextChange(event)}
+                        variant="outlined"
+                        className="submissionTextField"
+                      />
                     </CardContent>
                   </CardActionArea>
                   <CardActions>
@@ -288,9 +313,11 @@ class Shuffles extends Component {
             aria-modal="true"
             id="HowToModal"
           >
-            <Slide direction="right" in={this.state.isHowToModalOpen} mountOnEnter unmountOnExit>
-              <ShuffleHowTo alt="Shuffle How It Works"/>
-            </Slide>
+            <div style={{outlineStyle: 'none'}}tabIndex={-1}>
+              <Slide direction="right" in={this.state.isHowToModalOpen} mountOnEnter unmountOnExit>
+                <ShuffleHowTo alt="Shuffle How It Works"/>
+              </Slide>
+            </div>
           </Modal>
 
           <Modal 
