@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
+import { Helmet } from 'react-helmet';
 import "./Profile.css";
 import { Avatar, Grid, Button, GridList, GridListTile, Backdrop,
-   GridListTileBar, IconButton, Tooltip, Zoom, Slide, Modal, CircularProgress } from '@material-ui/core';
+   GridListTileBar, IconButton, Tooltip, Zoom, Slide, Modal, CircularProgress, Typography, Card } from '@material-ui/core';
 import { MdInfoOutline } from 'react-icons/md';
 import ProfileShuffleDetails from '../ProfileShuffleDetails';
 import SteamIcon from '../Images/SteamIcon';
@@ -21,10 +22,10 @@ class Profile extends Component {
         verified: 0,
         shuffles: [],
         modalOpen: false,
+        howToVerifyOpen: false,
         activeModalID: 0,
         steamid: 0,
         profileurl: '',
-        laststeamid: 0,
         key: 0,
         loading: false,
         icons: {
@@ -35,6 +36,10 @@ class Profile extends Component {
     this.handleShufflePopover = this.handleShufflePopover.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleVerification = this.handleVerification.bind(this);
+
+    //Could be a single toggle function if split is not needed later
+    this.handleHowToVerifyOpen = this.handleHowToVerifyOpen.bind(this);
+    this.handleHowToVerifyClose = this.handleHowToVerifyClose.bind(this);
   }
 
   componentDidMount(){
@@ -133,16 +138,33 @@ class Profile extends Component {
     });
   }
 
+  handleHowToVerifyClose(){
+    this.setState({
+      howToVerifyOpen: false
+    });
+  }
+
+  handleHowToVerifyOpen(){
+    this.setState({
+      howToVerifyOpen: true
+    });
+  }
+
   render () {
     return (
       <>
+        <Helmet>
+          <meta http-equiv="Content-Type" content="text/html;" />
+          <meta name="description" content="Easily get to any Dragonians Steam page and see all your progress in past Collaboration Shuffle Events" />
+          <title>Dragon's Lair - User Profile Page - Past Shuffle Events</title>
+          <html lang="en" />
+        </Helmet>
         <Grid container className="ProfileContainer">
             {(this.state.userPic !== '') ?
               <>
                 <Grid item xs={12} lg={4} className="UserPanel">
                     <Avatar className="UserAvatar" src={this.state.userPic} alt="User Profile Picture"/>
                     <h3>{this.state.userName}</h3>
-                    
                       <a href={this.state.profileurl} target="_BLANK" rel="noopener noreferrer">
                         <Tooltip TransitionComponent={Zoom} className="Tooltip" title="Steam Profile">
                           <span>
@@ -154,7 +176,10 @@ class Profile extends Component {
                     <h6>Member since: {this.state.CreatedDate}</h6>
                     <h6>Last Login: {this.state.lastLogin}</h6>
                     {(this.state.verified ? <Button variant="contained" color="primary">Verified</Button> :
-                                            <Button onClick={this.handleVerification} variant="contained" color="secondary">Not Verified</Button>)}
+                                            <>
+                                            <Button onClick={this.handleVerification} variant="contained" color="secondary">Not Verified</Button>
+                                            <Typography onClick={() => this.handleHowToVerifyOpen()} className="HelpText">How do I verify?</Typography>
+                                            </>)}
                 </Grid>
                 <Grid item xs={12} lg={8} className="ShufflePanel">
                     <GridList cellHeight={200} cols={6} spacing={20} className="GridList">
@@ -202,6 +227,32 @@ class Profile extends Component {
         >
           <Slide direction="right" in={this.state.modalOpen} mountOnEnter unmountOnExit>
             <ProfileShuffleDetails steamid={this.state.steamid} activeID={this.state.activeModalID}/>
+          </Slide>
+        </Modal>
+        <Modal 
+          open={this.state.howToVerifyOpen}
+          onClose={this.handleHowToVerifyClose}
+          onClick={this.handleHowToVerifyClose}
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
+          aria-modal="true"
+          id="HowToVerifyModal"
+        >
+          <Slide direction="right" in={this.state.howToVerifyOpen} mountOnEnter unmountOnExit>
+            <Card className="HowToVerify">
+              <SteamIcon className="SteamIcon"/>
+              <h1>How To Change<br/> Steam Workshop Privacy Settings</h1>
+              <Typography>
+                By default, Steam Profile Privacy Settings are set to Friends Only.  Normally this is a great thing,
+                but it unfortunately means the system is unable to see whether you own a copy of Planet Coaster.
+                <br/>
+                <br/>
+                In order to maintain the integrity of our voting process, you will need to set your Steam Profile to public and
+                click the Red <Button variant="contained" color="secondary">Not Verified</Button> Button
+                on your Profile Page.  Once you have verified with the system, you are free to change the settings to whatever you wish.
+              </Typography>
+              <Typography>For assistance with changing your profile settings, you can visit this <a target="_BLANK" rel="noopener noreferrer" href="https://support.steampowered.com/kb_article.php?ref=4113-YUDH-6401">Steam Support Page</a></Typography>
+            </Card>
           </Slide>
         </Modal>
       </>

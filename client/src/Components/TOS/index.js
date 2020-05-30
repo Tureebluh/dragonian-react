@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Helmet } from 'react-helmet';
 import { Container } from '@material-ui/core';
 import "./TOS.css";
 
@@ -20,6 +21,12 @@ class TOS extends Component {
   render () {
     return (
       <>
+        <Helmet>
+          <meta http-equiv="Content-Type" content="text/html;" />
+          <meta name="description" content="Terms Of Service. Outlining Contest Rules and Giveaways." />
+          <title>Dragon's Lair - Terms of Service</title>
+          <html lang="en" />
+        </Helmet>
         <Container id="TOSContainer" className="Container">
           <h3>Terms of Use (&quot;Terms&quot;)</h3>
           <p>Last updated: 02/13/2020</p>

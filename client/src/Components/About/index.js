@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Helmet } from 'react-helmet';
 import {Container, Grid, Divider, Typography, Tooltip, Zoom, Button } from '@material-ui/core';
 import TitleBanner from '../Images/TitleBanner';
 import Tureebluh from '../Images/Tureebluh';
@@ -23,6 +24,12 @@ class About extends Component {
   render () {
     return (
       <>
+        <Helmet>
+          <meta http-equiv="Content-Type" content="text/html;" />
+          <meta name="description" content="We maintain a mature art community that started back in 2017 and still thrives to this day." />
+          <title>Dragon's Lair - About Us - Father and Son - Tureebluh and R3dDragon</title>
+          <html lang="en" />
+        </Helmet>
         <Container className="AboutContainer">
           <Grid container spacing={0} className="AboutPanel">
               <Grid item xs={12}>

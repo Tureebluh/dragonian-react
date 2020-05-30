@@ -13,32 +13,44 @@
     font-style: italic;
     font-weight: 600;
 }
+#ProfileShuffleDetails .SubmissionName
+{
+    margin: 5% auto 2% auto;
+    color: whitesmoke;
+    background-color: black;
+    border-radius: 0.5em;
+}
+#ProfileShuffleDetails .GridList.Header
+{
+    background: black;
+    border-radius: 1em;
+    color: whitesmoke;
+}
 #ProfileShuffleDetails .GridList.Submission
 {
     padding: 5% 0;
-    max-height: 10em;
 }
 
 #ProfileShuffleDetails .GridList.Submission .GridListTile
 {
     max-height: 5em;
 }
-#ProfileShuffleDetails .GridList.Submission:nth-child(7) 
-{
-    background-color: rgb(220, 220, 220);
-    border: 1px black solid;
-    border-left: black 1em solid;
-    border-right: black 1em solid;
-    border-radius: 0.8em;
-}
 #ProfileShuffleDetails .GridList.Submission:nth-child(8) 
 {
+    background-color: rgb(220, 220, 220);
     border: 1px black solid;
     border-left: black 1em solid;
     border-right: black 1em solid;
     border-radius: 0.8em;
 }
-#ProfileShuffleDetails .GridList.Submission:nth-child(9)
+#ProfileShuffleDetails .GridList.Submission:nth-child(10) 
+{
+    border: 1px black solid;
+    border-left: black 1em solid;
+    border-right: black 1em solid;
+    border-radius: 0.8em;
+}
+#ProfileShuffleDetails .GridList.Submission:nth-child(12)
 {
     background-color: rgb(220, 220, 220);
     border: 1px black solid;
@@ -46,7 +58,7 @@
     border-right: black 1em solid;
     border-radius: 0.8em;
 }
-#ProfileShuffleDetails .GridList.Submission:nth-child(10)
+#ProfileShuffleDetails .GridList.Submission:nth-child(14)
 {
     border: 1px black solid;
     border-left: black 1em solid;
@@ -107,6 +119,11 @@
 /* Desktop Devices */
 @media only screen and (min-width : 1000px)
 {
+    #ProfileShuffleDetails .GridList.Submission
+    {
+        padding: 1%;
+        height: 100%;
+    }
     #ProfileShuffleDetails
     {
         margin: 5% auto;
@@ -115,9 +132,8 @@
     }
     #ProfileShuffleDetails .ShuffleParticipant, #ProfileShuffleDetails .Round
     {
-        width: 2.5em;
-        height: 2.5em;
-        margin: 5% auto;
         box-shadow: 0 3px 5px grey;
+        width: 2em;
+        height: auto;
     }
 }

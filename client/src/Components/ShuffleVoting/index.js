@@ -55,6 +55,7 @@ class ShuffleVoting extends Component {
 
     componentWillUnmount(){
         this.state.controller.abort();
+        window.location.reload(false);
     }
 
     handleStyleChange(event){

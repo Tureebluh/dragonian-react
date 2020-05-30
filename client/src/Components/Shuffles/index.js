@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import { Container, Grid, Button, Backdrop, CircularProgress, Card, CardActionArea,
   CardActions, CardContent, Typography, Modal, Slide, Divider, TextField } from '@material-ui/core';
 import LinearProgressWithLabel from '../LinearProgressWithLabel';
@@ -196,7 +197,12 @@ class Shuffles extends Component {
   render () {
     return (
       <>
-        
+        <Helmet>
+          <meta http-equiv="Content-Type" content="text/html;" />
+          <meta name="description" content="Join in on a Community Voted and Shuffled Collaboration Event with fellow Planet Coaster players." />
+          <title>Dragon's Lair - Planet Coaster Mini Collaboration Event</title>
+          <html lang="en" />
+        </Helmet>
         <Container className="ShuffleContainer">
           <Grid className="GridContainer" container>
             <Grid className="GridItem" item xs={12}>
@@ -205,7 +211,6 @@ class Shuffles extends Component {
             </Grid>
             {(this.state.votingActive) ? 
               (!this.state.voted && this.props.user.loggedIn && this.props.user.verified) ?
-              
                 <Grid item xs={12} lg={6} className="VotingActiveGrid">
                   <Typography className="VotingNowText">Voting for the next <br/> Dragonian Shuffle is now live!</Typography>
                   <Button className="VotingActiveButton" color="primary" variant="contained" onClick={this.handleVotingModalOpen}>Vote Now</Button>

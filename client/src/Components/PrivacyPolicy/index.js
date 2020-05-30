@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Helmet } from 'react-helmet';
 import { Container } from '@material-ui/core';
 import "./PrivacyPolicy.css";
 
@@ -20,6 +21,12 @@ class PrivacyPolicy extends Component {
   render () {
     return (
       <>
+        <Helmet>
+          <meta http-equiv="Content-Type" content="text/html;" />
+          <meta name="description" content="Privacy Policy - Regarding how and what information is stored, used, and shared." />
+          <title>Dragon's Lair - Privacy Policy</title>
+          <html lang="en" />
+        </Helmet>
         <Container id="PrivacyContainer" className="Container">
           <br/>
           <h3>Privacy Notice</h3>

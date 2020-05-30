@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import { NavLink as RouterLink } from "react-router-dom";
 import { Grid, MobileStepper, Button, Container, Divider, Link, Backdrop, CircularProgress } from '@material-ui/core';
 
@@ -64,6 +65,13 @@ class Home extends Component {
 
     return (
       <>
+        <Helmet>
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8;" />
+          <meta name="description" content="Chat with a mature group of friends and join in on Mini-Collaborations and Weekly Showcases.
+          Catch Planet Coaster Featured Creator R3dDragon LIVE on Twitch." />
+          <title>Dragon's Lair Mature 3D Art Community Planet Coaster Fansite</title>
+          <html lang="en" />
+        </Helmet>
         <Container className="HomeContainer">
           <Grid container spacing={0} className="HomePanel Jumbotron">
             <Grid item xs={12}>
