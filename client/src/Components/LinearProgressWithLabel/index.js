@@ -23,7 +23,7 @@ class LinearProgressWithLabel extends Component {
     spanNode.classList.add('label');
     
     if(this.props.value < this.props.breakpoint){
-      attrStr += 'margin-right:' + ((100 - this.props.value) - (this.props.value + 5) ) + '%;';
+      attrStr += 'margin-right:' + ((100 - this.props.value) - (this.props.value + 25) ) + '%;';
       spanNode.setAttribute('style', attrStr);
       spanNode.classList.add('label-right');
       this.myRef.current.appendChild(spanNode);
