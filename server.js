@@ -65,6 +65,10 @@ if(config.nodeEnv === 'production'){
     };
     server.use(forceSsl);
     server.use(helmet());
+    server.use(helmet.hidePoweredBy({ setTo: 'PHP 4.2.0' }));
+    server.use(helmet.noSniff());
+    server.use(helmet.xssFilter());
+    server.use(helmet.referrerPolicy({ policy: 'no-referrer' }));
 
     //Add rate limiter to api, auth, and admin api routes
     //10(mins) * 60(secs) * 1000(ms)
@@ -78,7 +82,7 @@ if(config.nodeEnv === 'production'){
 
     server.set('trust proxy', 1);
     sess.cookie.secure = true;
-    sess.cookie.sameSite = 'none';
+    sess.cookie.sameSite = 'Strict';
 }
 
 //Set express to listen for request on the port specified in config.port

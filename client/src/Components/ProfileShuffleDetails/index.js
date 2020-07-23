@@ -109,16 +109,16 @@ class ProfileShuffleDetails extends Component {
             <p id="modal-description">Contributors for each Blueprint listed horizontally.</p>
             <hr />
             <GridList cellHeight={25} cols={4} spacing={20} className="GridList Header">
-              <GridListTile key={1} rows={1} cols={1} className="GridListTile">
+              <GridListTile key={1} rows={1} cols={1} className="GridListTileHeader">
                 <Typography>R1</Typography>
               </GridListTile>
-              <GridListTile key={2} rows={1} cols={1} className="GridListTile">
+              <GridListTile key={2} rows={1} cols={1} className="GridListTileHeader">
                 <Typography>R2</Typography>
               </GridListTile>
-              <GridListTile key={3} rows={1} cols={1} className="GridListTile">
+              <GridListTile key={3} rows={1} cols={1} className="GridListTileHeader">
                 <Typography>R3</Typography>
               </GridListTile>
-              <GridListTile key={4} rows={1} cols={1} className="GridListTile">
+              <GridListTile key={4} rows={1} cols={1} className="GridListTileHeader">
                 <Typography>R4</Typography>
               </GridListTile>
             </GridList>
@@ -129,22 +129,22 @@ class ProfileShuffleDetails extends Component {
                 <GridList style={{marginBottom: 1+ 'em'}} cols={4} spacing={20} className="GridList Submission">
                   <GridListTile key={"R1" + sub.r1_SteamID} rows={1} cols={1} className="GridListTile">
                     <a href={sub.r1_profileurl} target="_BLANK" rel="noopener noreferrer">
-                      <Avatar alt="Steam Profile Picture" src={this.state.users[sub.r1_SteamID].avatarfull} className="ShuffleParticipant" />
+                      <Avatar alt="Steam Profile" src={this.state.users[sub.r1_SteamID].avatarfull} className="ShuffleParticipant" />
                     </a>
                   </GridListTile>
                   <GridListTile key={"R2" + sub.r2_SteamID} rows={1} cols={1} className="GridListTile">
                   <a href={sub.r2_profileurl} target="_BLANK" rel="noopener noreferrer">
-                    <Avatar alt="Steam Profile Picture" src={this.state.users[sub.r2_SteamID].avatarfull} className="ShuffleParticipant" />
+                    <Avatar alt="Steam Profile" src={this.state.users[sub.r2_SteamID].avatarfull} className="ShuffleParticipant" />
                   </a>
                   </GridListTile>
                   <GridListTile key={"R3" + sub.r3_SteamID} rows={1} cols={1} className="GridListTile">
                     <a href={sub.r3_profileurl} target="_BLANK" rel="noopener noreferrer">
-                      <Avatar alt="Steam Profile Picture" src={this.state.users[sub.r3_SteamID].avatarfull} className="ShuffleParticipant" />
+                      <Avatar alt="Steam Profile" src={this.state.users[sub.r3_SteamID].avatarfull} className="ShuffleParticipant" />
                     </a>
                   </GridListTile>
                   <GridListTile key={"R4" + sub.r4_SteamID} rows={1} cols={1} className="GridListTile">
                   <a href={sub.r4_profileurl} target="_BLANK" rel="noopener noreferrer">
-                    <Avatar alt="Steam Profile Picture" src={this.state.users[sub.r4_SteamID].avatarfull} className="ShuffleParticipant" />
+                    <Avatar alt="Steam Profile" src={this.state.users[sub.r4_SteamID].avatarfull} className="ShuffleParticipant" />
                   </a>
                   </GridListTile>
                 </GridList>

@@ -7,8 +7,8 @@ const SteamStrategy = new OpenIDStrategy(
     {
         providerURL: 'https://steamcommunity.com/openid',
         stateless: true,
-        returnURL: (config.nodeEnv === 'development') ? 'http://192.168.86.39:5000/auth/login/return' : 'https://www.dragonian.xyz/auth/login/return',
-        realm: (config.nodeEnv === 'development') ? 'http://192.168.86.39:5000' : 'https://www.dragonian.xyz'
+        returnURL: (config.nodeEnv === 'development') ? 'http://192.168.1.49:5000/auth/login/return' : 'https://www.dragonian.xyz/auth/login/return',
+        realm: (config.nodeEnv === 'development') ? 'http://192.168.1.49:5000' : 'https://www.dragonian.xyz'
     },
         function(identifier, done){
             fetch('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=' + process.env.STEAM_API_KEY + '&steamids=' + identifier.match(/\d+$/)[0])

@@ -26,15 +26,26 @@
     border-radius: 1em;
     color: whitesmoke;
 }
+
 #ProfileShuffleDetails .GridList.Submission
 {
-    padding: 5% 0;
+    height: 5em;
+}
+#ProfileShuffleDetails .GridListTile 
+{
+    max-height: 5em !important;
+}
+#ProfileShuffleDetails .ShuffleParticipant
+{
+    box-shadow: 0 3px 5px black;
+    margin: 5% auto 0 auto;
+}
+#ProfileShuffleDetails .ShuffleParticipant:hover
+{
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
-#ProfileShuffleDetails .GridList.Submission .GridListTile
-{
-    max-height: 5em;
-}
 #ProfileShuffleDetails .GridList.Submission:nth-child(8) 
 {
     background-color: rgb(220, 220, 220);
@@ -65,10 +76,7 @@
     border-right: black 1em solid;
     border-radius: 0.8em;
 }
-#ProfileShuffleDetails .Backdrop {
-    z-index: 1000;
-    color: white;
-}
+
 #ProfileShuffleDetails hr {
     height: 3px;
     margin: 1em 0;
@@ -89,51 +97,15 @@
     cursor: pointer;
     color: black;
 }
-#ProfileShuffleDetails .ShuffleParticipant, #ProfileShuffleDetails .Round
-{
-    margin: 5% auto;
-    box-shadow: 0 3px 5px black;
-}
-#ProfileShuffleDetails .ShuffleParticipant:hover, #ProfileShuffleDetails .Round:hover
-{
-    transform: scale(1.1);
-    cursor: pointer;
-}
-#ProfileShuffleDetails .RoundFour
-{
-    background-color: rgb(226, 0, 0);
-}
-#ProfileShuffleDetails .RoundThree
-{
-    background-color: rgb(240, 128, 0);
-}
-#ProfileShuffleDetails .RoundTwo
-{
-    background-color: rgb(255, 196, 0);
-}
-#ProfileShuffleDetails .RoundOne
-{
-    background-color: rgb(129, 177, 34);
-}
+
 
 /* Desktop Devices */
 @media only screen and (min-width : 1000px)
 {
-    #ProfileShuffleDetails .GridList.Submission
-    {
-        padding: 1%;
-        height: 100%;
-    }
     #ProfileShuffleDetails
     {
         margin: 5% auto;
         max-width: 50%;
         padding: 5%;
-    }
-    #ProfileShuffleDetails .ShuffleParticipant, #ProfileShuffleDetails .Round
-    {
-        box-shadow: 0 3px 5px grey;
-        width: 2em;
-        height: auto;
     }
 }
