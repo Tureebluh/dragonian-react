@@ -56,7 +56,7 @@ server.get('*', function(req, res) {
 
 //CHANGE BACK TO (301)
 //If server is running in production all request will be permanently(301) routed to https
-if(config.nodeEnv.trim() === 'production'){
+if(config.nodeEnv.trim() !== 'development'){
     let forceSsl = function (req, res, next) {
         if (req.headers['x-forwarded-proto'] !== 'https') {
             return res.redirect(301, ['https://', req.get('Host'), req.url].join(''));
