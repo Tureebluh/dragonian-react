@@ -26,19 +26,19 @@
     border-radius: 1em;
     color: whitesmoke;
 }
-
 #ProfileShuffleDetails .GridList.Submission
 {
-    height: 5em;
+    height: 4em;
 }
 #ProfileShuffleDetails .GridListTile 
 {
-    max-height: 5em !important;
+    height: 4em !important;
 }
-#ProfileShuffleDetails .ShuffleParticipant
+#ProfileShuffleDetails .GridListTile .ShuffleParticipant
 {
     box-shadow: 0 3px 5px black;
-    margin: 5% auto 0 auto;
+    margin: 0 auto 0 auto;
+    height: 40px;
 }
 #ProfileShuffleDetails .ShuffleParticipant:hover
 {
